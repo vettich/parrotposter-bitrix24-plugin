@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 import BX24 from 'bx24-api';
 import { get, post, setAuthToken } from '../api';
 
@@ -11,11 +11,8 @@ function createUser() {
 	const initial: User = { loading: true }
 	const { subscribe, set, update } = writable(initial);
 
-	console.log('createUser');
-
 	BX24.appOption.get('pptoken')
 		.then((token?: string) => {
-			console.log('Saved token:', token);
 			if (!token) {
 				set({ loading: false })
 				return;
@@ -43,10 +40,8 @@ function createUser() {
 		}
 		post('tokens', data)
 			.then(async (res) => {
-				console.log(res)
-
-				console.log(await BX24.appOption.set('ppuser_id', res.user_id))
-				console.log(await BX24.appOption.set('pptoken', res.token))
+				await BX24.appOption.set('ppuser_id', res.user_id);
+				await BX24.appOption.set('pptoken', res.token);
 
 				loadUser(res.token);
 			})
@@ -54,8 +49,8 @@ function createUser() {
 	}
 
 	const logout = async () => {
-		console.log(await BX24.appOption.set('ppuser_id', ''));
-		console.log(await BX24.appOption.set('pptoken', ''));
+		await BX24.appOption.set('ppuser_id', '');
+		await BX24.appOption.set('pptoken', '');
 
 		set({ loading: false })
 	}
