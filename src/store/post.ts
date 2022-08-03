@@ -7,6 +7,13 @@ interface PostWrapper {
 
 interface Post {
 	id: string,
+	fields: {
+		text?: string,
+		link?: string,
+		need_utm?: boolean,
+	},
+	from: string,
+	status: 'success' | 'fail' | string,
 }
 
 function createPost() {

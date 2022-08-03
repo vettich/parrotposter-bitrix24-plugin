@@ -26,6 +26,7 @@ function setAuthToken(token: string) {
 }
 
 async function get(endpoint: string, data?: Object, params?: Params): Promise<any> {
+	params = initParams(params);
 	return await call(endpoint, data, params);
 }
 
