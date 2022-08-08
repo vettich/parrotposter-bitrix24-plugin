@@ -1,11 +1,12 @@
 <script>
-	import { Router, Link, Route, navigate } from 'svelte-routing';
+	import { Router, Link, Route, navigate, links } from 'svelte-routing';
 	import { onDestroy } from 'svelte';
 
 	// pages
 	import Home from './pages/Home.svelte';
 	import Login from './pages/Login.svelte';
 	import Posts from './pages/Posts.svelte';
+	import Accounts from './pages/Accounts.svelte';
 
 	// stores
 	import { user } from './store/user.ts';
@@ -36,11 +37,14 @@
 {#if loading}
 	Loading...
 {:else}
-	<Router>
-		<Route path="/login"><Login/></Route>
-		<Route path="/posts"><Posts/></Route>
-		<Route path="/"><Home/></Route>
-	</Router>
+	<div use:links>
+		<Router>
+			<Route path="/login"><Login/></Route>
+			<Route path="/posts"><Posts/></Route>
+			<Route path="/accounts"><Accounts/></Route>
+			<Route path="/"><Home/></Route>
+		</Router>
+	</div>
 {/if}
 
 <style>
