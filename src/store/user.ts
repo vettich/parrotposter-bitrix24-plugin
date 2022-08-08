@@ -5,6 +5,32 @@ import { get, post, setAuthToken } from '../api';
 interface User {
 	loading: boolean,
 	data?: any,
+	error?: UserError,
+}
+
+interface UserError {
+	fields?: string[],
+	msg: string,
+}
+
+const createUserError = (err: string):  UserError => {
+	if (err.indexOf('errors.user.not_found') >= 0) {
+		return {
+			fields: ['username'],
+			msg: 'Пользователь не найден',
+		}
+	}
+
+	if (err.indexOf('errors.token.wrong_password') >= 0) {
+		return {
+			fields: ['password'],
+			msg: 'Неверный пароль',
+		}
+	}
+
+	return {
+		msg: 'Не известная ошибка',
+	}
 }
 
 function createUser() {
@@ -27,12 +53,18 @@ function createUser() {
 				set({ loading: false, data })
 			})
 			.catch(e => {
-				console.log(e)
-				set({ loading: false })
+				set({ loading: false, error: createUserError(e.msg) })
 			})
 	}
 
 	const login = (login: string, password: string) => {
+		set({ loading: true });
+
+		if (!login.length || !password.length) {
+			set({ loading: false, error: { fields: ['username', 'password'], msg: 'Email и пароль не должны быть пустыми' }});
+			return;
+		}
+
 		const data = {
 			username: login,
 			password,
@@ -45,7 +77,9 @@ function createUser() {
 
 				loadUser(res.token);
 			})
-			.catch(e => console.log(e))
+			.catch(e => {
+				set({ loading: false, error: createUserError(e.msg) })
+			})
 	}
 
 	const logout = async () => {

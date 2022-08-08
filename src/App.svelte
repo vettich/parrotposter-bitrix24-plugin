@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { Router, Link, Route, navigate } from 'svelte-routing';
 	import { onDestroy } from 'svelte';
 
@@ -10,20 +10,25 @@
 	// stores
 	import { user } from './store/user.ts';
 
-	let loading = false;
+	let loading = true;
 
 	// navigating onLogin
-	user.subscribe($user => {
-		loading = $user.loading;
+	const unsubscribe = user.subscribe($user => {
 		if ($user.loading) {
 			return;
 		}
+
+		loading = false;
+		// unsubscribe();
 
 		if (!$user.data) {
 			navigate('/login');
 		} else {
 			navigate('/posts');
 		}
+
+		console.log('fields', $user.error?.fields);
+		console.log('fields contain email', $user.error?.fields?.includes('email'));
 	})
 
 </script>
@@ -32,11 +37,9 @@
 	Loading...
 {:else}
 	<Router>
-		<div>
-			<Route path="/login"><Login/></Route>
-			<Route path="/posts"><Posts/></Route>
-			<Route path="/"><Home/></Route>
-		</div>
+		<Route path="/login"><Login/></Route>
+		<Route path="/posts"><Posts/></Route>
+		<Route path="/"><Home/></Route>
 	</Router>
 {/if}
 
