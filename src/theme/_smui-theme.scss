@@ -1,10 +1,13 @@
 @use 'sass:color';
 
+@use './helpers';
+@use './vars' as *;
+
 @use '@material/theme/color-palette';
 
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
-  $primary: #1fa2ff,
+  $primary: $primary,
   $on-primary: #fff,
   $secondary: #676778,
   $surface: #fff,
@@ -33,3 +36,11 @@ a:visited {
 	theme.$on-primary,
 );
 
+@include helpers.cssvars((
+	primary: $primary,
+	on-primary: $on-primary,
+	secondary: $secondary,
+	success: $success,
+	warning: $warning,
+	error: $error,
+));

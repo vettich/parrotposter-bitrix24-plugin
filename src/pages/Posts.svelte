@@ -2,6 +2,7 @@
 	import { navigate } from 'svelte-routing';
 	import { onMount } from 'svelte';
 	import Layout from '../components/Layout.svelte';
+	import PostList from '../components/PostList.svelte';
 	import { user } from '../store/user.ts';
 	import { posts } from '../store/posts.ts';
 
@@ -19,9 +20,7 @@
 	{:else if $posts.data.length == 0}
 		Нет постов
 	{:else}
-		{#each $posts.data as post, idx (post.id)}
-			<p><b>{idx+1}</b> {post.fields.text}</p>
-		{/each}
+		<PostList posts={$posts.data} />
 	{/if}
 
 </Layout>

@@ -47,5 +47,6 @@
 	</div>
 {/if}
 
-<style>
+<style lang="scss" global>
+	@use './theme/smui-theme'
 </style>
