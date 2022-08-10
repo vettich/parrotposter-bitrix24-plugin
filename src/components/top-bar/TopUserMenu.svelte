@@ -1,5 +1,5 @@
 <script>
-	import { user } from '../store/user.ts';
+	import { user } from '../../store/user.ts';
 </script>
 
 <div class="top-user-menu">

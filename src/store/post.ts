@@ -1,19 +1,9 @@
 import { writable } from 'svelte/store';
+import type { Post } from '../types';
 
 interface PostWrapper {
 	loading: boolean,
 	data?: [Post],
-}
-
-interface Post {
-	id: string,
-	fields: {
-		text?: string,
-		link?: string,
-		need_utm?: boolean,
-	},
-	from: string,
-	status: 'success' | 'fail' | string,
 }
 
 function createPost() {

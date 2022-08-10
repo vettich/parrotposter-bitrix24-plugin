@@ -3,10 +3,10 @@
 	import { onDestroy } from 'svelte';
 
 	// pages
-	import Home from './pages/Home.svelte';
-	import Login from './pages/Login.svelte';
-	import Posts from './pages/Posts.svelte';
-	import Accounts from './pages/Accounts.svelte';
+	import Home from './pages/Home.page.svelte';
+	import Login from './pages/Login.page.svelte';
+	import Posts from './pages/Posts.page.svelte';
+	import Accounts from './pages/Accounts.page.svelte';
 
 	// stores
 	import { user } from './store/user.ts';

@@ -1,8 +1,7 @@
 <script>
 	import { navigate } from 'svelte-routing';
 	import { onMount } from 'svelte';
-	import Layout from '../components/Layout.svelte';
-	import PostList from '../components/PostList.svelte';
+	import { Layout, PostList } from '../components';
 	import { user } from '../store/user.ts';
 	import { posts } from '../store/posts.ts';
 

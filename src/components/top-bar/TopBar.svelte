@@ -1,6 +1,6 @@
 <script>
 	import { link } from 'svelte-routing';
-	import Logo from './Logo.svelte';
+	import Logo from '../Logo.svelte';
 	import TopMenu from './TopMenu.svelte';
 	import TopUserMenu from './TopUserMenu.svelte';
 
