@@ -39,6 +39,7 @@
     "axios": "^0.27.2",
     "bx24-api": "^1.4.1",
     "sirv-cli": "^2.0.0",
+    "svelte-lazy-image": "^0.5.1",
     "svelte-material-ui": "^6.0.0",
     "svelte-routing": "^1.6.0"
   }

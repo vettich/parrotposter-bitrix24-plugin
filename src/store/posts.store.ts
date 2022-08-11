@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { get, post } from '../api';
 
-import type { Post } from './post';
+import type { Post } from '../types';
 
 interface PostsWrapper {
 	loading: boolean,

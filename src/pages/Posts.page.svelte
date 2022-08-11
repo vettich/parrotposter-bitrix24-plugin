@@ -2,8 +2,7 @@
 	import { navigate } from 'svelte-routing';
 	import { onMount } from 'svelte';
 	import { Layout, PostList } from '../components';
-	import { user } from '../store/user.ts';
-	import { posts } from '../store/posts.ts';
+	import { user, posts } from '../store';
 
 	onMount(() => {
 		posts.load(1, 25);

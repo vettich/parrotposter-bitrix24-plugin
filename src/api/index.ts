@@ -23,6 +23,21 @@ interface Result {
 let authToken = '';
 function setAuthToken(token: string) {
 	authToken = token;
+
+	emitSetAuthToken();
+}
+
+const authTokenSubscriptions: { (setted: boolean): void; }[] = [];
+function onSetAuthToken(fn: { (setted: boolean): void; }) {
+	authTokenSubscriptions.push(fn)
+
+	if (authToken.length > 0) {
+		fn(true)
+	}
+}
+
+function emitSetAuthToken() {
+	authTokenSubscriptions.every(fn => fn(authToken.length > 0))
 }
 
 async function get(endpoint: string, data?: Object, params?: Params): Promise<any> {
@@ -75,4 +90,5 @@ export {
 	get,
 	post,
 	setAuthToken,
+	onSetAuthToken,
 }

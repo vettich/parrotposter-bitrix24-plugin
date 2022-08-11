@@ -6,6 +6,7 @@
 	import List, { Item, Separator, Text } from '@smui/list';
 	import IconButton from '@smui/icon-button';
 	import Images from './PostListItemImages.svelte';
+	import Accounts from './PostListItemAccounts.svelte';
 
 	export let post: Post;
 
@@ -45,7 +46,7 @@
 
 	<Images images={post.fields.images_sizes} />
 
-	<div class="post-accounts-list">accounts</div>
+	<Accounts accountIds={post.networks.accounts} results={post.results} />
 </div>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <script>
 	// import { navigate } from 'svelte-routing';
 	// import { onMount } from 'svelte';
-	// import { user } from '../store/user.ts';
+	// import { user } from '../store';
 
 	// console.log($user);
 

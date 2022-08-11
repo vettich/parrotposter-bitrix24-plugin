@@ -1,16 +1,25 @@
 import { writable } from 'svelte/store';
-import { get, post } from '../api';
+import { get, post, onSetAuthToken } from '../api';
+import type { Account } from '../types';
+
+class AccountMap {
+	data: { [key: string]: Account };
+
+	constructor(accounts: [Account]) {
+		this.data = {}
+		for (let acc of accounts) {
+			this.data[acc.id] = acc;
+		}
+	}
+
+	getById(id: string): Account {
+		return this.data[id]
+	}
+}
 
 interface AccountsWrapper {
 	loading: boolean,
-	data?: [Account],
-}
-
-interface Account {
-	id: string,
-	name: string,
-	type: string,
-	photo?: string,
+	data?: AccountMap,
 }
 
 function createAccounts() {
@@ -27,7 +36,7 @@ function createAccounts() {
 			.then(res => {
 				update(store => ({
 					...store,
-					data: res.accounts,
+					data: new AccountMap(res.accounts),
 				}))
 			})
 			.catch(e => console.log(e))
@@ -36,10 +45,15 @@ function createAccounts() {
 			})
 	}
 
-	load();
+	const getById = (id: string): Account => {
+		return 
+	}
+
+	onSetAuthToken(setted => setted ? load() : null)
 
 	return {
 		subscribe,
+		getById,
 	}
 }
 

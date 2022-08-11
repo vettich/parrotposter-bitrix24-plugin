@@ -9,7 +9,7 @@
 	import Accounts from './pages/Accounts.page.svelte';
 
 	// stores
-	import { user } from './store/user.ts';
+	import { user } from './store';
 
 	let loading = true;
 

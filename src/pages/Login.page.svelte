@@ -8,7 +8,7 @@
 	import Paper, { Content } from '@smui/paper';
 	import Logo from '../components/Logo.svelte';
 	import { navigate } from 'svelte-routing';
-	import { user } from '../store/user.ts';
+	import { user } from '../store';
 
 	let username = '';
 	let password = '';
