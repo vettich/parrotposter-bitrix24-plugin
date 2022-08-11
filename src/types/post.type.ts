@@ -20,4 +20,5 @@ interface PostImageSize {
 export type {
 	Post,
 	PostFields,
+	PostImageSize,
 }
