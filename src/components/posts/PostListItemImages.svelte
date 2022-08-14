@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PostImageSize } from '../types';
+	import type { PostImageSize } from '../../types';
 	import Dialog, { Content as DialogContent } from '@smui/dialog';
 
 	export let images: PostImageSize[];
@@ -9,7 +9,7 @@
 
 	$: _images = images || [];
 
-	const selectImage = (image) => {
+	const selectImage = (image: PostImageSize) => {
 		selectedImageOrigin = image.original;
 		imageDialogOpen = true;
 	}

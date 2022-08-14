@@ -1,18 +1,13 @@
 <script lang="ts">
-	import type { Post } from '../types';
 	import { Icon } from '@smui/common';
-	import type { MenuComponentDev } from '@smui/menu';
-	import Menu from '@smui/menu';
-	import List, { Item, Separator, Text } from '@smui/list';
-	import IconButton from '@smui/icon-button';
+
+	import type { Post } from '../../types';
+
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
+	import Menu from './PostListItemMenu.svelte';
 
 	export let post: Post;
-
-	let menu: MenuComponentDev;
-
-	$: textEllipse = post.fields.text.substring(0, 100) + (post.fields.text.length > 100 ? '...' : '');
 
 	const statusIcons = {
 		success: 'done',
@@ -21,32 +16,24 @@
 </script>
 
 <div class="item">
-	<div class="header">
-		<div
-			class="status {post.status}">
-			<Icon class="material-icons-outlined">{statusIcons[post.status]}</Icon>
+	<div class="item-top">
+		<div class="header">
+			<div
+				class="status {post.status}">
+				<Icon class="material-icons-outlined">{statusIcons[post.status]}</Icon>
+			</div>
+			<div class="time">10:44</div>
+			<Menu />
 		</div>
-		<div class="time">10:44</div>
-		<div class="menu">
-			<IconButton class="material-icons-outlined" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
-			<Menu bind:this={menu}>
-				<List>
-					<Item>
-						<Text><Icon class="material-icons-outlined menu-item-icon">edit</Icon>Редактировать</Text>
-					</Item>
-					<Item>
-						<Text><Icon class="material-icons-outlined menu-item-icon">delete</Icon>Удалить</Text>
-					</Item>
-				</List>
-			</Menu>
-		</div>
+
+		<div class="text" title={post.fields?.text}>{post.fields?.text}</div>
 	</div>
 
-	<div class="text">{textEllipse}</div>
+	<div class="item-bottom">
+		<Images images={post.fields.images_sizes} />
 
-	<Images images={post.fields.images_sizes} />
-
-	<Accounts accountIds={post.networks.accounts} results={post.results} />
+		<Accounts accountIds={post.networks.accounts} results={post.results} />
+	</div>
 </div>
 
 <style lang="scss">
@@ -56,10 +43,24 @@
 		display: inline-flex;
 		flex-direction: column;
 		gap: 0.8em;
+		justify-content: space-between;
 		width: 300px;
 		padding: 1em;
 		border: 1px solid #ddd;
 		border-radius: 8px;
+		transition: all 0.2s ease;
+
+		&:hover {
+			box-shadow: 0px 0px 10px 0px #ddd;
+			@include cssvar(menu-icon-show, 1, 'pp-post-list-item');
+		}
+
+		&-top, &-bottom {
+			display: flex;
+			flex-direction: column;
+			gap: 0.8em;
+			justify-content: space-between;
+		}
 	}
 
 	.header {
@@ -69,21 +70,6 @@
 
 		.time {
 			flex-grow: 1;
-		}
-
-		.menu {
-			:global(button) {
-				margin: 0;
-				width: 28px;
-				height: 28px;
-				font-size: 1.1em;
-			}
-
-			:global(.menu-item-icon) {
-				vertical-align: middle;
-				font-size: 1.2em;
-				margin-right: 4px;
-			}
 		}
 
 		.status {
@@ -98,6 +84,18 @@
 			&.warning { color: cssvar('warning') }
 			&.fail { color: cssvar('error') }
 		}
+	}
+
+	.text {
+		flex-grow: 1;
+		display: -webkit-box;
+		height: 2.4em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		-moz-line-clamp: 2;
+		-moz-box-orient: vertical;
 	}
 
 	* :global(.mdc-icon-button):active {

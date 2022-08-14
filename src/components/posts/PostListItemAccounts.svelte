@@ -1,49 +1,40 @@
 <script lang="ts">
 	import { accounts as accountsStore } from '../../store';
-	import type { PostResults } from '../../types';
+	import type { PostResults, PostResult, Account } from '../../types';
+
+	import { AccountPhoto } from '../accounts';
 
 	export let accountIds: string[] = [];
 	export let results: PostResults;
+
+	const getPostResult = (id: string): PostResult => {
+		return results[id]
+	}
 
 	$: accounts = accountIds
 		.map(id => $accountsStore.data.getById(id))
 		.filter(account => !!account)
 
-	const placeholderSrc = '/images/placeholder.png';
-
-	function onError() {
-		this.src = placeholderSrc
-	}
+	$: resultsWithoutAccounts = Object.keys(results)
+		.filter(id => !$accountsStore.data.getById(id))
+		.map(id => ({ ...results[id], id }))
 </script>
 
 <div class="list">
 	{#each accounts as account (account.id)}
-		<div class="item">
-			<img src={account.photo} on:error={onError} alt="">
-		</div>
+		<AccountPhoto {account} result={getPostResult(account.id)} />
+	{/each}
+
+	{#each resultsWithoutAccounts as result (result.id)}
+		<AccountPhoto result={result} />
 	{/each}
 </div>
 
 <style lang="scss">
 	.list {
 		display: flex;
-		gap: 8px;
+		gap: 12px;
 		flex-wrap: wrap;
-	}
-
-	.item {
-		border: none;
-		border-radius: 50%;
-		width: 36px;
-		height: 36px;
-		overflow: hidden;
-
-		img {
-			width: 100%;
-			height: 100%;
-			background: url(/images/placeholder.png) center / cover;
-			object-fit: cover;
-			object-position: center;
-		}
+		min-height: 36px;
 	}
 </style>

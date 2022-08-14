@@ -3,6 +3,8 @@ interface Post {
 	fields: PostFields,
 	from: string,
 	status: 'success' | 'fail' | string,
+	networks?: PostNetworks,
+	results?: PostResults,
 }
 
 interface PostFields {
@@ -10,8 +12,6 @@ interface PostFields {
 	link?: string,
 	need_utm?: boolean,
 	images_sizes?: PostImageSize[],
-	networks?: PostNetworks,
-	results?: PostResults,
 }
 
 interface PostImageSize {
@@ -28,6 +28,7 @@ interface PostResults {
 }
 
 interface PostResult {
+	id?: string,
 	success: boolean,
 	link?: string,
 	error_formatted?: string,
@@ -38,4 +39,7 @@ export type {
 	Post,
 	PostFields,
 	PostImageSize,
+	PostNetworks,
+	PostResults,
+	PostResult,
 }
