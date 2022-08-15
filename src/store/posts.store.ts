@@ -32,9 +32,10 @@ function createPosts() {
 		}
 		get('posts', query)
 			.then(res => {
+				const data = res.posts.map(post => ({ ...post, publish_at: new Date(post.publish_at) }))
 				update(store => ({
 					...store,
-					data: res.posts,
+					data,
 					paging: res.paging,
 				}))
 			})

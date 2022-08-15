@@ -2,6 +2,7 @@
 	import { Icon } from '@smui/common';
 
 	import type { Post } from '../../types';
+	import { formatToTime } from '../../tools';
 
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
@@ -22,7 +23,7 @@
 				class="status {post.status}">
 				<Icon class="material-icons-outlined">{statusIcons[post.status]}</Icon>
 			</div>
-			<div class="time">10:44</div>
+			<div class="time" title={post.publish_at.toLocaleString()}>{formatToTime(post.publish_at)}</div>
 			<Menu />
 		</div>
 

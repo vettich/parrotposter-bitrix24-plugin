@@ -1,11 +1,16 @@
 interface Post {
 	id: string,
 	fields: PostFields,
-	from: string,
-	status: 'success' | 'fail' | string,
+	from: PostFrom,
+	status: PostStatus,
 	networks?: PostNetworks,
 	results?: PostResults,
+	publish_at: Date,
 }
+
+type PostStatus = 'success' | 'fail' | string;
+
+type PostFrom = 'bitrix' | 'front' | 'wordpress' | 'bitrix24';
 
 interface PostFields {
 	text?: string,
@@ -37,6 +42,8 @@ interface PostResult {
 
 export type {
 	Post,
+	PostStatus,
+	PostFrom,
 	PostFields,
 	PostImageSize,
 	PostNetworks,
