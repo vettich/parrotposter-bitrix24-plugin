@@ -1,13 +1,10 @@
 <script>
 	import { onDestroy } from 'svelte';
-	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
 	import Icon from '@smui/textfield/icon';
 	import CircularProgress from '@smui/circular-progress';
 	import Paper, { Content } from '@smui/paper';
-	import Logo from '../components/Logo.svelte';
-	import { navigate } from 'svelte-routing';
 	import { user } from '../store';
 
 	let username = '';

@@ -7,8 +7,11 @@
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
 	import Menu from './PostListItemMenu.svelte';
+	import QuickView from './PostQuickView.svelte';
 
 	export let post: Post;
+
+	let openView = false;
 
 	const statusIcons = {
 		success: 'done',
@@ -16,7 +19,7 @@
 	}
 </script>
 
-<div class="item">
+<div class="item" on:click={() => openView = true}>
 	<div class="item-top">
 		<div class="header">
 			<div
@@ -37,6 +40,8 @@
 	</div>
 </div>
 
+<QuickView bind:open={openView} postId={post.id} />
+
 <style lang="scss">
 	@use '../../theme/helpers' as *; 
 
@@ -50,6 +55,7 @@
 		border: 1px solid #ddd;
 		border-radius: 8px;
 		transition: all 0.2s ease;
+		cursor: pointer;
 
 		&:hover {
 			box-shadow: 0px 0px 10px 0px #ddd;
@@ -71,6 +77,7 @@
 
 		.time {
 			flex-grow: 1;
+			color: cssvar(secondary);
 		}
 
 		.status {

@@ -9,8 +9,9 @@
 @use '@material/theme/index' as theme with (
   $primary: $primary,
   $on-primary: #fff,
-  $secondary: #676778,
-  $surface: #fff,
+  $secondary: $secondary,
+  $surface: $surface,
+  $on-surface: $on-surface,
   $background: #fff,
   $error: #ff52a1,
 );
@@ -39,6 +40,8 @@ a:visited {
 @include helpers.cssvars((
 	primary: $primary,
 	on-primary: $on-primary,
+	sucface: $surface,
+	on-surface: $on-surface,
 	secondary: $secondary,
 	success: $success,
 	warning: $warning,

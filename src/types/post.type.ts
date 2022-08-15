@@ -15,6 +15,7 @@ type PostFrom = 'bitrix' | 'front' | 'wordpress' | 'bitrix24';
 interface PostFields {
 	text?: string,
 	link?: string,
+	tags?: string,
 	need_utm?: boolean,
 	images_sizes?: PostImageSize[],
 }
