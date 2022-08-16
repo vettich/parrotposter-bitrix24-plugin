@@ -1,32 +1,19 @@
 <script lang="ts">
-	import { accounts as accountsStore } from '../../store';
-	import type { PostResults, PostResult, Account } from '../../types';
+	import { accounts } from '../../store';
+	import { mergeAccountsResults } from '../../tools';
+	import type { PostResults } from '../../types';
 
 	import { AccountPhoto } from '../accounts';
 
 	export let accountIds: string[] = [];
 	export let results: PostResults;
 
-	const getPostResult = (id: string): PostResult => {
-		return results[id]
-	}
-
-	$: accounts = accountIds
-		.map(id => $accountsStore.data.getById(id))
-		.filter(account => !!account)
-
-	$: resultsWithoutAccounts = Object.keys(results)
-		.filter(id => !$accountsStore.data.getById(id))
-		.map(id => ({ ...results[id], id }))
+	$: items = mergeAccountsResults($accounts.data, accountIds, results);
 </script>
 
 <div class="list">
-	{#each accounts as account (account.id)}
-		<AccountPhoto {account} result={getPostResult(account.id)} />
-	{/each}
-
-	{#each resultsWithoutAccounts as result (result.id)}
-		<AccountPhoto result={result} />
+	{#each items as item (item.id)}
+		<AccountPhoto id={item.id} account={item.account} success={item.result?.success} />
 	{/each}
 </div>
 

@@ -1,8 +1,11 @@
 <script lang="ts">
 	import Dialog, { Content, InitialFocus } from '@smui/dialog';
-	import { Icon } from '@smui/common';
-
 	import { post } from '../../store';
+
+	import { Icon } from '@smui/common';
+	import CircularProgress from '@smui/circular-progress';
+	import Images from './PostListItemImages.svelte';
+	import Results from './PostQuickViewResults.svelte';
 
 	export let postId: string;
 	export let open = false;
@@ -14,9 +17,9 @@
 <Dialog bind:open surface$style="width: 650px; max-width: calc(100vw - 42px);">
 	<Content>
 		{#if $post.loading}
-			...
+			<CircularProgress style="height: 32px; width: 32px" indeterminate />
 		{:else}
-			<div class="post-quick-view" autofocus>
+			<div class="post-quick-view" autofocus use:InitialFocus>
 				<div class="post-quick-view__text">{$post.data?.fields?.text}</div>
 
 				{#if $post.data.fields?.tags}
@@ -42,6 +45,12 @@
 					<div class="post-quick-view__label">Дата публикации</div>
 					<div class="post-quick-view__value">{$post.data.publish_at.toLocaleString()}</div>
 				</div>
+
+				{#if $post.data.fields?.images_sizes}
+					<Images images={$post.data.fields?.images_sizes} size="medium" notOpen />
+				{/if}
+
+				<Results post={$post.data} />
 			</div>
 		{/if}
 	</Content>

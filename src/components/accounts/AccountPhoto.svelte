@@ -1,29 +1,27 @@
 <script lang="ts">
-	import type { PostResult, Account } from '../../types';
+	import type { Account } from '../../types';
 
 	export let account: Account = null;
-	export let result: PostResult;
+	export let status: Status = null;
+	export let success: boolean | null = null;
+	export let id: string = null;
 	export let size: 'big' | 'normal' = 'normal';
 
 	type Status = null | 'success' | 'fail';
 
-	const getStatus = (): Status => {
-		if (!result) return;
-
-		return result.success ? 'success' : 'fail';
-	}
-
 	const getType = (): string => {
 		if (account) return account.type;
 
+		if (!id) return 'none';
+
 		// id is format "<user_id>:<type>:<social_id>"
-		const idPieces = result?.id?.split(':');
+		const idPieces = id.split(':');
 		const type = idPieces[1];
 		return type;
 	}
 
-	$: status = getStatus();
 	$: type = getType();
+	$: if (success !== null) status = success ? 'success' : 'fail';
 
 	const formatName = (): string => {
 		if (!account) return 'Аккаунт удален';
@@ -41,9 +39,11 @@
 	}
 </script>
 
+{#if account || id}
 <div class="account-photo status-{status} type-{type} size-{size}" class:no-account={!account} title={formatName()}>
 	<img src={account?.photo || noAccountSrc} on:error={onError} alt="">
 </div>
+{/if}
 
 <style lang="scss">
 	@use '../../theme/helpers' as *;
@@ -52,7 +52,6 @@
 		position: relative;
 		border: none;
 		border-radius: 50%;
-		cursor: pointer;
 
 		&:before {
 			content: "";

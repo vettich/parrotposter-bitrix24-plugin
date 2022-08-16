@@ -45,16 +45,16 @@ function createAccounts() {
 			})
 	}
 
-	const getById = (id: string): Account => {
-		return 
-	}
-
 	onSetAuthToken(setted => setted ? load() : null)
 
 	return {
 		subscribe,
-		getById,
 	}
 }
 
-export const accounts = createAccounts();
+const accounts = createAccounts();
+
+export {
+	accounts,
+	AccountMap,
+}

@@ -9,7 +9,7 @@
 </script>
 
 
-<div class="menu">
+<div class="menu" on:click|stopPropagation={() => {}}>
 	<div class="menu-icon">
 		<IconButton class="material-icons-outlined" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
 	</div>
