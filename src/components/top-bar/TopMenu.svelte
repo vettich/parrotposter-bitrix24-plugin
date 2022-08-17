@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
+	import { menu } from '@src/consts/menu';
+
 	import TopMenuItem from './TopMenuItem.svelte';
 </script>
 
 <div class="top-menu">
-	<TopMenuItem to="/posts" label="Посты" />
-	<TopMenuItem to="/accounts" label="Аккаунты" />
+	{#each menu as {link, label}}
+		<TopMenuItem to={link} {label} />
+	{/each}
 </div>
 
 <style lang="scss">

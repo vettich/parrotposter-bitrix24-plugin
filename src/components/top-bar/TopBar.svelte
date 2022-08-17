@@ -5,7 +5,9 @@
 	import Logo from '../Logo.svelte';
 	import TopMenu from './TopMenu.svelte';
 	import TopUserMenu from './TopUserMenu.svelte';
+	import DrawerMenu from './DrawerMenu.svelte';
 
+	let openDrawer = false;
 </script>
 
 <div class="top-bar">
@@ -16,10 +18,13 @@
 	<div class="top-bar__user-menu">
 		<TopUserMenu />
 	</div>
-	<div class="top-bar__open-menu-btn">
+
+	<div class="top-bar__open-menu-btn" on:click={() => openDrawer = true}>
 		<Icon class="material-icons">menu</Icon>
 	</div>
 </div>
+
+<DrawerMenu bind:openDrawer />
 
 <style lang="scss">
 	.top-bar {
@@ -80,5 +85,7 @@
 				height: 100%;
 			}
 		}
+
 	}
+
 </style>
