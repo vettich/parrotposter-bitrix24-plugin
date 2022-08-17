@@ -62,6 +62,10 @@
 			@include cssvar(menu-icon-show, 1, 'pp-post-list-item');
 		}
 
+		@media screen and (max-width: 768px) {
+			width: 100%;
+		}
+
 		&-top, &-bottom {
 			display: flex;
 			flex-direction: column;

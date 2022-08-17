@@ -60,6 +60,10 @@
 		gap: 10px 4px;
 		margin-top: 4px;
 
+		@media screen and (max-width: 768px) {
+			grid-template-columns: 100%;
+		}
+
 		&__item {
 			display: flex;
 			justify-content: left;
@@ -74,6 +78,8 @@
 		}
 
 		&__status {
+			line-height: 1;
+
 			&--success { color: cssvar(success) }
 			&--fail { color: cssvar(error) }
 		}

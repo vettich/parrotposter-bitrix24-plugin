@@ -36,6 +36,10 @@
 	.menu-icon {
 		opacity: cssvar(menu-icon-show, 'pp-post-list-item');
 		transition: opacity 0.2s ease;
+
+		@media screen and (max-width: 768px) {
+			opacity: 1;
+		}
 	}
 
 	.menu {

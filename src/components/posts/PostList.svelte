@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Item from './PostListItem.svelte';
 	import type { Post } from '../../types';
+
+	import { Icon } from '@smui/common';
+	import Item from './PostListItem.svelte';
 
 	export let posts: Post[];
 
@@ -25,7 +27,12 @@
 </script>
 
 {#each Object.entries(group) as [date, posts] (date)}
-	<h2>{formatDay(date)}</h2>
+	<h2>
+		<div class="posts__title-icon">
+			<Icon class="material-icons-outlined">calendar_today</Icon>
+		</div>
+		{formatDay(date)}
+	</h2>
 	<div class="posts">
 		{#each posts as post (post.id)}
 			<Item {post} />
@@ -40,7 +47,29 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1em;
-		padding-left: 1em;
+		padding-left: 20px;
+		margin-left: 16px;
 		border-left: 2px solid cssvar(primary);
+
+		@media screen and (max-width: 768px) {
+			padding-left: 0;
+			margin-left: 0;
+			border: none;
+		}
+
+		&__title-icon {
+			display: inline-flex;
+			color: cssvar(on-primary);
+			background-color: cssvar(primary);
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			justify-content: center;
+			align-items: center;
+
+			:global(.material-icons-outlined) {
+				font-size: 80%;
+			}
+		}
 	}
 </style>
