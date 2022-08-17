@@ -1,8 +1,13 @@
+<svelte:head>
+	<title>Список постов - ParrotPoster</title>
+</svelte:head>
+
 <script>
-	import { navigate } from 'svelte-routing';
 	import { onMount } from 'svelte';
+	import { posts } from '../store';
+
+	import CircularProgress from '@smui/circular-progress';
 	import { Layout, PostList } from '../components';
-	import { user, posts } from '../store';
 
 	onMount(() => {
 		posts.load(1, 25);
@@ -14,7 +19,7 @@
 	<h1>Список постов</h1>
 
 	{#if $posts.loading}
-		Загрузка...
+		<CircularProgress style="height: 24px; width: 24px;" indeterminate />
 	{:else if $posts.data.length == 0}
 		Нет постов
 	{:else}

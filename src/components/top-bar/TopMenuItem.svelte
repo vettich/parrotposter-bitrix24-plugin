@@ -1,45 +1,62 @@
 <script>
 	import { onDestroy } from 'svelte';
-	import { navigate } from 'svelte-routing';
 	import { globalHistory } from 'svelte-routing/src/history';
-	import Button, { Label } from '@smui/button';
 
 	export let to = '/';
 	export let label = '';
 
-	let variant = 'outlined';
+	let isSelected = false;
 
-	const updateVariant = location => {
-		variant = location.pathname.includes(to) ? 'unelevated' : 'outlined';
+	const updateSelected = () => {
+		isSelected = location.pathname.includes(to);
 	}
+	updateSelected();
 
-	const unlisten = globalHistory.listen(({ location }) => {
-		updateVariant(location);
+	const unlisten = globalHistory.listen(() => {
+		updateSelected();
 	})
-	updateVariant(globalHistory.location);
-
 	onDestroy(unlisten);
-
-	const go = () => {
-		navigate(to);
-	}
 </script>
 
-<div>
-	<Button
-		on:click={go}
-		{variant}
-		color="primary"
-		class="button-shaped-round">
-		<Label>{label}</Label>
-	</Button>
-</div>
+<a href={to} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
 
-<style>
-	* :global(.button-shaped-round),
-	* :global(.button-shaped-round) :global(.mdc-button__ripple)
-	{
-		border: none;
-		border-radius: 999px;
+<style lang="scss">
+	@use '../../theme/helpers' as *; 
+
+	.top-menu-item {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 18px;
+		line-height: 1;
+		height: 100%;
+		padding: 0 14px;
+		color: cssvar(on-surface);
+		border-bottom: 2px solid transparent;
+		transition: all 0.2s ease;
+
+		&--selected {
+			color: cssvar(primary);
+			border-bottom: 2px solid cssvar(primary);
+			z-index: 1;
+
+			&:before {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: cssvar(primary);
+				opacity: 0.1;
+				z-index: 0;
+			}
+		}
+
+		&:hover {
+			text-decoration: none;
+			border-bottom: 2px solid cssvar(primary);
+		}
 	}
 </style>

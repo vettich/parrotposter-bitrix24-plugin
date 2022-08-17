@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>ParrotPoster</title>
+</svelte:head>
+
 <script>
 	import { onDestroy } from 'svelte';
 	import Textfield from '@smui/textfield';
@@ -37,7 +41,8 @@
 	<Textfield bind:value={username}
 		variant="outlined"
 		label="Email"
-		invalid={!!errors.includes('username')}>
+		invalid={!!errors.includes('username')}
+		autofocus>
 		<Icon class="material-icons-outlined" slot="leadingIcon">email</Icon>
 	</Textfield>
 

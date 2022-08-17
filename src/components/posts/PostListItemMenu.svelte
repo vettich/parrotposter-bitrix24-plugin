@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { Icon } from '@smui/common';
 	import Menu from '@smui/menu';
-	import List, { Item, Text } from '@smui/list';
+	import List, { Item, Text, Graphic } from '@smui/list';
 	import IconButton from '@smui/icon-button';
 	import type { MenuComponentDev } from '@smui/menu';
 
@@ -10,19 +9,19 @@
 
 
 <div class="menu" on:click|stopPropagation={() => {}}>
-	<div class="menu-icon">
+	<div class="menu__icon">
 		<IconButton class="material-icons-outlined" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
 	</div>
+
 	<Menu bind:this={menu}>
-		<List>
+		<List dense>
 			<Item>
-				<Text><Icon class="material-icons-outlined menu-item-icon">edit</Icon>Редактировать</Text>
+				<Graphic class="material-icons-outlined">edit</Graphic>
+				<Text>Редактировать</Text>
 			</Item>
 			<Item>
-				<Text><span class="menu-item--red"> 
-					<Icon class="material-icons-outlined menu-item-icon">delete</Icon>
-					Удалить
-				</span></Text>
+				<Graphic class="material-icons-outlined menu--red">delete</Graphic>
+				<Text class="menu--red">Удалить</Text>
 			</Item>
 		</List>
 	</Menu>
@@ -33,15 +32,6 @@
 
 	@include cssvars((menu-icon-show: 0), 'pp-post-list-item');
 
-	.menu-icon {
-		opacity: cssvar(menu-icon-show, 'pp-post-list-item');
-		transition: opacity 0.2s ease;
-
-		@media screen and (max-width: 768px) {
-			opacity: 1;
-		}
-	}
-
 	.menu {
 		:global(button) {
 			margin: 0;
@@ -50,14 +40,17 @@
 			font-size: 1.1em;
 		}
 
-		:global(.menu-item-icon) {
-			vertical-align: middle;
-			font-size: 1.2em;
-			margin-right: 4px;
+		&__icon {
+			opacity: cssvar(menu-icon-show, 'pp-post-list-item');
+			transition: opacity 0.2s ease;
+
+			@media screen and (max-width: 768px) {
+				opacity: 1;
+			}
 		}
 	}
 
-	.menu-item--red {
+	* :global(.menu--red) {
 		color: cssvar(error);
 	}
 </style>

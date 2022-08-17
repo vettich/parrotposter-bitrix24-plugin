@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Аккаунты соц. сетей - ParrotPoster</title>
+</svelte:head>
+
 <script>
 	import Layout from '../components/Layout.svelte';
 </script>

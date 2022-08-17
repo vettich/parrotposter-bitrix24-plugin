@@ -1,6 +1,11 @@
 <script>
-	import { Router, Link, Route, navigate, links } from 'svelte-routing';
-	import { onDestroy } from 'svelte';
+	import { Router, Route, navigate, links } from 'svelte-routing';
+
+	// stores
+	import { user } from './store';
+
+	// components
+	import CircularProgress from '@smui/circular-progress';
 
 	// pages
 	import Home from './pages/Home.page.svelte';
@@ -8,34 +13,26 @@
 	import Posts from './pages/Posts.page.svelte';
 	import Accounts from './pages/Accounts.page.svelte';
 
-	// stores
-	import { user } from './store';
-
 	let loading = true;
 
 	// navigating onLogin
-	const unsubscribe = user.subscribe($user => {
+	user.subscribe($user => {
 		if ($user.loading) {
 			return;
 		}
 
 		loading = false;
-		// unsubscribe();
 
 		if (!$user.data) {
 			navigate('/login');
 		} else {
 			navigate('/posts');
 		}
-
-		console.log('fields', $user.error?.fields);
-		console.log('fields contain email', $user.error?.fields?.includes('email'));
 	})
-
 </script>
 
 {#if loading}
-	Loading...
+	<CircularProgress style="height: 32px; width: 32px" indeterminate />
 {:else}
 	<div use:links>
 		<Router>

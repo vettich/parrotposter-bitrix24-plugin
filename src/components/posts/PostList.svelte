@@ -27,7 +27,7 @@
 </script>
 
 {#each Object.entries(group) as [date, posts] (date)}
-	<h2>
+	<h2 class="posts__title">
 		<div class="posts__title-icon">
 			<Icon class="material-icons-outlined">calendar_today</Icon>
 		</div>
@@ -55,6 +55,12 @@
 			padding-left: 0;
 			margin-left: 0;
 			border: none;
+		}
+
+		&__title {
+			display: flex;
+			align-items: center;
+			gap: 12px;
 		}
 
 		&__title-icon {

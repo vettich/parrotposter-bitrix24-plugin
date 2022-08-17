@@ -6,6 +6,7 @@
 	import CircularProgress from '@smui/circular-progress';
 	import Images from './PostListItemImages.svelte';
 	import Results from './PostQuickViewResults.svelte';
+	import Button from '@smui/button';
 
 	export let postId: string;
 	export let open = false;
@@ -16,10 +17,13 @@
 
 <Dialog bind:open surface$style="width: 650px; max-width: calc(100vw - 42px);">
 	<Content>
+		<!-- Хак, чтобы не возникало ошибки фокусировки в консоле при открытии диалога -->
+		<div class="post-quick-view__hide"><Button use={[InitialFocus]}></Button></div>
+
 		{#if $post.loading}
 			<CircularProgress style="height: 32px; width: 32px" indeterminate />
 		{:else}
-			<div class="post-quick-view" autofocus use:InitialFocus>
+			<div class="post-quick-view">
 				<div class="post-quick-view__text">{$post.data?.fields?.text}</div>
 
 				{#if $post.data.fields?.tags}
@@ -72,6 +76,11 @@
 
 		&__label {
 			font-weight: bold;
+		}
+
+		&__hide {
+			height: 0;
+			overflow: hidden;
 		}
 	}
 </style>

@@ -1,4 +1,6 @@
+import './global.css';
 import App from './App.svelte';
+import { BX24 } from './lib/bx24';
 
 // fix scroll back up when navigate
 history.pushState = new Proxy(history.pushState, {
@@ -7,6 +9,14 @@ history.pushState = new Proxy(history.pushState, {
 		scrollTo(0,0);
 	}
 });
+
+// observe document.title and change title in BX24 app
+new MutationObserver(() => {
+	BX24?.setTitle(document.title);
+}).observe(
+	document.querySelector('title'),
+	{ subtree: true, characterData: true, childList: true },
+)
 
 const app = new App({
 	target: document.getElementById('app'),
