@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-	import Layout from '../components/Layout.svelte';
+	import Layout from '@src/components/Layout.svelte';
 </script>
 
 <Layout>

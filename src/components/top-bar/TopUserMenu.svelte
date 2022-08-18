@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user } from '../../store';
+	import { user } from '@src/store';
 
 	import { Icon } from '@smui/common';
 	import List, { Item, Text, Graphic } from '@smui/list';
@@ -55,7 +55,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.menu {
 		height: 100%;

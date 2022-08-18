@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
-import { get, post, setAuthToken } from '../api';
-import { BX24 } from '../lib/bx24';
+import { get, post, setAuthToken } from '@src/api';
+import { BX24 } from '@src/lib/bx24';
 
 interface User {
 	loading: boolean,

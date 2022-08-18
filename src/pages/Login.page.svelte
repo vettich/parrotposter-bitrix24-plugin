@@ -9,7 +9,7 @@
 	import Icon from '@smui/textfield/icon';
 	import CircularProgress from '@smui/circular-progress';
 	import Paper, { Content } from '@smui/paper';
-	import { user } from '../store';
+	import { user } from '@src/store';
 
 	let username = '';
 	let password = '';

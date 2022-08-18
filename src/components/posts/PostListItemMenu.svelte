@@ -28,7 +28,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	@include cssvars((menu-icon-show: 0), 'pp-post-list-item');
 

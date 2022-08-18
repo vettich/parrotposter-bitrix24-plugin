@@ -1,5 +1,5 @@
-import type { AccountMap } from '../store';
-import type { Account, PostResults, PostResult } from '../types';
+import type { AccountMap } from '@src/store';
+import type { Account, PostResults, PostResult } from '@src/types';
 
 interface Item {
 	id: string,

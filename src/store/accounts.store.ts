@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
-import { get, post, onSetAuthToken } from '../api';
-import type { Account } from '../types';
+import { get, post, onSetAuthToken } from '@src/api';
+import type { Account } from '@src/types';
 
 class AccountMap {
 	data: { [key: string]: Account };

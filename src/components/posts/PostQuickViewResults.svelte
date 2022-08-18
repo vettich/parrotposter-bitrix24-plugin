@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Post, PostResult } from '../../types';
-	import { accounts } from '../../store';
-	import { mergeAccountsResults } from '../../tools';
+	import type { Post, PostResult } from '@src/types';
+	import { accounts } from '@src/store';
+	import { mergeAccountsResults } from '@src/tools';
 
-	import AccountPhoto from "../accounts/AccountPhoto.svelte";
+	import AccountPhoto from "@src/components/accounts/AccountPhoto.svelte";
 	import { Icon } from '@smui/common';
 
 	export let post: Post;
@@ -52,7 +52,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.results {
 		display: grid;

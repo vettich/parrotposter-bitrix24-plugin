@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Post } from '../../types';
+	import type { Post } from '@src/types';
 
 	import { Icon } from '@smui/common';
 	import Item from './PostListItem.svelte';
@@ -41,7 +41,7 @@
 {/each}
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.posts {
 		display: flex;

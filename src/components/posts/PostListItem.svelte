@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Icon } from '@smui/common';
 
-	import type { Post } from '../../types';
-	import { formatToTime } from '../../tools';
+	import type { Post } from '@src/types';
+	import { formatToTime } from '@src/tools';
 
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
@@ -43,7 +43,7 @@
 <QuickView bind:open={openView} postId={post.id} />
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.item {
 		display: inline-flex;

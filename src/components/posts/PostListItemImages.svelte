@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PostImageSize } from '../../types';
+	import type { PostImageSize } from '@src/types';
 	import Dialog, { Content as DialogContent } from '@smui/dialog';
 
 	export let images: PostImageSize[];

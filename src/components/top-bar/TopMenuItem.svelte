@@ -21,7 +21,7 @@
 <a href={to} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.top-menu-item {
 		position: relative;

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { accounts } from '../../store';
-	import { mergeAccountsResults } from '../../tools';
-	import type { PostResults } from '../../types';
+	import { accounts } from '@src/store';
+	import { mergeAccountsResults } from '@src/tools';
+	import type { PostResults } from '@src/types';
 
-	import { AccountPhoto } from '../accounts';
+	import { AccountPhoto } from '@src/components/accounts';
 
 	export let accountIds: string[] = [];
 	export let results: PostResults;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Account } from '../../types';
+	import type { Account } from '@src/types';
 
 	export let account: Account = null;
 	export let status: Status = null;

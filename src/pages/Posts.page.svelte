@@ -4,10 +4,10 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import { posts } from '../store';
+	import { posts } from '@src/store';
 
 	import CircularProgress from '@smui/circular-progress';
-	import { Layout, PostList } from '../components';
+	import { Layout, PostList } from '@src/components';
 
 	onMount(() => {
 		posts.load(1, 25);

@@ -2,7 +2,7 @@
 	import { link } from 'svelte-routing';
 
 	import { Icon } from '@smui/common';
-	import Logo from '../Logo.svelte';
+	import Logo from '@src/components/Logo.svelte';
 	import TopMenu from './TopMenu.svelte';
 	import TopUserMenu from './TopUserMenu.svelte';
 	import DrawerMenu from './DrawerMenu.svelte';

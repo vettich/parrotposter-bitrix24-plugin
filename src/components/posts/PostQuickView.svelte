@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Dialog, { Content, InitialFocus } from '@smui/dialog';
-	import { post } from '../../store';
+	import { post } from '@src/store';
 
 	import { Icon } from '@smui/common';
 	import CircularProgress from '@smui/circular-progress';
@@ -61,7 +61,7 @@
 </Dialog>
 
 <style lang="scss">
-	@use '../../theme/helpers' as *; 
+	@use './src/theme/helpers' as *; 
 
 	.post-quick-view {
 		display: flex;
