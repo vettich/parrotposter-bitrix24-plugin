@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { get, post, setAuthToken } from '@src/api';
-import { BX24 } from '@src/lib/bx24';
+import { storage } from '@src/lib/storage';
 
 interface User {
 	loading: boolean,
@@ -63,8 +63,8 @@ function createUser() {
 		}
 		post('tokens', data)
 			.then(async (res) => {
-				BX24?.appOption.set('ppuser_id', res.user_id);
-				BX24?.appOption.set('pptoken', res.token);
+				storage.set('ppuser_id', res.user_id);
+				storage.set('pptoken', res.token);
 
 				loadUser(res.token);
 			})
@@ -74,19 +74,17 @@ function createUser() {
 	}
 
 	const logout = async () => {
-		BX24?.appOption.set('ppuser_id', '');
-		BX24?.appOption.set('pptoken', '');
+		storage.set('ppuser_id', '');
+		storage.set('pptoken', '');
 
 		set({ loading: false })
 	}
 
-	const init = () => {
-		const token = BX24?.appOption.get('pptoken');
+	const init = async () => {
+		const token = await storage.get('pptoken');
 		token ? loadUser(token) : set({ loading: false });
 	}
-	BX24?.init(init);
-
-	if (!BX24) set({ loading: false });
+	init();
 
 	return {
 		subscribe,
