@@ -61,7 +61,9 @@
 		margin-top: 4px;
 
 		@media screen and (max-width: 768px) {
-			grid-template-columns: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 18px;
 		}
 
 		&__item {
@@ -70,6 +72,14 @@
 			align-items: flex-start;
 			gap: 8px;
 			font-size: 14px;
+		}
+
+		&__detail {
+			display: flex;
+			flex-direction: column;
+			justify-content: left;
+			align-items: space-between;
+			gap: 6px;
 		}
 
 		&__account-name {

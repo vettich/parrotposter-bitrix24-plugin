@@ -8,6 +8,10 @@
 
 	export let openDrawer = false;
 
+	const isActive = (link: string): boolean => {
+		return location.pathname.includes(link);
+	}
+
 	const go = (link: string): () => void => {
 		return () => {
 			navigate(link);
@@ -25,7 +29,7 @@
 	<Drawer bind:open={openDrawer} on:clickAway={() => openDrawer = false}>
 		<List>
 			{#each menu as {link, label}}
-				<Item on:click={go(link)}><Text>{label}</Text></Item>
+				<Item on:click={go(link)} activated={isActive(link)}><Text>{label}</Text></Item>
 			{/each}
 
 			<Separator />

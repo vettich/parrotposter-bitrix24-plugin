@@ -15,7 +15,11 @@
 
 </script>
 
-<Dialog bind:open surface$style="width: 650px; max-width: calc(100vw - 42px);">
+<Dialog bind:open surface$style="width: 650px; max-width: calc(100vw - 42px); overflow: visible;">
+	<div class="post-quick-view__close-btn" on:click={() => open = false}>
+		<Button variant="unelevated"><Icon class="material-icons-outlined">close</Icon></Button>
+	</div>
+
 	<Content>
 		<!-- Хак, чтобы не возникало ошибки фокусировки в консоле при открытии диалога -->
 		<div class="post-quick-view__hide"><Button use={[InitialFocus]}></Button></div>
@@ -81,6 +85,27 @@
 		&__hide {
 			height: 0;
 			overflow: hidden;
+		}
+
+		&__close-btn {
+			display: none;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			transform: translate(50%, -50%);
+
+			@media screen and (max-width: 768px) {
+				display: block;
+			}
+
+			:global(button) {
+				min-width: fit-content;
+				padding: 12px;
+			}
+
+			:global(.mdc-button__icon) {
+				margin: 0;
+			}
 		}
 	}
 </style>

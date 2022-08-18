@@ -101,7 +101,8 @@
 	.text {
 		flex-grow: 1;
 		display: -webkit-box;
-		height: 2.4em;
+		height: fit-content;
+		line-height: 1.1;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		-webkit-line-clamp: 2;

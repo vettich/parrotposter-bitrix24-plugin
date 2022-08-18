@@ -76,3 +76,7 @@ a .material-icons-outlined {
 	padding: 0;
 	vertical-align: middle;
 }
+
+.mdc-dialog-scroll-lock {
+	overflow: hidden !important;
+}

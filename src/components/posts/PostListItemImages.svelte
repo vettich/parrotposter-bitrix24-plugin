@@ -39,6 +39,8 @@
 	.images {
 		display: flex;
 		gap: 4px;
+		width: 100%;
+		overflow-x: auto;
 
 		&--size-small {
 			img {
