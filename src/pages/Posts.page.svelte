@@ -9,6 +9,7 @@
 	import CircularProgress from '@smui/circular-progress';
 	import { Layout, PostList } from '@src/components';
 	import Button from '@smui/button';
+	import Fab, { Icon } from '@smui/fab';
 
 	onMount(() => {
 		posts.loadFirstPage();
@@ -39,6 +40,12 @@
 			{/if}
 		</div>
 	{/if}
+
+	<svelte:fragment slot="actions">
+		<Fab color="primary" title="Создать пост">
+			<Icon class="material-icons-outlined">add</Icon>
+		</Fab>
+	</svelte:fragment>
 </Layout>
 
 <style lang="scss">
