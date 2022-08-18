@@ -19,7 +19,7 @@
 
 	$: group = posts.reduce((group: Group, post) => {
 		const { publish_at } = post;
-		const key = dateToStr(publish_at);
+		const key = dateToStr(new Date(publish_at));
 		group[key] = group[key] ?? [];
 		group[key].push(post);
 		return group;

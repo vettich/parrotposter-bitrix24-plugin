@@ -5,23 +5,36 @@ import type { Post } from '@src/types';
 
 interface PostsWrapper {
 	loading: boolean,
-	data: [Post?],
-	paging?: {
-		page: number,
-		size: number,
-		total: number,
-	},
+	data: Post[],
+	hasNext: boolean,
 }
 
+interface Paging {
+	page: number,
+	size: number,
+	total: number,
+}
+
+const ITEMS_PER_PAGE = 25;
+
 function createPosts() {
-	const initial: PostsWrapper = { loading: true, data: [] }
+	const initial: PostsWrapper = { loading: false, data: [], hasNext: true }
 	const { subscribe, set, update } = writable(initial);
 
-	const setLoading = (loading: boolean) => {
-		update(store => ({...store, loading}))
+	let loading = false;
+	let paging: Paging = null;
+	let loadedFirstPage = false;
+
+	const setLoading = (_loading: boolean) => {
+		loading = _loading;
+		update(store => ({...store, loading}));
 	}
 
-	const load = (page: number, limit: number) => {
+	const hasNext = (): boolean => {
+		return paging.page * ITEMS_PER_PAGE < paging.total
+	}
+
+	const loadPosts = (page: number, limit: number, push_back: boolean = true) => {
 		setLoading(true);
 
 		const query: Object = {
@@ -30,13 +43,19 @@ function createPosts() {
 				size: limit,
 			},
 		}
+
 		get('posts', query)
 			.then(res => {
-				const data = res.posts.map(post => ({ ...post, publish_at: new Date(post.publish_at) }))
+				paging = res.paging;
+
+				// transform publish_at to Date object
+				const data: Post[] = res.posts
+					.map((post: Post) => ({ ...post, publish_at: new Date(post.publish_at) }))
+
 				update(store => ({
 					...store,
-					data,
-					paging: res.paging,
+					data: [...store.data, ...data],
+					hasNext: hasNext(),
 				}))
 			})
 			.catch(e => console.log(e))
@@ -45,9 +64,25 @@ function createPosts() {
 			})
 	}
 
+	const loadFirstPage = () => {
+		if (loading || loadedFirstPage) return;
+		loadPosts(1, ITEMS_PER_PAGE, false);
+		loadedFirstPage = true;
+	}
+
+	const loadNextPage = () => {
+		if (loading) return;
+		if (!paging) {
+			loadPosts(1, ITEMS_PER_PAGE, true);
+		} else if(hasNext()) {
+			loadPosts(paging.page+1, ITEMS_PER_PAGE, true);
+		}
+	}
+
 	return {
 		subscribe,
-		load,
+		loadFirstPage,
+		loadNextPage,
 	}
 }
 

@@ -5,7 +5,7 @@ interface Post {
 	status: PostStatus,
 	networks?: PostNetworks,
 	results?: PostResults,
-	publish_at: Date,
+	publish_at: Date | string,
 }
 
 type PostStatus = 'success' | 'fail' | string;

@@ -59,7 +59,7 @@
 
 		&:hover {
 			box-shadow: 0px 0px 10px 0px #ddd;
-			@include cssvar(menu-icon-show, 1, 'pp-post-list-item');
+			@include cssvar(menu-icon-show, 1, pp-post-list-item);
 		}
 
 		@media screen and (max-width: 768px) {
