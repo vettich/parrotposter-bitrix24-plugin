@@ -8,6 +8,12 @@ interface Post {
 	publish_at: Date | string,
 }
 
+interface PostCreate {
+	fields: PostFields,
+	networks: PostNetworks,
+	publish_at: Date,
+}
+
 type PostStatus = 'success' | 'fail' | string;
 
 type PostFrom = 'bitrix' | 'front' | 'wordpress' | 'bitrix24';
@@ -50,4 +56,5 @@ export type {
 	PostNetworks,
 	PostResults,
 	PostResult,
+	PostCreate,
 }

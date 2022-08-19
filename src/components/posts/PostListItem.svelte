@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div class="item" on:click={() => openView = true}>
+<div class="item mdc-elevation--z4" on:click={() => openView = true}>
 	<div class="item-top">
 		<div class="header">
 			<div
@@ -52,13 +52,12 @@
 		justify-content: space-between;
 		width: 300px;
 		padding: 1em;
-		border: 1px solid #ddd;
 		border-radius: 8px;
 		transition: all 0.2s ease;
 		cursor: pointer;
+		background-color: cssvar(surface);
 
 		&:hover {
-			box-shadow: 0px 0px 10px 0px #ddd;
 			@include cssvar(menu-icon-show, 1, pp-post-list-item);
 		}
 

@@ -12,6 +12,7 @@
 	import Login from './pages/Login.page.svelte';
 	import Posts from './pages/Posts.page.svelte';
 	import Accounts from './pages/Accounts.page.svelte';
+	import PostCreate from './pages/PostCreate.page.svelte';
 
 	let loading = true;
 
@@ -38,6 +39,7 @@
 		<Router>
 			<Route path="/login"><Login/></Route>
 			<Route path="/posts"><Posts/></Route>
+			<Route path="/posts/new"><PostCreate/></Route>
 			<Route path="/accounts"><Accounts/></Route>
 			<Route path="/"><Home/></Route>
 		</Router>

@@ -8,20 +8,27 @@
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
   $primary: $primary,
-  $on-primary: #fff,
+  $on-primary: $on-primary,
   $secondary: $secondary,
   $surface: $surface,
   $on-surface: $on-surface,
-  $background: #fff,
+  $background: $background,
   $error: #ff52a1,
 );
 
+@use '@material/elevation/mdc-elevation';
+@use '@material/elevation/index' as elevation;
 @use '@smui/paper/mixins' as paper;
 
 html,
 body {
-  background-color: theme.$surface;
-  color: theme.$on-surface;
+  background-color: $background;
+  color: $on-background;
+
+  @media screen and (max-width: 768px) {
+	  background-color: $surface;
+	  color: $on-surface;
+  }
 }
 
 a {
@@ -40,7 +47,9 @@ a:visited {
 @include helpers.cssvars((
 	primary: $primary,
 	on-primary: $on-primary,
-	sucface: $surface,
+	background: $background,
+	on-background: $on-background,
+	surface: $surface,
 	on-surface: $on-surface,
 	secondary: $secondary,
 	success: $success,

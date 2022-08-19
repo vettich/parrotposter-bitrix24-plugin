@@ -10,7 +10,7 @@
 	let openDrawer = false;
 </script>
 
-<div class="top-bar">
+<div class="top-bar mdc-elevation--z4">
 	<a href="/" class="top-bar__logo" use:link><Logo /></a>
 	<div class="top-bar__menu">
 		<TopMenu />
@@ -27,6 +27,8 @@
 <DrawerMenu bind:openDrawer />
 
 <style lang="scss">
+	@use './src/theme/helpers' as *;
+
 	.top-bar {
 		display: flex;
 		gap: 1em;
@@ -34,8 +36,8 @@
 		justify-content: center;
 		align-items: center;
 		margin-bottom: 1em;
-		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 		border-radius: 4px;
+		background-color: cssvar(surface);
 
 		@media screen and (max-width: 768px) {
 			justify-content: space-between;

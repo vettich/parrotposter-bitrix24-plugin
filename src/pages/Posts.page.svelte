@@ -10,6 +10,7 @@
 	import { Layout, PostList } from '@src/components';
 	import Button from '@smui/button';
 	import Fab, { Icon } from '@smui/fab';
+	import { navigate } from 'svelte-routing';
 
 	onMount(() => {
 		posts.loadFirstPage();
@@ -42,7 +43,7 @@
 	{/if}
 
 	<svelte:fragment slot="actions">
-		<Fab color="primary" title="Создать пост">
+		<Fab color="primary" title="Создать пост" on:click={() => navigate('/posts/new')}>
 			<Icon class="material-icons-outlined">add</Icon>
 		</Fab>
 	</svelte:fragment>

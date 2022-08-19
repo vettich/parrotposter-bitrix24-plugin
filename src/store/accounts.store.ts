@@ -15,6 +15,10 @@ class AccountMap {
 	getById(id: string): Account {
 		return this.data[id]
 	}
+
+	getList(): Account[] {
+		return Object.values(this.data);
+	}
 }
 
 interface AccountsWrapper {
