@@ -27,17 +27,17 @@ function setAuthToken(token: string) {
 	emitSetAuthToken();
 }
 
-const authTokenSubscriptions: { (setted: boolean): void; }[] = [];
-function onSetAuthToken(fn: { (setted: boolean): void; }) {
+const authTokenSubscriptions: { (setted: boolean, token?: string): void; }[] = [];
+function onSetAuthToken(fn: { (setted: boolean, token?: string): void; }) {
 	authTokenSubscriptions.push(fn)
 
 	if (authToken.length > 0) {
-		fn(true)
+		fn(true, authToken)
 	}
 }
 
 function emitSetAuthToken() {
-	authTokenSubscriptions.every(fn => fn(authToken.length > 0))
+	authTokenSubscriptions.every(fn => fn(authToken.length > 0), authToken)
 }
 
 async function get(endpoint: string, data?: Object, params?: Params): Promise<any> {

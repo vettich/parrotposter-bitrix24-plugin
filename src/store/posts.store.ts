@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
-import { get, post } from '@src/api';
+import { get, onSetAuthToken, post } from '@src/api';
+import { Subscription } from '@src/api/subscription';
 
 import type { Post } from '@src/types';
 
@@ -24,6 +25,39 @@ function createPosts() {
 	let loading = false;
 	let paging: Paging = null;
 	let loadedFirstPage = false;
+
+	let subscription: Subscription = null;
+
+	onSetAuthToken((setted: boolean, token: string) => {
+		if (!setted) return;
+
+		subscription = new Subscription(token, 'posts');
+		subscription.start();
+
+		subscription.onadd = (post: Post) => {
+			update(store => ({
+				...store,
+				data: [post, ...store.data],
+			}))
+		}
+
+		subscription.onupdate = (post: Post) => {
+			update(store => {
+				const idx = store.data.findIndex(p => post.id === p.id);
+				if (idx < 0) return;
+
+				store.data[idx] = post;
+				return store;
+			})
+		}
+
+		subscription.onremove = (id: string) => {
+			update(store => ({
+				...store,
+				data: store.data.filter(p => p.id !== id),
+			}))
+		}
+	})
 
 	const setLoading = (_loading: boolean) => {
 		loading = _loading;

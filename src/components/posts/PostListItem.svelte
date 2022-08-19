@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Icon } from '@smui/common';
 
-	import type { Post } from '@src/types';
+	import type { Post, PostStatus } from '@src/types';
 	import { formatToTime } from '@src/tools';
 
 	import Images from './PostListItemImages.svelte';
@@ -13,9 +13,11 @@
 
 	let openView = false;
 
-	const statusIcons = {
+	const statusIcons: { [key in PostStatus]: string } = {
 		success: 'done',
 		fail: 'error',
+		queue: 'schedule_send',
+		ready: 'pending',
 	}
 </script>
 
@@ -92,8 +94,9 @@
 			}
 
 			&.success { color: cssvar('success') }
-			&.warning { color: cssvar('warning') }
+			&.ready { color: cssvar('warning') }
 			&.fail { color: cssvar('error') }
+			&.queue { color: cssvar('primary') }
 		}
 	}
 

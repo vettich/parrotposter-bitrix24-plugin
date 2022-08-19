@@ -14,7 +14,7 @@ interface PostCreate {
 	publish_at: Date,
 }
 
-type PostStatus = 'success' | 'fail' | string;
+type PostStatus = 'success' | 'fail' | 'ready' | 'queue';
 
 type PostFrom = 'bitrix' | 'front' | 'wordpress' | 'bitrix24';
 
