@@ -1,4 +1,5 @@
 const apiURI = 'https://parrotposter.com/api/v1/';
+// const apiURI = 'http://localhost:8000/';
 
 interface Params {
 	method?: string,
@@ -37,7 +38,7 @@ function onSetAuthToken(fn: { (setted: boolean, token?: string): void; }) {
 }
 
 function emitSetAuthToken() {
-	authTokenSubscriptions.every(fn => fn(authToken.length > 0), authToken)
+	authTokenSubscriptions.every(fn => fn(authToken.length > 0, authToken))
 }
 
 async function get(endpoint: string, data?: Object, params?: Params): Promise<any> {
@@ -48,7 +49,12 @@ async function get(endpoint: string, data?: Object, params?: Params): Promise<an
 async function post(endpoint: string, data: Object, params?: Params): Promise<any> {
 	params = initParams(params);
 	params.method = 'POST';
+	return await call(endpoint, data, params);
+}
 
+async function deletee(endpoint: string, data?: Object, params?: Params): Promise<any> {
+	params = initParams(params);
+	params.method = 'DELETE';
 	return await call(endpoint, data, params);
 }
 
@@ -89,6 +95,7 @@ async function call(endpoint: string, data: Object, params?: Params): Promise<an
 export {
 	get,
 	post,
+	deletee,
 	setAuthToken,
 	onSetAuthToken,
 }

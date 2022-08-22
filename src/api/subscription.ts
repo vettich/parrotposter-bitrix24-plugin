@@ -1,3 +1,4 @@
+// const wsURI = 'ws://localhost:8000/subscriptions';
 const wsURI = 'wss://parrotposter.com/api/v1/subscriptions';
 
 interface MessageStart {
@@ -10,16 +11,12 @@ interface MessageStop {
 	type: 'stop',
 }
 
-interface MessagePing {
-	type: 'ping',
-}
-
 interface MessageReply {
 	type: 'add' | 'change' | 'remove',
 	data: any,
 }
 
-type Message = MessageStart | MessageStop | MessagePing;
+type Message = MessageStart | MessageStop;
 
 class Subscription {
 	onadd: (data: any) => void;
@@ -30,7 +27,6 @@ class Subscription {
 	private token: string;
 	private ws: WebSocket = null;
 	private reconnectId: NodeJS.Timeout;
-	private pingSendingId: NodeJS.Timer;
 	private manuallyStoped = false;
 
 	constructor(token: string, target: string) {
@@ -56,9 +52,9 @@ class Subscription {
 		this.ws = new WebSocket(wsURI);
 
 		this.ws.onopen = () => this.wsOnOpen();
-		this.ws.onclose = () => this.wsOnClose();
+		this.ws.onclose = (e) => this.wsOnClose(e);
 		this.ws.onmessage = (evt) => this.wsOnMessage(evt);
-		this.ws.onerror = () => this.wsOnError();
+		this.ws.onerror = (e) => this.wsOnError(e);
 	}
 
 	private reconnect() {
@@ -76,13 +72,16 @@ class Subscription {
 	}
 
 	private sendMessage(data: Message) {
+		console.log('sendMessage', 'available', this.available())
 		if (!this.available()) return;
 
 		const json = JSON.stringify(data);
+		console.log('sendMessage', 'data', json)
 		this.ws.send(json);
 	}
 
 	private wsOnOpen() {
+		console.log('wsOnOpen', 'token:', !!this.token, 'available:', this.available())
 		if (!this.token || !this.available()) return;
 
 		// init subscription
@@ -91,21 +90,18 @@ class Subscription {
 			token: this.token,
 			target: this.target,
 		});
-
-		// ping sending every 5s
-		clearInterval(this.pingSendingId)
-		this.pingSendingId = setInterval(() => {
-			this.sendMessage({ type: 'ping' })
-		}, 5000);
 	}
 
-	private wsOnClose() {
+	private wsOnClose(evt: CloseEvent) {
+		console.log('closed ws', evt);
 		this.reconnect();
 	}
 
 	private wsOnMessage(evt: MessageEvent) {
+		console.log(evt.data);
+
 		const res: MessageReply = JSON.parse(evt.data);
-		
+
 		if (res.type === 'add') {
 			if (this.onadd) this.onadd(res.data);
 		} else if (res.type === 'change') {
@@ -115,7 +111,8 @@ class Subscription {
 		}
 	}
 
-	private wsOnError() {
+	private wsOnError(evt: Event) {
+		console.log('error ws', evt);
 		this.reconnect();
 	}
 }

@@ -3,7 +3,7 @@ import type { StorageAdapter } from './types';
 
 const CookieAdapter: StorageAdapter = {
 	canUse(): boolean {
-		return !!document.cookie;
+		return document.cookie !== null && document.cookie !== undefined;
 	},
 
 	get(name: string): Promise<string> {

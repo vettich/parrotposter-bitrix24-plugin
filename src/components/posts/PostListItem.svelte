@@ -3,15 +3,31 @@
 
 	import type { Post, PostStatus } from '@src/types';
 	import { formatToTime } from '@src/tools';
+	import { deletee } from '@src/api';
 
+	import Dialog, { Title, Content, Actions } from '@smui/dialog';
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
 	import Menu from './PostListItemMenu.svelte';
 	import QuickView from './PostQuickView.svelte';
+	import Button from '@smui/button';
+import CircularProgress from '@smui/circular-progress';
 
 	export let post: Post;
 
 	let openView = false;
+	let openRemoveAgree = false;
+	let deleting = false;
+
+	$: !openRemoveAgree && deleting && (openRemoveAgree = true);
+
+	const deletePost = () => {
+		deleting = true;
+		deletee(`posts/${post.id}`).finally(() => {
+			deleting = false;
+			openRemoveAgree = false;
+		});
+	}
 
 	const statusIcons: { [key in PostStatus]: string } = {
 		success: 'done',
@@ -29,7 +45,7 @@
 				<Icon class="material-icons-outlined">{statusIcons[post.status]}</Icon>
 			</div>
 			<div class="time" title={post.publish_at.toLocaleString()}>{formatToTime(post.publish_at)}</div>
-			<Menu />
+			<Menu on:delete={() => openRemoveAgree = true} />
 		</div>
 
 		<div class="text" title={post.fields?.text}>{post.fields?.text}</div>
@@ -37,12 +53,25 @@
 
 	<div class="item-bottom">
 		<Images images={post.fields.images_sizes} />
-
 		<Accounts accountIds={post.networks.accounts} results={post.results} />
 	</div>
 </div>
 
 <QuickView bind:open={openView} postId={post.id} />
+
+<Dialog bind:open={openRemoveAgree}>
+	<Title>Удалить пост?</Title>
+	{#if deleting}
+		<Content>
+			<CircularProgress style="height: 24px; width: 24px;" indeterminate />
+		</Content>
+	{:else}
+		<Actions>
+			<Button>Нет</Button>
+			<Button on:click={deletePost}>Да</Button>
+		</Actions>
+	{/if}
+</Dialog>
 
 <style lang="scss">
 	@use './src/theme/helpers' as *; 
@@ -54,7 +83,7 @@
 		justify-content: space-between;
 		width: 300px;
 		padding: 1em;
-		border-radius: 8px;
+		border-radius: 4px;
 		transition: all 0.2s ease;
 		cursor: pointer;
 		background-color: cssvar(surface);

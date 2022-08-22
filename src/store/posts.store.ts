@@ -86,9 +86,13 @@ function createPosts() {
 				const data: Post[] = res.posts
 					.map((post: Post) => ({ ...post, publish_at: new Date(post.publish_at) }))
 
+				const removeDuplicates = (arr: Post[]): Post[] => {
+					return [...new Map(arr.map(p => [p.id, p])).values()];
+				}
+
 				update(store => ({
 					...store,
-					data: [...store.data, ...data],
+					data: !push_back ? data : removeDuplicates([...store.data, ...data]),
 					hasNext: hasNext(),
 				}))
 			})

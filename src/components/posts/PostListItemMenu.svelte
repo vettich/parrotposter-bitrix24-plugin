@@ -1,8 +1,12 @@
 <script lang="ts">
 	import Menu from '@smui/menu';
+	import type { MenuComponentDev } from '@smui/menu';
+	import { createEventDispatcher } from 'svelte';
+
 	import List, { Item, Text, Graphic } from '@smui/list';
 	import IconButton from '@smui/icon-button';
-	import type { MenuComponentDev } from '@smui/menu';
+
+	const dispatch = createEventDispatcher();
 
 	let menu: MenuComponentDev;
 </script>
@@ -15,11 +19,11 @@
 
 	<Menu bind:this={menu}>
 		<List dense>
-			<Item>
+			<Item on:click={() => dispatch('edit')}>
 				<Graphic class="material-icons-outlined">edit</Graphic>
 				<Text>Редактировать</Text>
 			</Item>
-			<Item>
+			<Item on:click={() => dispatch('delete')}>
 				<Graphic class="material-icons-outlined menu--red">delete</Graphic>
 				<Text class="menu--red">Удалить</Text>
 			</Item>
