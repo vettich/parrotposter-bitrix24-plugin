@@ -1,7 +1,8 @@
 <script lang="ts">
-	import DateTimePicker from "./DateTimePicker.svelte";
 	import SegmentedButton, { Label, Segment } from '@smui/segmented-button';
 	import Textfield from "@smui/textfield";
+	import DateTimePicker from "./DateTimePicker.svelte";
+	import DateTimeDelay from "./DateTimeDelay.svelte";
 
 	export let customDate = new Date();
 	export let delayMinutes = 5;
@@ -34,13 +35,7 @@
 </div>
 
 {#if selected.key === 'delay'}
-	<Textfield
-		bind:value={delayMinutes}
-		style="width: 100%"
-		label={`Через ${delayMinutes} минут`}
-		type="number"
-		variant="outlined"
-		/>
+	<DateTimeDelay bind:value={delayMinutes} />
 {/if}
 
 {#if selected.key === 'custom'}

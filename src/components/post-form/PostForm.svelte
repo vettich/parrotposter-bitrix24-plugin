@@ -29,6 +29,7 @@
 		if (dateVariant === 'delay') {
 			const d = new Date();
 			d.setMinutes(d.getMinutes() + delayMinutes);
+			d.setSeconds(0, 0);
 			return d;
 		}
 

@@ -6,7 +6,6 @@
 	export let accountIds: string[] = [];
 
 	function isSelected(account: Account, ids: string[]): boolean {
-		console.log(!!ids.find(id => account.id === id))
 		return !!ids.find(id => account.id === id)
 	}
 
@@ -49,6 +48,12 @@
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			gap: 1em;
+
+			@media screen and (max-width: 380px) {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5em;
+			}
 		}
 
 		&__item {

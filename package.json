@@ -18,6 +18,7 @@
     "@smui/layout-grid": "^6.0.0",
     "@smui/paper": "^6.0.0",
     "@smui/segmented-button": "^6.0.0",
+    "@smui/select": "^6.1.0",
     "@smui/textfield": "^6.0.0",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@tsconfig/svelte": "^3.0.0",
