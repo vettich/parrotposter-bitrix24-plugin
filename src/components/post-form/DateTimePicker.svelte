@@ -20,6 +20,7 @@
 			if (hh < 24 && mm < 60) {
 				date.setHours(hh);
 				date.setMinutes(mm);
+				date.setSeconds(0, 0);
 				date = date;
 			}
 		}

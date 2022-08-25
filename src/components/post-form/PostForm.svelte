@@ -79,7 +79,7 @@
 
 		<div class="post-form__separator" />
 
-		<DateTimeForm variant={dateVariant} {delayMinutes} {customDate} />
+		<DateTimeForm bind:variant={dateVariant} bind:delayMinutes={delayMinutes} bind:customDate={customDate} />
 		
 		<div class="post-form__separator" />
 
@@ -89,13 +89,13 @@
 
 		<div class="post-form__actions">
 			{#if mode === 'create'}
-			<Button variant="raised" on:click={onCreate}>
-				{#if saving}
-					<CircularProgress style="height: 24px; width: 24px;" indeterminate />
-				{:else}
-					Создать
-				{/if}
-			</Button>
+				<Button class="post-form__btn--min" variant="raised" disabled={saving} on:click={onCreate}>
+					{#if saving}
+						<CircularProgress style="height: 24px; width: 24px;" indeterminate />
+					{:else}
+						Создать
+					{/if}
+				</Button>
 			{/if}
 
 			<Button on:click={() => dispatch('cancel')}>Отмена</Button>
@@ -140,6 +140,10 @@
 			background-color: cssvar(surface);
 			margin: -1em;
 			padding: 1em;
+		}
+
+		:global(.post-form__btn--min) {
+			min-width: 130px;
 		}
 	}
 </style>
