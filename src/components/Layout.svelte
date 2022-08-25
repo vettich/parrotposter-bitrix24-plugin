@@ -48,7 +48,7 @@
 
 		&__to-top-btn {
 			position: relative;
-			top: 4em;
+			top: 5em;
 			transition: all 0.2s ease;
 
 			&--show {
