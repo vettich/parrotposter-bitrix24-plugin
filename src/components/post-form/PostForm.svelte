@@ -6,6 +6,7 @@
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
 	import CircularProgress from '@smui/circular-progress';
+	import Paper, { Content } from '@smui/paper';
 	import DateTimeForm from './DateTimeForm.svelte';
 	import AccountsChoose from './AccountsChoose.svelte';
 
@@ -36,12 +37,21 @@
 		return customDate;
 	}
 
+	$: emptyLink = link.trim().length == 0
+	$: validLink = link.trim().match(/http[s]?:\/\/.{3,}/);
+	$: validData = text.trim().length || tags.trim().length || (!emptyLink && validLink);
+	$: valid = validData && accountIds.length;
+	$: errors = [
+		validData ? null : 'Заполните поле текст, теги или ссылка',
+		accountIds.length ? null : 'Укажите куда публиковать пост',
+	].filter(v => !!v);
+
 	function onCreate() {
 		const postCreate: PostCreate = {
 			fields: {
-				text,
-				tags,
-				link,
+				text: text.trim(),
+				tags: tags.trim(),
+				link: link.trim(),
 			},
 			networks: {
 				accounts: accountIds,
@@ -68,6 +78,7 @@
 			variant="outlined">
 		</Textfield>
 		<Textfield
+			invalid={!emptyLink && !validLink}
 			bind:value={link}
 			label="Ссылка"
 			style="width: 100%"
@@ -88,18 +99,30 @@
 
 		<div class="post-form__separator" />
 
-		<div class="post-form__actions">
-			{#if mode === 'create'}
-				<Button class="post-form__btn--min" variant="raised" disabled={saving} on:click={onCreate}>
-					{#if saving}
-						<CircularProgress style="height: 24px; width: 24px;" indeterminate />
-					{:else}
-						Создать
-					{/if}
-				</Button>
-			{/if}
+		{#if errors.length}
+			<Paper color="error">
+				<Content>
+					{#each errors as err, idx}
+						<div>{idx + 1}. {err}</div>
+					{/each}
+				</Content>
+			</Paper>
+		{/if}
 
-			<Button on:click={() => dispatch('cancel')}>Отмена</Button>
+		<div class="post-form__footer">
+			<div class="post-form__actions">
+				{#if mode === 'create'}
+					<Button class="post-form__btn--min" variant="raised" disabled={saving || !valid} on:click={onCreate}>
+						{#if saving}
+							<CircularProgress style="height: 24px; width: 24px;" indeterminate />
+						{:else}
+							Создать
+						{/if}
+					</Button>
+				{/if}
+
+				<Button on:click={() => dispatch('cancel')}>Отмена</Button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -123,6 +146,7 @@
 			max-width: 100%;
 			background-color: cssvar(surface);
 			padding: 1em;
+			border-radius: 4px;
 
 			@media screen and (max-width: 768px) {
 				width: 100%;
@@ -133,14 +157,21 @@
 			}
 		}
 
-		&__actions {
+		&__footer {
 			position: sticky;
 			bottom: 0;
 			display: flex;
+			flex-direction: column;
 			gap: 1em;
-			background-color: cssvar(surface);
 			margin: -1em;
 			padding: 1em;
+			background-color: cssvar(surface);
+			z-index: 100;
+		}
+
+		&__actions {
+			display: flex;
+			gap: 1em;
 		}
 
 		:global(.post-form__btn--min) {

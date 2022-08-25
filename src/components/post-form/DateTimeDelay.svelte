@@ -22,7 +22,7 @@
 		variant="outlined"
 		bind:value={selectedMinutes}
 		key={v => `${v}`}
-		label="Через N минут"
+		label="Кол-во минут"
 		style="width: 100%">
 		{#each options as v}
 			<Option value={v}>{v}</Option>
