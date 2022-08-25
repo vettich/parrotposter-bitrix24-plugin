@@ -6,6 +6,8 @@
 	import List, { Item, Text, Graphic } from '@smui/list';
 	import IconButton from '@smui/icon-button';
 
+	export let hideEdit = false;
+
 	const dispatch = createEventDispatcher();
 
 	let menu: MenuComponentDev;
@@ -19,10 +21,12 @@
 
 	<Menu bind:this={menu}>
 		<List dense>
-			<Item on:click={() => dispatch('edit')}>
-				<Graphic class="material-icons-outlined">edit</Graphic>
-				<Text>Редактировать</Text>
-			</Item>
+			{#if !hideEdit}
+				<Item on:click={() => dispatch('edit')}>
+					<Graphic class="material-icons-outlined">edit</Graphic>
+					<Text>Редактировать</Text>
+				</Item>
+			{/if}
 			<Item on:click={() => dispatch('delete')}>
 				<Graphic class="material-icons-outlined menu--red">delete</Graphic>
 				<Text class="menu--red">Удалить</Text>

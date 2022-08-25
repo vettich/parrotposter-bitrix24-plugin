@@ -1,23 +1,26 @@
 <script lang="ts">
-	import { Icon } from '@smui/common';
-
 	import type { Post, PostStatus } from '@src/types';
 	import { formatToTime } from '@src/tools';
 	import { deletee } from '@src/api';
 
+	import { Icon } from '@smui/common';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
+	import Button from '@smui/button';
+	import CircularProgress from '@smui/circular-progress';
 	import Images from './PostListItemImages.svelte';
 	import Accounts from './PostListItemAccounts.svelte';
 	import Menu from './PostListItemMenu.svelte';
 	import QuickView from './PostQuickView.svelte';
-	import Button from '@smui/button';
-import CircularProgress from '@smui/circular-progress';
 
 	export let post: Post;
 
 	let openView = false;
 	let openRemoveAgree = false;
 	let deleting = false;
+
+	let yesterday = new Date();
+	yesterday.setDate(yesterday.getDate() - 1);
+	$: hideEditFromMenu = post.publish_at < yesterday;
 
 	$: !openRemoveAgree && deleting && (openRemoveAgree = true);
 
@@ -45,7 +48,7 @@ import CircularProgress from '@smui/circular-progress';
 				<Icon class="material-icons-outlined">{statusIcons[post.status]}</Icon>
 			</div>
 			<div class="time" title={post.publish_at.toLocaleString()}>{formatToTime(post.publish_at)}</div>
-			<Menu on:delete={() => openRemoveAgree = true} />
+			<Menu on:delete={() => openRemoveAgree = true} hideEdit={hideEditFromMenu} />
 		</div>
 
 		<div class="text" title={post.fields?.text}>{post.fields?.text}</div>
