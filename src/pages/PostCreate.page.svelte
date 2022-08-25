@@ -7,7 +7,7 @@
 	import type { PostCreate } from '@src/types';
 	import { post } from '@src/api';
 
-	import { Layout } from '@src/components';
+	import { Layout, BackButton } from '@src/components';
 	import { PostForm } from '@src/components/post-form';
 
 	let saving = false;
@@ -28,7 +28,12 @@
 </script>
 
 <Layout>
+	<BackButton on:click={goBack} />
 	<h1>Создание поста</h1>
 
 	<PostForm on:cancel={goBack} on:create={create} {saving} />
 </Layout>
+
+<style lang="scss">
+	@use './src/theme/helpers' as *;
+</style>
