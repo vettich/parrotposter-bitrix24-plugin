@@ -17,16 +17,32 @@
 		return d.toLocaleDateString();
 	}
 
-	$: group = posts.reduce((group: Group, post) => {
+	$: groups = Object.entries(posts.reduce((group: Group, post) => {
 		const { publish_at } = post;
 		const key = dateToStr(new Date(publish_at));
 		group[key] = group[key] ?? [];
 		group[key].push(post);
 		return group;
-	}, {})
+	}, {}))
+
+	// smooth progression
+	let firstRenderFinished = false;
+	let groupCurrentRender = 0;
+	let intervalId = setInterval(() => {
+		const len = Object.keys(groups).length;
+		if (groupCurrentRender >= len) {
+			clearInterval(intervalId);
+			firstRenderFinished = true;
+			return;
+		}
+
+		groupCurrentRender += Math.max(1, Math.round(groupCurrentRender / 2));
+	}, 10);
+
+	$: groupsWithSmooth = firstRenderFinished ? groups : groups.slice(0, groupCurrentRender);
 </script>
 
-{#each Object.entries(group) as [date, posts] (date)}
+{#each groupsWithSmooth as [date, posts] (date)}
 	<h2 class="posts__title">
 		<div class="posts__title-icon">
 			<Icon class="material-icons-outlined">calendar_today</Icon>
