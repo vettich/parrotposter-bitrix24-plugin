@@ -14,8 +14,8 @@
 </script>
 
 
-<div class="menu" on:click|stopPropagation={() => {}}>
-	<div class="menu__icon">
+<div class="post-list-item-menu" on:click|stopPropagation={() => {}}>
+	<div class="post-list-item-menu__icon">
 		<IconButton class="material-icons-outlined" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
 	</div>
 
@@ -28,8 +28,8 @@
 				</Item>
 			{/if}
 			<Item on:click={() => dispatch('delete')}>
-				<Graphic class="material-icons-outlined menu--red">delete</Graphic>
-				<Text class="menu--red">Удалить</Text>
+				<Graphic class="material-icons-outlined post-list-item-menu--red">delete</Graphic>
+				<Text class="post-list-item-menu--red">Удалить</Text>
 			</Item>
 		</List>
 	</Menu>
@@ -40,7 +40,7 @@
 
 	@include cssvars((menu-icon-show: 0), 'pp-post-list-item');
 
-	.menu {
+	.post-list-item-menu {
 		:global(button) {
 			margin: 0;
 			width: 28px;
@@ -58,7 +58,7 @@
 		}
 	}
 
-	* :global(.menu--red) {
+	* :global(.post-list-item-menu--red) {
 		color: cssvar(error);
 	}
 </style>

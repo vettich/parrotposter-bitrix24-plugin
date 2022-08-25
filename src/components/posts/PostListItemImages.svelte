@@ -21,7 +21,7 @@
 	}
 </script>
 
-<div class="images images--size-{size}">
+<div class="post-list-item-images post-list-item-images--size-{size}">
 	{#each (images || []) as image, idx (idx)}
 		<img src={image.thumbnail} alt="" on:click|stopPropagation={() => selectImage(image)}>
 	{/each}
@@ -31,12 +31,12 @@
 	surface$style="width: 650px; max-width: calc(100vw - 42px);"
 	on:click={stopPropagation}>
 	<DialogContent>
-		<img class="image-in-dialog" src={selectedImageOrigin} alt="">
+		<img class="post-list-item-images__origin" src={selectedImageOrigin} alt="">
 	</DialogContent>
 </Dialog>
 
 <style lang="scss">
-	.images {
+	.post-list-item-images {
 		display: flex;
 		gap: 4px;
 		width: 100%;
@@ -61,12 +61,12 @@
 		img {
 			border-radius: 4px;
 		}
-	}
 
-	.image-in-dialog {
-		display: block;
-		margin: 0 auto;
-		max-height: 80vh;
-		max-width: 100%;
+		&__origin {
+			display: block;
+			margin: 0 auto;
+			max-height: 80vh;
+			max-width: 100%;
+		}
 	}
 </style>

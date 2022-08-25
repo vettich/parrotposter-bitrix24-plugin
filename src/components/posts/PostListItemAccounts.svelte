@@ -11,14 +11,14 @@
 	$: items = mergeAccountsResults($accounts.data, accountIds, results);
 </script>
 
-<div class="list">
+<div class="post-list-item-accounts">
 	{#each items as item (item.id)}
 		<AccountPhoto id={item.id} account={item.account} success={item.result?.success} />
 	{/each}
 </div>
 
 <style lang="scss">
-	.list {
+	.post-list-item-accounts {
 		display: flex;
 		gap: 12px;
 		flex-wrap: wrap;

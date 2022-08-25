@@ -16,27 +16,27 @@
 		return result.error_formatted || result.error_msg || 'Ошибка публикации';
 	}
 
-	const formatResultStatus = (result: PostResult): 'no' | 'success' | 'fail' => {
+	const formatStatus = (result: PostResult): 'no' | 'success' | 'fail' => {
 		if (!result) return 'no';
 		return result.success ? 'success' : 'fail';
 	}
 </script>
 
-<div class="results">
+<div class="post-quick-view-results">
 	{#each Object.values(items) as item}
-		<div class="results__item">
-			<div class="results__photo">
+		<div class="post-quick-view-results__item">
+			<div class="post-quick-view-results__photo">
 				<AccountPhoto id={item.id} account={item.account} />
 			</div>
-			<div class="results__detail">
-				<div class="results__account-name">
+			<div class="post-quick-view-results__detail">
+				<div class="post-quick-view-results__account-name">
 					{#if item.account}
 						{item.account.name}
 					{:else}
 						Аккаунт был удален
 					{/if}
 				</div>
-				<div class="results__status results__status--{formatResultStatus(item.result)}">
+				<div class="post-quick-view-results__status post-quick-view-results__status--{formatStatus(item.result)}">
 					{#if item.result?.success}
 						<a href={item.result.link} target="_blank" title="Откроется в новой вкладке">
 							Посмотреть пост
@@ -54,7 +54,7 @@
 <style lang="scss">
 	@use './src/theme/helpers' as *; 
 
-	.results {
+	.post-quick-view-results {
 		display: grid;
 		grid-template-columns: 50% 1fr;
 		gap: 10px 4px;
