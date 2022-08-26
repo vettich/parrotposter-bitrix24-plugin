@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { get, onSetAuthToken, post } from '@src/api';
+import api from '@src/api';
 import { Subscription } from '@src/api/subscription';
 
 import type { Post } from '@src/types';
@@ -20,7 +20,7 @@ const ITEMS_PER_PAGE = 25;
 
 function createPosts() {
 	const initial: PostsWrapper = { loading: false, data: [], hasNext: true }
-	const { subscribe, set, update } = writable(initial);
+	const { subscribe, update } = writable(initial);
 
 	let loading = false;
 	let paging: Paging = null;
@@ -28,7 +28,7 @@ function createPosts() {
 
 	let subscription: Subscription = null;
 
-	onSetAuthToken((setted: boolean, token: string) => {
+	api.onSetAuthToken((setted: boolean, token: string) => {
 		if (!setted) return;
 
 		subscription = new Subscription(token, 'posts');
@@ -78,7 +78,7 @@ function createPosts() {
 			},
 		}
 
-		get('posts', query)
+		api.get('posts', query)
 			.then(res => {
 				paging = res.paging;
 

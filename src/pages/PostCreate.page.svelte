@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { navigate } from 'svelte-routing';
 	import type { PostCreate } from '@src/types';
-	import { post } from '@src/api';
+	import api from '@src/api';
 
 	import { Layout, BackButton } from '@src/components';
 	import { PostForm } from '@src/components/post-form';
@@ -19,7 +19,7 @@
 	function create(e: CustomEvent) {
 		const postCreate: PostCreate = e.detail;
 		saving = true;
-		post('posts', postCreate)
+		api.post('posts', postCreate)
 			.finally(() => {
 				saving = false
 				goBack();

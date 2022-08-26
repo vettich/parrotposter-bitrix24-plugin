@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { get, post, setAuthToken } from '@src/api';
+import api from '@src/api';
 import { storage } from '@src/lib/storage';
 
 interface User {
@@ -35,11 +35,11 @@ const createUserError = (err: string):  UserError => {
 
 function createUser() {
 	const initial: User = { loading: true }
-	const { subscribe, set, update } = writable(initial);
+	const { subscribe, set } = writable(initial);
 
 	const loadUser = (token: string) => {
-		setAuthToken(token);
-		get('me')
+		api.setAuthToken(token);
+		api.get('me')
 			.then(data => {
 				set({ loading: false, data })
 			})
@@ -61,7 +61,7 @@ function createUser() {
 			password,
 			from: 'front',
 		}
-		post('tokens', data)
+		api.post('tokens', data)
 			.then(async (res) => {
 				storage.set('ppuser_id', res.user_id);
 				storage.set('pptoken', res.token);

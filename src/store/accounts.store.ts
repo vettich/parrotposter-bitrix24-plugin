@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { get, post, onSetAuthToken } from '@src/api';
+import api from '@src/api';
 import type { Account } from '@src/types';
 
 class AccountMap {
@@ -28,7 +28,7 @@ interface AccountsWrapper {
 
 function createAccounts() {
 	const initial: AccountsWrapper = { loading: true }
-	const { subscribe, set, update } = writable(initial);
+	const { subscribe, update } = writable(initial);
 
 	const setLoading = (loading: boolean) => {
 		update(store => ({...store, loading}))
@@ -36,7 +36,7 @@ function createAccounts() {
 
 	const load = async () => {
 		setLoading(true);
-		get('accounts')
+		api.get('accounts')
 			.then(res => {
 				update(store => ({
 					...store,
@@ -49,7 +49,7 @@ function createAccounts() {
 			})
 	}
 
-	onSetAuthToken(setted => setted ? load() : null)
+	api.onSetAuthToken(setted => setted ? load() : null)
 
 	return {
 		subscribe,

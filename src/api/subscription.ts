@@ -1,5 +1,4 @@
-// const wsURI = 'ws://localhost:8000/subscriptions';
-const wsURI = 'wss://parrotposter.com/api/v1/subscriptions';
+import { WS_URI } from '@src/consts/env';
 
 interface MessageStart {
 	type: 'start',
@@ -49,7 +48,7 @@ class Subscription {
 	private connect() {
 		if (this.ws && this.ws.readyState === 1) return;
 
-		this.ws = new WebSocket(wsURI);
+		this.ws = new WebSocket(WS_URI);
 
 		this.ws.onopen = () => this.wsOnOpen();
 		this.ws.onclose = (e) => this.wsOnClose(e);

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Post } from '@src/types';
 	import { formatToTime } from '@src/tools';
-	import { deletee } from '@src/api';
+	import api from '@src/api';
 
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
 	import Button from '@smui/button';
@@ -26,7 +26,7 @@
 
 	const deletePost = () => {
 		deleting = true;
-		deletee(`posts/${post.id}`).finally(() => {
+		api.delete(`posts/${post.id}`).finally(() => {
 			deleting = false;
 			openRemoveAgree = false;
 		});

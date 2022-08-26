@@ -9,6 +9,7 @@
 	import Paper, { Content } from '@smui/paper';
 	import DateTimeForm from './DateTimeForm.svelte';
 	import AccountsChoose from './AccountsChoose.svelte';
+import ImagesForm from './ImagesForm.svelte';
 
 	export let mode: 'create' | 'update' = 'create';
 	export let saving = false;
@@ -87,7 +88,7 @@
 
 		<div class="post-form__separator" />
 
-		Тут будет загрузка картинок
+		<ImagesForm />
 
 		<div class="post-form__separator" />
 
@@ -126,7 +127,6 @@
 		</div>
 	</div>
 </div>
-
 
 <style lang="scss">
 	@use './src/theme/helpers' as *;

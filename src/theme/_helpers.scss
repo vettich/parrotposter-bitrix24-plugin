@@ -1,3 +1,5 @@
+@use 'sass-hex-rgb' as hexrgb;
+
 /**
  * Use this mixin to declare a set of CSS Custom Properties.
  * The variables in $css_variables will be properly prefixed.
@@ -26,6 +28,14 @@
     :root {
         @each $name, $value in $css_variables {
             --#{$prefix}-#{$name}: #{$value};
+        }
+    }
+}
+@mixin colorvars($css_variables, $prefix: pp) {
+    :root {
+        @each $name, $value in $css_variables {
+            --#{$prefix}-#{$name}: #{$value};
+            --#{$prefix}-#{$name}-rgb: #{hexrgb.toValues($value)};
         }
     }
 }

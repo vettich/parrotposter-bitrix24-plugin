@@ -1,5 +1,4 @@
-const apiURI = 'https://parrotposter.com/api/v1/';
-// const apiURI = 'http://localhost:8000/';
+import { API_URL } from '@src/consts/env';
 
 interface Params {
 	method?: string,
@@ -59,7 +58,7 @@ async function deletee(endpoint: string, data?: Object, params?: Params): Promis
 }
 
 async function call(endpoint: string, data: Object, params?: Params): Promise<any> {
-	let url = `${apiURI}${endpoint}`;
+	let url = `${API_URL}${endpoint}`;
 	const config: RequestInit = {
 		method: params?.method || 'GET',
 		headers: params?.headers || {},
@@ -92,10 +91,11 @@ async function call(endpoint: string, data: Object, params?: Params): Promise<an
 	return body.response;
 }
 
-export {
+export default {
 	get,
 	post,
-	deletee,
+	delete: deletee,
+	authToken,
 	setAuthToken,
 	onSetAuthToken,
 }

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { get } from '@src/api';
+import api from '@src/api';
 import type { Post } from '@src/types';
 
 interface PostWrapper {
@@ -9,7 +9,7 @@ interface PostWrapper {
 
 function createPost() {
 	const initial: PostWrapper = { loading: true }
-	const { subscribe, set, update } = writable(initial);
+	const { subscribe, update } = writable(initial);
 
 	const setLoading = (loading: boolean) => {
 		update(store => ({...store, loading}))
@@ -17,7 +17,7 @@ function createPost() {
 
 	const fetchById = async (id: string) => {
 		setLoading(true);
-		get(`posts/${id}`)
+		api.get(`posts/${id}`)
 			.then(res => {
 				const data = {
 					...res,

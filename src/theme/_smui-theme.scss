@@ -44,7 +44,7 @@ a:visited {
 	theme.$on-primary,
 );
 
-@include helpers.cssvars((
+@include helpers.colorvars((
 	primary: $primary,
 	on-primary: $on-primary,
 	background: $background,
