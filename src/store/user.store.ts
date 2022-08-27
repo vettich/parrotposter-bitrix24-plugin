@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import api from '@src/api';
+import { api } from '@src/api';
 import { storage } from '@src/lib/storage';
 
 interface User {
@@ -38,7 +38,7 @@ function createUser() {
 	const { subscribe, set } = writable(initial);
 
 	const loadUser = (token: string) => {
-		api.setAuthToken(token);
+		api.authToken.set(token);
 		api.get('me')
 			.then(data => {
 				set({ loading: false, data })

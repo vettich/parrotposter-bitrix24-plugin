@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { navigate } from 'svelte-routing';
 	import type { PostCreate } from '@src/types';
-	import api from '@src/api';
+	import { api } from '@src/api';
 
 	import { Layout, BackButton } from '@src/components';
 	import { PostForm } from '@src/components/post-form';

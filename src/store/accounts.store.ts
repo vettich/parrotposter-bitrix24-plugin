@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import api from '@src/api';
+import { api } from '@src/api';
 import type { Account } from '@src/types';
 
 class AccountMap {
@@ -49,7 +49,7 @@ function createAccounts() {
 			})
 	}
 
-	api.onSetAuthToken(setted => setted ? load() : null)
+	api.authToken.onChange(setted => setted ? load() : null)
 
 	return {
 		subscribe,

@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
-import api from '@src/api';
-import { Subscription } from '@src/api/subscription';
+import { api, Subscription } from '@src/api';
 
 import type { Post } from '@src/types';
 
@@ -28,7 +27,7 @@ function createPosts() {
 
 	let subscription: Subscription = null;
 
-	api.onSetAuthToken((setted: boolean, token: string) => {
+	api.authToken.onChange((setted: boolean, token: string) => {
 		if (!setted) return;
 
 		subscription = new Subscription(token, 'posts');

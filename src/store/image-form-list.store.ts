@@ -1,5 +1,4 @@
-import api from '@src/api';
-import { uploadFile } from '@src/api/file-upload';
+import { api } from '@src/api';
 import { writable } from 'svelte/store';
 
 interface ImageData {
@@ -51,24 +50,22 @@ function createImagesList() {
 			image.src = e.target.result as string;
 			const { update } = add(image);
 
-			uploadFile(file, {
-				onProgress(progress) {
-					image.progress = progress;
-					update(image);
-				},
+			const onProgress = (progress: number) => {
+				image.progress = progress;
+				update(image);
+			}
 
-				onSuccess(fileId) {
+			api.uploadFile(file, { onProgress })
+				.then(fileId => {
 					image.fileId = fileId;
 					image.uploading = false;
 					update(image);
-				},
-
-				onError(err) {
+				})
+				.catch(err => {
 					image.error = err;
 					image.uploading = false;
 					update(image);
-				},
-			})
+				})
 		}
 		reader.readAsDataURL(file);
 	}
@@ -76,7 +73,7 @@ function createImagesList() {
 	const deleteAll = () => {
 		update(images => {
 			for (const img of images) {
-				if (img.fileId) api.delete(`files/${img.fileId}`);
+				if (img.fileId) api.deleteById('files', img.fileId);
 			}
 			return [];
 		})
