@@ -11,7 +11,6 @@ interface ImageData {
 	error?: string,
 
 	update?: (upd: ImageData) => void,
-	updateProgress?: (progress: number) => void,
 }
 
 function createImagesList() {
@@ -79,15 +78,49 @@ function createImagesList() {
 		})
 	}
 
+	const deleteById = (imageId: string) => {
+		update(images => {
+			const idx = images.findIndex(img => img.id === imageId);
+			if (idx >= 0) {
+				if (images[idx].fileId) api.deleteById('files', images[idx].fileId);
+				images.splice(idx, 1);
+			}
+			return images;
+		});
+	}
+
+	const useDelete = (imageId: string) => {
+		return () => deleteById(imageId)
+	}
+
+	const swap = (fromImageId: string, toImageId: string) => {
+		update(images => {
+			const fromIdx = images.findIndex(img => img.id === fromImageId);
+			const from = images.splice(fromIdx, 1);
+
+			let toIdx = images.findIndex(img => img.id === toImageId);
+			// если элемент перемещается вправо по списку, то вставить нужно после него, а не до
+			if (fromIdx <= toIdx) toIdx++;
+
+			return [...images.splice(0, toIdx), ...from, ...images];
+		})
+	}
+
 	return {
 		subscribe,
 		add,
 		upload,
 		deleteAll,
+		useDelete,
+		deleteById,
+		swap,
 	}
 }
 
+const imagesList = createImagesList();
+
 export {
 	type ImageData,
+	imagesList,
 	createImagesList,
 }

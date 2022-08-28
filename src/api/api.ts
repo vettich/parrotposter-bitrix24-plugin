@@ -125,7 +125,10 @@ class Api {
 		}
 
 		const res = await fetch(url, config);
-		const body: Result = await res.json();
+
+		let body: Result;
+		try { body = await res.json(); }
+		catch (e) { return null; }
 
 		if (body.error) {
 			throw body.error;

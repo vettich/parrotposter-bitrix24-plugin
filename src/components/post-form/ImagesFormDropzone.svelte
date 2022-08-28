@@ -58,7 +58,7 @@
 			border-color: rgba(cssvar(secondary-rgb), 0.7);
 			color: cssvar(secondary);
 			transition: all 0.2s ease;
-			z-index: 10;
+			z-index: 2;
 		}
 
 		&:hover :global(.dropzone) {

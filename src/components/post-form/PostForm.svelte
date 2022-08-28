@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import type { Post, PostFields, PostNetworks, PostCreate } from '@src/types';
 	import { textareaResizer } from '@src/actions/textarea-resizer';
 
@@ -9,7 +9,7 @@
 	import Paper, { Content } from '@smui/paper';
 	import DateTimeForm from './DateTimeForm.svelte';
 	import AccountsChoose from './AccountsChoose.svelte';
-import ImagesForm from './ImagesForm.svelte';
+	import ImagesForm from './ImagesForm.svelte';
 
 	export let mode: 'create' | 'update' = 'create';
 	export let saving = false;
@@ -166,7 +166,7 @@ import ImagesForm from './ImagesForm.svelte';
 			margin: -1em;
 			padding: 1em;
 			background-color: cssvar(surface);
-			z-index: 100;
+			z-index: 10;
 		}
 
 		&__actions {
