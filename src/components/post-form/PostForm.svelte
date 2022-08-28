@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import type { Post, PostFields, PostNetworks, PostCreate } from '@src/types';
+	import type { PostCreate } from '@src/types';
 	import { textareaResizer } from '@src/actions/textarea-resizer';
 
 	import Textfield from '@smui/textfield';
@@ -19,6 +19,7 @@
 	let text = '';
 	let tags = '';
 	let link = '';
+	let imagesIds: string[] = [];
 	let accountIds: string[] = [];
 
 	let dateVariant: 'now' | 'delay' | 'custom' = 'now';
@@ -53,6 +54,7 @@
 				text: text.trim(),
 				tags: tags.trim(),
 				link: link.trim(),
+				images: imagesIds,
 			},
 			networks: {
 				accounts: accountIds,
@@ -88,7 +90,7 @@
 
 		<div class="post-form__separator" />
 
-		<ImagesForm />
+		<ImagesForm bind:imagesIds />
 
 		<div class="post-form__separator" />
 

@@ -22,6 +22,7 @@ interface PostFields {
 	text?: string,
 	link?: string,
 	tags?: string,
+	images?: string[],
 	need_utm?: boolean,
 	images_sizes?: PostImageSize[],
 }
