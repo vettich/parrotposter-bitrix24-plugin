@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PostImageSize } from '@src/types';
-	import Dialog, { Content as DialogContent } from '@smui/dialog';
+	import Dialog, { Content } from '@smui/dialog';
 
 	export let images: PostImageSize[];
 	export let notOpen = false;
@@ -27,13 +27,18 @@
 	{/each}
 </div>
 
-<Dialog bind:open={imageDialogOpen}
-	surface$style="width: 650px; max-width: calc(100vw - 42px);"
-	on:click={stopPropagation}>
-	<DialogContent>
-		<img class="post-list-item-images__origin" src={selectedImageOrigin} alt="">
-	</DialogContent>
-</Dialog>
+{#if imageDialogOpen}
+	<Dialog bind:open={imageDialogOpen}
+		surface$style="width: 650px; max-width: calc(100vw - 42px);"
+		on:click={stopPropagation}>
+		<Content>
+			<!-- Хак, чтобы не возникало ошибки фокусировки в консоле при открытии диалога -->
+			<input style="position: absolute; z-index: -111; opacity: 0;" />
+
+			<img class="post-list-item-images__origin" src={selectedImageOrigin} alt="">
+		</Content>
+	</Dialog>
+{/if}
 
 <style lang="scss">
 	.post-list-item-images {

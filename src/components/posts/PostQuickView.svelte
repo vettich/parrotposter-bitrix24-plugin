@@ -22,7 +22,7 @@
 
 	<Content>
 		<!-- Хак, чтобы не возникало ошибки фокусировки в консоле при открытии диалога -->
-		<div class="post-quick-view__hide"><Button use={[InitialFocus]}></Button></div>
+		<input style="position: absolute; z-index: -111; opacity: 0;" />
 
 		{#if $post.loading}
 			<CircularProgress style="height: 32px; width: 32px" indeterminate />
@@ -80,11 +80,6 @@
 
 		&__label {
 			font-weight: bold;
-		}
-
-		&__hide {
-			height: 0;
-			overflow: hidden;
 		}
 
 		&__close-btn {
