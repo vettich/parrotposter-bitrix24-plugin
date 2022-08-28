@@ -13,8 +13,24 @@ interface ImageData {
 	update?: (upd: ImageData) => void,
 }
 
-function createImagesList() {
-	const { subscribe, update } = writable<ImageData[]>([]);
+let idSequence = 1;
+const getNextId = () => idSequence++
+
+function buildInitialData(initialFileIds: string[]):ImageData[] {
+	const data: ImageData[] = [];
+	for (const fileId of initialFileIds) {
+		data.push({
+			id: '' + getNextId(),
+			fileId,
+			src: api.getLinkImage(fileId, true),
+		})
+	}
+	return data
+}
+
+function createImagesList(initialFileIds: string[] = []) {
+	const initial = buildInitialData(initialFileIds)
+	const { subscribe, update } = writable<ImageData[]>(initial);
 
 	const useUpdateImage = (imageId: string) => {
 		return (upd: ImageData) => {
@@ -32,9 +48,6 @@ function createImagesList() {
 		update(images => ([...images, img]));
 		return img;
 	}
-
-	let idSequence = 1;
-	const getNextId = () => idSequence++
 
 	const upload = (file: File) => {
 		const image: ImageData = {

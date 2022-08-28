@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { navigate } from 'svelte-routing';
 	import type { Post } from '@src/types';
 	import { formatToTime } from '@src/tools';
 	import { api } from '@src/api';
@@ -11,6 +12,7 @@
 	import Menu from './PostListItemMenu.svelte';
 	import QuickView from './PostQuickView.svelte';
 	import PostStatus from './PostStatus.svelte';
+	import { onDestroy } from 'svelte';
 
 	export let post: Post;
 
@@ -31,6 +33,16 @@
 			openRemoveAgree = false;
 		});
 	}
+
+	const gotoEdit = () => {
+		navigate(`/posts/${post.id}`);
+	}
+
+	onDestroy(() => {
+		// fix: Dialog component does not have time to clean up the classes
+		// so it has to be done manually
+		document.body.classList.remove('mdc-dialog-scroll-lock');
+	})
 </script>
 
 <div class="post-list-item mdc-elevation--z4" on:click={() => openView = true}>
@@ -38,7 +50,7 @@
 		<div class="post-list-item__header">
 			<PostStatus status={post.status} />
 			<div class="post-list-item__time" title={post.publish_at.toLocaleString()}>{formatToTime(post.publish_at)}</div>
-			<Menu on:delete={() => openRemoveAgree = true} hideEdit={hideEditFromMenu} />
+			<Menu on:delete={() => openRemoveAgree = true} on:edit={gotoEdit} hideEdit={hideEditFromMenu} />
 		</div>
 
 		<div class="post-list-item__text" title={post.fields?.text}>{post.fields?.text}</div>

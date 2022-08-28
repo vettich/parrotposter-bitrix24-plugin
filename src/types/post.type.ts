@@ -8,7 +8,7 @@ interface Post {
 	publish_at: Date | string,
 }
 
-interface PostCreate {
+interface PostInput {
 	fields: PostFields,
 	networks: PostNetworks,
 	publish_at: Date,
@@ -57,5 +57,5 @@ export type {
 	PostNetworks,
 	PostResults,
 	PostResult,
-	PostCreate,
+	PostInput,
 }

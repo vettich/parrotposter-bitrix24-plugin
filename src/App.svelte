@@ -13,6 +13,7 @@
 	import Posts from './pages/Posts.page.svelte';
 	import Accounts from './pages/Accounts.page.svelte';
 	import PostCreate from './pages/PostCreate.page.svelte';
+	import PostEdit from './pages/PostEdit.page.svelte';
 
 	let loading = true;
 
@@ -40,6 +41,7 @@
 			<Route path="/login"><Login/></Route>
 			<Route path="/posts"><Posts/></Route>
 			<Route path="/posts/new"><PostCreate/></Route>
+			<Route path="/posts/:id" let:params><PostEdit id={params.id}/></Route>
 			<Route path="/accounts"><Accounts/></Route>
 			<Route path="/"><Home/></Route>
 		</Router>

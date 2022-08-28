@@ -27,7 +27,7 @@
 
 	// smooth progression
 	let firstRenderFinished = false;
-	let groupCurrentRender = 0;
+	let groupCurrentRender = 2;
 	let intervalId = setInterval(() => {
 		const len = Object.keys(groups).length;
 		if (groupCurrentRender >= len) {

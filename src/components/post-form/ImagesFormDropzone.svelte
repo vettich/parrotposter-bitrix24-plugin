@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, SvelteComponent } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	import Dropzone from 'svelte-file-dropzone';
 
@@ -21,7 +21,7 @@
 		on:dragleave={() => dragging = false}
 		accept="image/*"
 		multiple>
-		Перетащите сюда картинку
+		Нажмите, чтобы выбрать картинки, <br> или перетащите их сюда
 	</Dropzone>
 </div>
 

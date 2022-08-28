@@ -4,21 +4,23 @@
 	import type { Account } from '@src/types';
 
 	export let accountIds: string[] = [];
+	export let editable = true;
 
 	function isSelected(account: Account, ids: string[]): boolean {
 		return !!ids.find(id => account.id === id)
 	}
 
 	function switchSelect(account: Account) {
+		if (!editable) return;
 		const foundId = accountIds.find(id => account.id === id)
 		if (foundId) accountIds = accountIds.filter(id => account.id !== id)
 		else accountIds = [...accountIds, account.id]
 	}
 </script>
 
-<div class="accounts-choose">
+<div class="accounts-choose" class:accounts-choose--editable={editable}>
 	<div class="accounts-choose__title">Куда публиковать</div>
-	
+
 	<div class="accounts-choose__items">
 		{#each $accounts.data.getList() as account}
 			<div class="accounts-choose__item" class:accounts-choose__item--selected={isSelected(account, accountIds)}
@@ -39,6 +41,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		$parent: &;
 
 		&__title {
 			color: cssvar(secondary);
@@ -62,40 +65,30 @@
 			align-items: center;
 			gap: 12px;
 			padding: 12px;
-			border: 1px solid rgba(0, 0, 0, 0.2);
 			border-radius: 4px;
-			cursor: pointer;
+			opacity: 0.7;
+			border: 1px solid rgba(cssvar(secondary-rgb), 0.25);
+			transition: all 0.2s ease;
 
 			@media screen and (max-width: 768px) {
 				flex-direction: column;
 			}
 
-			&:before, &:after {
-				content: "";
-				position: absolute;
-				left: -1px;
-				right: -1px;
-				top: -1px;
-				bottom: -1px;
-				border-radius: 4px;
-				transition: all 0.2s ease;
-				opacity: 0;
-				z-index: 0;
-			}
-
-			&:hover {
-				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-			}
-
 			&--selected {
-				&:before {
-					background-color: cssvar(primary);
-					opacity: 0.15;
+				border-color: rgba(cssvar(primary-rgb), 0.5);
+				background-color: rgba(cssvar(primary-rgb), 0.15);
+			}
+
+			#{$parent}--editable & {
+				opacity: 1;
+				cursor: pointer;
+
+				&:hover {
+					border-color: rgba(cssvar(secondary-rgb), 0.6);
 				}
 
-				&:after {
-					border: 1px solid cssvar(primary);
-					opacity: 0.4;
+				&--selected:hover {
+						border-color: rgba(cssvar(primary-rgb), 0.6);
 				}
 			}
 		}

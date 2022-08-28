@@ -1,17 +1,23 @@
 <script lang="ts">
 	import { createImagesList } from '@src/store/image-form-list.store';
+	import { equalArrays } from '@src/tools';
 
 	import ImagesFormDropzone from './ImagesFormDropzone.svelte';
 	import ImagesFormSortableList from './ImagesFormSortableList.svelte';
 
 	export let imagesIds: string[] = [];
+	export let editable = true;
 
-	let images = createImagesList();
+	let images = createImagesList(imagesIds);
 
 	images.subscribe(images => {
-		imagesIds = images
+		const upd = images
 			.map(img => img.fileId)
-			.filter(id => id && !!id.length)
+			.filter(id => id && !!id.length);
+
+		if (!equalArrays(imagesIds, upd)) {
+			imagesIds = upd;
+		}
 	})
 
 	const dropHandle = async (e: CustomEvent<File[]>) => {
@@ -29,12 +35,16 @@
 	}
 </script>
 
-<div class="images-form">
-	{#if $images.length}
-		<ImagesFormSortableList images={$images} on:delete={onDelete} on:swap={onSwap} />
-	{/if}
-	<ImagesFormDropzone on:drop={dropHandle} />
-</div>
+{#if editable}
+	<div class="images-form">
+		{#if $images.length}
+			<ImagesFormSortableList images={$images} on:delete={onDelete} on:swap={onSwap} />
+		{/if}
+		<ImagesFormDropzone on:drop={dropHandle} />
+	</div>
+{:else if $images.length}
+	<ImagesFormSortableList images={$images} {editable} />
+{/if}
 
 <style lang="scss">
 	.images-form {

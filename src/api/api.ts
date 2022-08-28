@@ -24,6 +24,11 @@ interface FileUploadParams {
 class Api {
 	authToken = new TokenManager();
 
+	getLinkImage(id: string, thumbnail = false): string {
+		const url = `${API_URL}/files/${id}`;
+		return thumbnail ? `${url}?s=150` : url;
+	}
+
 	async get(res: Resource, data?: Object, params?: Params): Promise<any> {
 		params = this.initParams(params);
 		return await this.call(res, data, params);
