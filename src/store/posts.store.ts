@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { api, Subscription } from '@src/api';
 
-import type { Post } from '@src/types';
+import { comparePostByPublishAt, newPost, type Post } from '@src/types';
 
 interface PostsWrapper {
 	loading: boolean,
@@ -30,17 +30,21 @@ function createPosts() {
 	api.authToken.onChange((setted: boolean, token: string) => {
 		if (!setted) return;
 
+		if (subscription) subscription.stop();
+
 		subscription = new Subscription(token, 'posts');
 		subscription.start();
 
 		subscription.onadd = (post: Post) => {
+			post = newPost(post);
 			update(store => ({
 				...store,
-				data: [post, ...store.data],
+				data: [post, ...store.data].sort(comparePostByPublishAt),
 			}))
 		}
 
 		subscription.onupdate = (post: Post) => {
+			post = newPost(post);
 			update(store => {
 				const idx = store.data.findIndex(p => post.id === p.id);
 				if (idx < 0) return;
@@ -83,7 +87,7 @@ function createPosts() {
 
 				// transform publish_at to Date object
 				const data: Post[] = res.posts
-					.map((post: Post) => ({ ...post, publish_at: new Date(post.publish_at) }))
+					.map((post: Post) => newPost(post))
 
 				const removeDuplicates = (arr: Post[]): Post[] => {
 					return [...new Map(arr.map(p => [p.id, p])).values()];

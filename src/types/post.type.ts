@@ -48,6 +48,14 @@ interface PostResult {
 	error_msg?: string,
 }
 
+function newPost(post: Post): Post {
+	return { ...post, publish_at: new Date(post.publish_at) }
+}
+
+function comparePostByPublishAt(a: Post, b: Post): number {
+	return a.publish_at < b.publish_at ? 1 : -1;
+}
+
 export type {
 	Post,
 	PostStatus,
@@ -58,4 +66,9 @@ export type {
 	PostResults,
 	PostResult,
 	PostInput,
+}
+
+export {
+	newPost,
+	comparePostByPublishAt,
 }
