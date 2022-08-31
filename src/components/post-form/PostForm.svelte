@@ -1,4 +1,6 @@
 <script lang="ts">
+	// TODO: need refactoring
+
 	import { createEventDispatcher } from 'svelte';
 	import type { Post, PostInput } from '@src/types';
 	import { textareaResizer } from '@src/actions/textarea-resizer';
