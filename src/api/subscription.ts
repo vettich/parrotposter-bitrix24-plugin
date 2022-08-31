@@ -1,4 +1,4 @@
-import { WS_URI } from '@src/consts/env';
+declare const __WS_URI__: string;
 
 interface MessageStart {
 	type: 'start',
@@ -48,7 +48,7 @@ class Subscription {
 	private connect() {
 		if (this.ws && this.ws.readyState === 1) return;
 
-		this.ws = new WebSocket(WS_URI);
+		this.ws = new WebSocket(__WS_URI__);
 
 		this.ws.onopen = () => this.wsOnOpen();
 		this.ws.onclose = (e) => this.wsOnClose(e);

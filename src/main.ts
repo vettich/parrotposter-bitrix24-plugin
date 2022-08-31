@@ -1,4 +1,4 @@
-import './global.css';
+import './global.scss';
 import App from './App.svelte';
 import { BX24 } from './lib/bx24';
 

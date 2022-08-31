@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script lang="ts">
-	import { navigate } from 'svelte-routing';
+	import { navigate } from '@src/tools';
 	import type { PostInput } from '@src/types';
 	import { api } from '@src/api';
 

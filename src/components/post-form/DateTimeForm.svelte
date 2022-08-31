@@ -70,35 +70,5 @@
 		&__title {
 			color: cssvar(secondary);
 		}
-
-		/* Fix MDC button border visible on focus and selected. */
-		/* Need to fix also background-color in selected, but I'm lazy. */
-		:global(.mdc-segmented-button__segment) {
-			position: relative;
-			text-transform: none;
-			border-color: initial;
-			border-width: 1px;
-			margin-right: -1px;
-			z-index: 1;
-
-			&:before, &:after {
-				content: "";
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				left: 0;
-				top: 0;
-				background-color: cssvar(surface);
-				z-index: -1;
-			}
-		}
-		:global(.mdc-segmented-button__segment):focus, :global(.mdc-segmented-button__segment--selected) {
-			z-index: 2;
-
-			&:after {
-				background-color: cssvar(primary);
-				opacity: 0.15;
-			}
-		}
 	}
 </style>

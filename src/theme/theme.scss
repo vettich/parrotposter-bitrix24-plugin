@@ -1,0 +1,215 @@
+@use './helpers' as *;
+@use './vars' as *;
+@use './dark/vars' as dark;
+
+:root {
+	@include colorvars((
+		primary: $primary,
+		on-primary: $on-primary,
+		background: $background,
+		on-background: $on-background,
+		surface: $surface,
+		on-surface: $on-surface,
+		secondary: $secondary,
+		success: $success,
+		warning: $warning,
+		error: $error,
+	));
+
+	@include colorvars((
+		primary: $primary,
+		on-primary: $on-primary,
+		secondary: $secondary,
+		surface: $surface,
+		on-surface: $on-surface,
+		background: $background,
+		error: $error,
+	), mdc-theme);
+
+	@include colorvars((
+		background: $surface,
+		foreground: $on-surface,
+	), 'date-picker');
+}
+
+.dark-theme {
+	@include colorvars((
+		primary: dark.$primary,
+		on-primary: dark.$on-primary,
+		background: dark.$background,
+		on-background: dark.$on-background,
+		surface: dark.$surface,
+		on-surface: dark.$on-surface,
+		secondary: dark.$secondary,
+		success: dark.$success,
+		warning: dark.$warning,
+		error: dark.$error,
+	));
+
+	@include colorvars((
+		primary: dark.$primary,
+		on-primary: dark.$on-primary,
+		secondary: dark.$secondary,
+		surface: dark.$surface,
+		on-surface: dark.$on-surface,
+		background: dark.$background,
+		error: dark.$error,
+	), mdc-theme);
+
+	@include colorvars((
+		background: dark.$surface,
+		foreground: dark.$on-surface,
+	), 'date-picker');
+}
+
+body {
+  background-color: cssvar(background);
+  color: cssvar(on-background);
+}
+
+a {
+  color: cssvar(primary);
+}
+
+///// Material Design Components
+//
+// Since it was not possible to fully apply the dark theme to MDC,
+// below are manually prescribed colors based on css variables
+
+body {
+	//// dialog
+
+	.mdc-dialog .mdc-dialog__content {
+		color: rgba(cssvar(on-surface-rgb), 0.7);
+	}
+
+	//// textfield
+
+	.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+		color: cssvar(secondary);
+	}
+
+	.mdc-notched-outline__leading,
+	.mdc-notched-outline__notch,
+	.mdc-notched-outline__trailing {
+		transition: border-color 0.2s ease;
+	}
+
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+		border-color: rgba(cssvar(secondary-rgb), 0.7);
+	}
+
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,
+	.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing {
+		border-color: cssvar(secondary-rgb);
+	}
+
+	.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+		color: cssvar(on-surface);
+	}
+
+	//// select
+
+	.mdc-select:not(.mdc-select--disabled) .mdc-floating-label {
+		color: cssvar(secondary);
+	}
+
+	.mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__leading,
+	.mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__notch,
+	.mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__trailing {
+		border-color: rgba(cssvar(secondary-rgb), 0.7);
+	}
+
+	.mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__leading,
+	.mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__notch,
+	.mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__trailing {
+		border-color: cssvar(secondary);
+	}
+
+	.mdc-select:not(.mdc-select--disabled) .mdc-select__dropdown-icon {
+		fill: cssvar(secondary);
+	}
+
+	.mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+		color: cssvar(secondary);
+	}
+
+	.mdc-select:not(.mdc-select--disabled) .mdc-select__input {
+		color: cssvar(on-surface);
+	}
+
+	.mdc-menu .mdc-deprecated-list {
+		color: cssvar(on-surface);
+	}
+
+	:not(.mdc-deprecated-list-item--disabled).mdc-deprecated-list-item:hover .mdc-deprecated-list-item__ripple::before,
+	:not(.mdc-deprecated-list-item--disabled).mdc-deprecated-list-item.mdc-ripple-surface--hover .mdc-deprecated-list-item__ripple::before {
+		opacity: 0.1;
+	}
+
+	//// segment button
+
+	.mdc-segmented-button__segment {
+		position: relative;
+		text-transform: none;
+		border-color: initial;
+		border-width: 1px;
+		margin-right: -1px;
+		color: rgba(cssvar(secondary-rgb), 1);
+		border: 1px solid rgba(cssvar(secondary-rgb), 1);
+		background-color: rgba(cssvar(surface-rgb), 1);
+		background-color: cssvar(surface);
+		z-index: 1;
+
+		&:focus, &--selected {
+			color: rgba(cssvar(primary-rgb), 1);
+			border: 1px solid rgba(cssvar(primary-rgb), 1);
+			background-color: rgba(cssvar(primary-rgb), 0.15);
+			z-index: 2;
+		}
+	}
+
+	//// button
+
+	.mdc-button--raised:disabled {
+		color: rgba(cssvar(secondary-rgb), 0.6);
+		background-color: rgba(cssvar(secondary-rgb), 0.1);
+	}
+
+	//// deprecated list
+
+	.mdc-deprecated-list {
+		color: cssvar(on-surface);
+	}
+
+	.mdc-menu .mdc-deprecated-list-item__graphic {
+		color: cssvar(on-surface);
+	}
+
+	.mdc-menu .error,
+	.mdc-menu .error .mdc-deprecated-list-item__graphic {
+		color: cssvar(error);
+	}
+
+	.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading {
+		color: rgba(cssvar(on-surface-rgb), 0.8);
+	}
+}
+
+//// Drawer menu
+
+body {
+	.drawer-menu {
+		.panel {
+			background-color: cssvar(surface) !important;
+			color: cssvar(on-surface) !important;
+		}
+
+		.overlay {
+			background-color: transparent !important;
+		}
+	}
+}

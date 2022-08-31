@@ -1,6 +1,6 @@
 <script>
-	// import { navigate } from 'svelte-routing';
 	// import { onMount } from 'svelte';
+	// import { navigate } from '@src/tools';
 	// import { user } from '@src/store';
 
 	// console.log($user);

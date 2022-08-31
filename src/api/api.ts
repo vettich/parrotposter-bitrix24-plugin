@@ -1,5 +1,6 @@
-import { API_URL } from '@src/consts/env';
 import { TokenManager } from './token-manager';
+
+declare const __API_URL__: string;
 
 type Resource = 'me' | 'posts' | 'tokens' | 'accounts' | 'files';
 
@@ -25,7 +26,7 @@ class Api {
 	authToken = new TokenManager();
 
 	getLinkImage(id: string, thumbnail = false): string {
-		const url = `${API_URL}/files/${id}`;
+		const url = `${__API_URL__}/files/${id}`;
 		return thumbnail ? `${url}?s=150` : url;
 	}
 
@@ -63,7 +64,7 @@ class Api {
 			fd.append('file', file);
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `${API_URL}/file`);
+			xhr.open('POST', `${__API_URL__}/file`);
 			xhr.setRequestHeader('Token', this.authToken.get());
 
 			xhr.upload.addEventListener('progress', function(e) {
@@ -106,7 +107,7 @@ class Api {
 	}
 
 	private async call(endpoint: string, data: Object, params?: Params): Promise<any> {
-		let url = `${API_URL}${endpoint}`;
+		let url = `${__API_URL__}${endpoint}`;
 		const config: RequestInit = {
 			method: params?.method || 'GET',
 			headers: params?.headers || {},

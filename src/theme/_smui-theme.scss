@@ -1,6 +1,5 @@
 @use 'sass:color';
 
-@use './helpers';
 @use './vars' as *;
 
 @use '@material/theme/color-palette';
@@ -13,46 +12,17 @@
   $surface: $surface,
   $on-surface: $on-surface,
   $background: $background,
-  $error: #ff52a1,
+  $error: $error,
 );
 
+@use '@material/elevation/index' as elevation with (
+	$baseline-color: $box-shadow,
+);
 @use '@material/elevation/mdc-elevation';
-@use '@material/elevation/index' as elevation;
 @use '@smui/paper/mixins' as paper;
-
-html,
-body {
-  background-color: $background;
-  color: $on-background;
-
-  @media screen and (max-width: 768px) {
-	  background-color: $surface;
-	  color: $on-surface;
-  }
-}
-
-a {
-  color: #40b3ff;
-}
-a:visited {
-  color: color.scale(#40b3ff, $lightness: -35%);
-}
 
 @include paper.paper-color(
 	error,
 	theme.$error,
 	theme.$on-primary,
 );
-
-@include helpers.colorvars((
-	primary: $primary,
-	on-primary: $on-primary,
-	background: $background,
-	on-background: $on-background,
-	surface: $surface,
-	on-surface: $on-surface,
-	secondary: $secondary,
-	success: $success,
-	warning: $warning,
-	error: $error,
-));

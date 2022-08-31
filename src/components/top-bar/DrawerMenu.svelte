@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { navigate } from 'svelte-routing';
+	import { navigate } from '@src/tools';
 	import { menu } from '@src/consts/menu';
 	import { user } from '@src/store';
 

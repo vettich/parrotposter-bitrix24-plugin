@@ -5,12 +5,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { posts } from '@src/store';
+	import { navigate } from '@src/tools';
 
 	import CircularProgress from '@smui/circular-progress';
 	import { Layout, PostList } from '@src/components';
 	import Button from '@smui/button';
 	import Fab, { Icon } from '@smui/fab';
-	import { navigate } from 'svelte-routing';
 
 	onMount(() => {
 		posts.loadFirstPage();

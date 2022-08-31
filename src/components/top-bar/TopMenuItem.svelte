@@ -1,6 +1,7 @@
 <script>
 	import { onDestroy } from 'svelte';
 	import { globalHistory } from 'svelte-routing/src/history';
+	import { withBasePath } from '@src/tools';
 
 	export let to = '/';
 	export let label = '';
@@ -18,7 +19,7 @@
 	onDestroy(unlisten);
 </script>
 
-<a href={to} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
+<a href={withBasePath(to)} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
 
 <style lang="scss">
 	@use './src/theme/helpers' as *; 

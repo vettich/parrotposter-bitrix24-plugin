@@ -6,6 +6,7 @@
 	import TopMenu from './TopMenu.svelte';
 	import TopUserMenu from './TopUserMenu.svelte';
 	import DrawerMenu from './DrawerMenu.svelte';
+	import ThemeSwitcher from '../ThemeSwitcher.svelte';
 
 	let openDrawer = false;
 </script>
@@ -15,12 +16,15 @@
 	<div class="top-bar__menu">
 		<TopMenu />
 	</div>
-	<div class="top-bar__user-menu">
-		<TopUserMenu />
-	</div>
 
-	<div class="top-bar__open-menu-btn" on:click={() => openDrawer = true}>
-		<Icon class="material-icons">menu</Icon>
+	<div class="top-bar__right-side">
+		<ThemeSwitcher />
+		<div class="top-bar__user-menu">
+			<TopUserMenu />
+		</div>
+		<div class="top-bar__open-menu-btn" on:click={() => openDrawer = true}>
+			<Icon class="material-icons">menu</Icon>
+		</div>
 	</div>
 </div>
 
@@ -41,6 +45,12 @@
 
 		@media screen and (max-width: 768px) {
 			justify-content: space-between;
+		}
+
+		&__right-side {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 
 		&__menu {

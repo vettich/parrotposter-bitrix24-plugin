@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { Account } from '@src/types';
+	import placeholderSrc from '@src/assets/images/placeholder.png';
+	import noAccountSrc from '@src/assets/images/socials/no-account.svg';
 
 	export let account: Account = null;
 	export let status: Status = null;
@@ -23,16 +25,7 @@
 	$: type = getType();
 	$: if (success !== null) status = success ? 'success' : 'fail';
 
-	const formatName = (): string => {
-		if (!account) return 'Аккаунт удален';
-
-		let name = account.name + (status ? ` - ${status}` : '');
-
-		return name;
-	}
-
-	const placeholderSrc = '/images/placeholder.png';
-	const noAccountSrc = '/images/socials/no-account.svg';
+	const formatName = () => account?.name || 'Аккаунт удален';
 
 	function onError() {
 		this.src = placeholderSrc
@@ -46,7 +39,7 @@
 {/if}
 
 <style lang="scss">
-	@use '../../theme/helpers' as *;
+	@use './src/theme/helpers' as *;
 
 	.account-photo {
 		position: relative;
@@ -66,7 +59,7 @@
 		img {
 			width: 100%;
 			height: 100%;
-			background: url(/images/placeholder.png) center / cover;
+			background: url(assets/images/placeholder.png) center / cover;
 			object-fit: cover;
 			object-position: center;
 			border: none;
@@ -83,12 +76,12 @@
 	.status-success { box-shadow: 0px 0px 5px 1px cssvar(success); }
 	.status-fail { box-shadow: 0px 0px 5px 1px cssvar(error); }
 
-	.type-vk:before { background-image: url(/images/socials/vk.svg); }
-	.type-fb:before { background-image: url(/images/socials/fb.svg); }
-	.type-insta:before { background-image: url(/images/socials/insta.svg); }
-	.type-tg:before { background-image: url(/images/socials/tg.svg); }
-	.type-ok:before { background-image: url(/images/socials/ok.svg); }
-	.type-tw:before { background-image: url(/images/socials/tw.svg); }
+	.type-vk:before { background-image: url(assets/images/socials/vk.svg); }
+	.type-fb:before { background-image: url(assets/images/socials/fb.svg); }
+	.type-insta:before { background-image: url(assets/images/socials/insta.svg); }
+	.type-tg:before { background-image: url(assets/images/socials/tg.svg); }
+	.type-ok:before { background-image: url(assets/images/socials/ok.svg); }
+	.type-tw:before { background-image: url(assets/images/socials/tw.svg); }
 
 	.no-account img { background: none };
 </style>

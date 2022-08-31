@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { navigate } from 'svelte-routing';
 	import type { Post } from '@src/types';
-	import { formatToTime } from '@src/tools';
+	import { formatToTime, navigate } from '@src/tools';
 	import { api } from '@src/api';
 
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
