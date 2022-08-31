@@ -5,7 +5,7 @@
 
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
-	import CircularProgress from '@smui/circular-progress';
+	import CircularProgress from '@src/components/common/CircularProgress.svelte';
 	import Paper, { Content } from '@smui/paper';
 	import DateTimeForm from './DateTimeForm.svelte';
 	import AccountsChoose from './AccountsChoose.svelte';
@@ -129,10 +129,9 @@
 		<div class="post-form__footer">
 			<div class="post-form__actions">
 				<Button class="post-form__btn--min" variant="raised" disabled={saving || !valid} on:click={submit}>
+					{submitText}
 					{#if saving}
-						<CircularProgress style="height: 24px; width: 24px;" indeterminate />
-					{:else}
-						{submitText}
+						<CircularProgress />
 					{/if}
 				</Button>
 

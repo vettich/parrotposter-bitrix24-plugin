@@ -1,14 +1,65 @@
 <script lang="ts">
-	import Button from "@smui/button";
+	import type { AccountType, ConnectReply } from "@src/types";
+	import { accountsTypes } from "@src/types";
+	import { api } from "@src/api";
 
-	const socials = ['vk', 'tg', 'ok', 'fb', 'insta'];
+	import Button from "@smui/button";
+	import CircularProgress from "@src/components/common/CircularProgress.svelte";
+
+	const socials = accountsTypes;
+
+	let loading: AccountType;
+
+	const connect = (social: AccountType) => {
+		if (!!loading) return;
+
+		if (['vk', 'fb', 'ok'].includes(social)) {
+			connectCommon(social);
+		}
+	}
+
+	const connectCommon = async (social: AccountType) => {
+		const req = {
+			type: social,
+			fields: {
+				callback_url: location.href,
+			}
+		}
+
+		let res: ConnectReply;
+		try {
+			loading = social;
+			res = await api.post<ConnectReply>('connect', req);
+		} catch (e) {
+			console.log(e);
+			loading = null;
+			return;
+		}
+
+		location.href = res.redirect_url;
+	}
+
+	const socialLabels: { [key in AccountType]: string } = {
+		'vk': 'ВКонтакте',
+		'tg': 'Телеграм',
+		'ok': 'Одноклассники',
+		'fb': 'Facebook',
+		'insta': 'Instagram',
+	}
 </script>
 
 <div class="accounts-add-buttons">
 	{#each socials as social}
-		<Button variant="raised" class="bg-color--{social}">
-			<div class="accounts-add-buttons__social-icon accounts-add-buttons__social-icon--{social}"/>
-			<span class="accounts-add-buttons__label">Connect</span>
+		<Button
+			variant="raised" class="bg-color--{social}"
+			on:click={() => connect(social)}
+			disabled={loading === social}>
+			<div class="accounts-add-buttons__social-icon bg-image-white--{social}"/>
+			<span class="accounts-add-buttons__label">Подключить</span>
+			<!-- <span class="accounts-add-buttons__label">{socialLabels[social]}</span> -->
+			{#if loading === social}
+				<CircularProgress />
+			{/if}
 		</Button>
 	{/each}
 </div>
@@ -34,12 +85,6 @@
 			height: 1.6em;
 			background-size: cover;
 			margin-right: 0.6em;
-
-			&--vk { background-image: url(assets/images/socials/vk-white.svg); }
-			&--tg { background-image: url(assets/images/socials/tg-white.svg); }
-			&--ok { background-image: url(assets/images/socials/ok-white.svg); }
-			&--fb { background-image: url(assets/images/socials/fb-white.svg); }
-			&--insta { background-image: url(assets/images/socials/insta-white.svg); }
 		}
 	}
 </style>

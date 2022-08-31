@@ -2,7 +2,7 @@ import { TokenManager } from './token-manager';
 
 declare const __API_URL__: string;
 
-type Resource = 'me' | 'posts' | 'tokens' | 'accounts' | 'files';
+type Resource = 'me' | 'posts' | 'tokens' | 'accounts' | 'files' | 'connect';
 
 type HttpMethod = 'GET' | 'POST' | 'DELETE';
 interface Params {
@@ -30,29 +30,29 @@ class Api {
 		return thumbnail ? `${url}?s=150` : url;
 	}
 
-	async get(res: Resource, data?: Object, params?: Params): Promise<any> {
+	async get<T = any>(res: Resource, data?: Object, params?: Params): Promise<T> {
 		params = this.initParams(params);
 		return await this.call(res, data, params);
 	}
 
-	async getById(res: Resource, id: string, data?:Object, params?: Params): Promise<any> {
+	async getById<T = any>(res: Resource, id: string, data?:Object, params?: Params): Promise<T> {
 		const endpoint = `${res}/${id}`;
 		params = this.initParams(params);
 		return await this.call(endpoint, data, params);
 	}
 
-	async post(endpoint: Resource, data: Object, params?: Params): Promise<any> {
+	async post<T = any>(endpoint: Resource, data: Object, params?: Params): Promise<T> {
 		params = this.initParams(params, 'POST');
 		return await this.call(endpoint, data, params);
 	}
 
-	async postById(res: Resource, id: string, data: Object, params?: Params): Promise<any> {
+	async postById<T = any>(res: Resource, id: string, data: Object, params?: Params): Promise<T> {
 		const endpoint = `${res}/${id}`;
 		params = this.initParams(params, 'POST');
 		return await this.call(endpoint, data, params);
 	}
 
-	async deleteById(res: Resource, id: string, data?: Object, params?: Params): Promise<any> {
+	async deleteById<T = any>(res: Resource, id: string, data?: Object, params?: Params): Promise<T> {
 		const endpoint = `${res}/${id}`;
 		params = this.initParams(params, 'DELETE');
 		return await this.call(endpoint, data, params);

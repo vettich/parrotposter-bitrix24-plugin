@@ -1,3 +1,5 @@
+@use 'sass-hex-rgb' as hexrgb;
+
 * {
 	box-sizing: border-box;
 }
@@ -35,11 +37,44 @@ a .material-icons-outlined {
 }
 
 .bg-color {
-	&--vk { background-color: #4981c0 !important }
-	&--tg { background-color: #2ca3d6 !important }
-	&--ok { background-color: #f68634 !important }
-	&--fb { background-color: #3d5a96 !important }
+	&--vk    { background-color: #4981c0 !important }
+	&--tg    { background-color: #2ca3d6 !important }
+	&--ok    { background-color: #f68634 !important }
+	&--fb    { background-color: #3d5a96 !important }
 	&--insta { background-color: #df378c !important }
+
+	&--vk:disabled    { background-color: rgba(hexrgb.toRGB(#4981c0), 0.6) !important }
+	&--tg:disabled    { background-color: rgba(hexrgb.toRGB(#2ca3d6), 0.6) !important }
+	&--ok:disabled    { background-color: rgba(hexrgb.toRGB(#f68634), 0.6) !important }
+	&--fb:disabled    { background-color: rgba(hexrgb.toRGB(#3d5a96), 0.6) !important }
+	&--insta:disabled { background-color: rgba(hexrgb.toRGB(#df378c), 0.6) !important }
+}
+
+.bg-image {
+	&--vk    { background-image: url(assets/images/socials/vk.svg) }
+	&--tg    { background-image: url(assets/images/socials/tg.svg) }
+	&--ok    { background-image: url(assets/images/socials/ok.svg) }
+	&--fb    { background-image: url(assets/images/socials/fb.svg) }
+	&--insta { background-image: url(assets/images/socials/insta.svg) }
+}
+
+.bg-image-white {
+	&--vk    { background-image: url(assets/images/socials/vk-white.svg) }
+	&--tg    { background-image: url(assets/images/socials/tg-white.svg) }
+	&--ok    { background-image: url(assets/images/socials/ok-white.svg) }
+	&--fb    { background-image: url(assets/images/socials/fb-white.svg) }
+	&--insta { background-image: url(assets/images/socials/insta-white.svg) }
+}
+
+:disabled .bg-image,
+:disabled .bg-image-white{
+	&--vk,
+	&--tg,
+	&--ok,
+	&--fb,
+	&--insta {
+		opacity: 0.6;
+	}
 }
 
 .text-ellipse {

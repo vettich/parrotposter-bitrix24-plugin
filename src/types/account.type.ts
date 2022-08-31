@@ -1,3 +1,5 @@
+import type { UnionOfArrayElements } from "@src/tools";
+
 interface Account {
 	id: string,
 	name: string,
@@ -6,9 +8,22 @@ interface Account {
 	link: string,
 }
 
-type AccountType = 'vk' | 'fb' | 'tg' | 'ok' | 'insta' | 'tw'
+const accountsTypes = ['vk', 'tg', 'ok', 'fb', 'insta'];
+
+type AccountType = UnionOfArrayElements<typeof accountsTypes>;
+
+interface ConnectReply {
+	redirect_url: string,
+	need_challenge: boolean,
+	need_two_factor: boolean,
+}
 
 export type {
 	Account,
 	AccountType,
+	ConnectReply,
+}
+
+export {
+	accountsTypes,
 }
