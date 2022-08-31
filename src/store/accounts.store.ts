@@ -51,8 +51,14 @@ function createAccounts() {
 
 	api.authToken.onChange(setted => setted ? load() : null)
 
+	const deleteAccount = async (id: string) => {
+		await api.deleteById('accounts', id);
+		load();
+	}
+
 	return {
 		subscribe,
+		deleteAccount,
 	}
 }
 

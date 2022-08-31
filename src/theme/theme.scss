@@ -83,6 +83,10 @@ body {
 		color: rgba(cssvar(on-surface-rgb), 0.7);
 	}
 
+	.mdc-dialog .mdc-dialog__title {
+		color: cssvar(on-surface);
+	}
+
 	//// textfield
 
 	.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {

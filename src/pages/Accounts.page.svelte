@@ -4,11 +4,15 @@
 
 <script>
 	import Layout from '@src/components/Layout.svelte';
+	import AccountsAddButtons from '@src/components/accounts/AccountsAddButtons.svelte';
+	import AccountsList from '@src/components/accounts/AccountsList.svelte';
 </script>
 
 <Layout>
+	<h1>Аккаунты соц. сетей</h1>
 
-	<h1>Список аккаунтов</h1>
-
+	<AccountsAddButtons />
+	<br>
+	<AccountsList />
 </Layout>
 

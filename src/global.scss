@@ -33,3 +33,30 @@ a .material-icons-outlined {
 .mdc-dialog-scroll-lock {
 	overflow: hidden !important;
 }
+
+.bg-color {
+	&--vk { background-color: #4981c0 !important }
+	&--tg { background-color: #2ca3d6 !important }
+	&--ok { background-color: #f68634 !important }
+	&--fb { background-color: #3d5a96 !important }
+	&--insta { background-color: #df378c !important }
+}
+
+.text-ellipse {
+	&--2, &--3 {
+		display: -webkit-inline-box;
+		height: fit-content;
+		line-height: 1.1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		-moz-line-clamp: 2;
+		-moz-box-orient: vertical;
+	}
+
+	&--3 {
+		-webkit-line-clamp: 3;
+		-moz-line-clamp: 3;
+	}
+}

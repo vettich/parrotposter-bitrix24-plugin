@@ -52,7 +52,7 @@
 			<Menu on:delete={() => openRemoveAgree = true} on:edit={gotoEdit} hideEdit={hideEditFromMenu} />
 		</div>
 
-		<div class="post-list-item__text" title={post.fields?.text}>{post.fields?.text}</div>
+		<div class="post-list-item__text text-ellipse--2" title={post.fields?.text}>{post.fields?.text}</div>
 	</div>
 
 	<div class="post-list-item__bottom">
@@ -120,15 +120,6 @@
 
 		&__text {
 			flex-grow: 1;
-			display: -webkit-box;
-			height: fit-content;
-			line-height: 1.1;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			-moz-line-clamp: 2;
-			-moz-box-orient: vertical;
 		}
 	}
 

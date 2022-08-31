@@ -28,7 +28,7 @@
 				<div class="accounts-choose__photo">
 					<AccountPhoto {account} />
 				</div>
-				<div class="accounts-choose__account-name">{account.name}</div>
+				<div class="accounts-choose__account-name text-ellipse--2">{account.name}</div>
 			</div>
 		{/each}
 	</div>
@@ -99,16 +99,7 @@
 
 		&__account-name {
 			flex-grow: 1;
-			display: -webkit-box;
-			height: fit-content;
 			font-size: 14px;
-			line-height: 1.1;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			-moz-line-clamp: 2;
-			-moz-box-orient: vertical;
 			color: cssvar(secondary);
 
 			@media screen and (max-width: 768px) {
