@@ -3,6 +3,8 @@
 	import { AccountPhoto } from '@src/components/accounts';
 	import type { Account } from '@src/types';
 
+	import CircularProgress from '@smui/circular-progress';
+
 	export let accountIds: string[] = [];
 	export let editable = true;
 
@@ -21,17 +23,21 @@
 <div class="accounts-choose" class:accounts-choose--editable={editable}>
 	<div class="accounts-choose__title">Куда публиковать</div>
 
-	<div class="accounts-choose__items">
-		{#each $accounts.data.getList() as account}
-			<div class="accounts-choose__item" class:accounts-choose__item--selected={isSelected(account, accountIds)}
-				on:click={() => switchSelect(account)}>
-				<div class="accounts-choose__photo">
-					<AccountPhoto {account} />
+	{#if $accounts.loading}
+		<CircularProgress style="height: 32px; width: 32px" indeterminate />
+	{:else}
+		<div class="accounts-choose__items">
+			{#each $accounts.data.getList() as account}
+				<div class="accounts-choose__item" class:accounts-choose__item--selected={isSelected(account, accountIds)}
+					on:click={() => switchSelect(account)}>
+					<div class="accounts-choose__photo">
+						<AccountPhoto {account} />
+					</div>
+					<div class="accounts-choose__account-name text-ellipse--2">{account.name}</div>
 				</div>
-				<div class="accounts-choose__account-name text-ellipse--2">{account.name}</div>
-			</div>
-		{/each}
-	</div>
+			{/each}
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">

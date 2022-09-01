@@ -1,6 +1,5 @@
-<script>
-	import { Router, Route, links } from 'svelte-routing';
-	import { navigate } from '@src/tools';
+<script lang="ts">
+	import { Router, links, Route } from 'svelte-navigator';
 
 	// stores
 	import { user } from './store';
@@ -8,6 +7,10 @@
 	// components
 	import CircularProgress from '@smui/circular-progress';
 	import ThemeApplier from './components/ThemeApplier.svelte';
+
+	// routing
+	import PrivateRoute from './components/routing/PrivateRoute.svelte';
+	import AuthRoute from './components/routing/AuthRoute.svelte';
 
 	// pages
 	import Home from './pages/Home.page.svelte';
@@ -26,12 +29,6 @@
 		}
 
 		loading = false;
-
-		if (!$user.data) {
-			navigate('/login');
-		} else {
-			navigate('/posts');
-		}
 	})
 </script>
 
@@ -42,12 +39,17 @@
 {:else}
 	<div use:links>
 		<Router basepath={import.meta.env.BASE_URL}>
-			<Route path="/login"><Login/></Route>
-			<Route path="/posts"><Posts/></Route>
-			<Route path="/posts/new"><PostCreate/></Route>
-			<Route path="/posts/:id" let:params><PostEdit id={params.id}/></Route>
-			<Route path="/accounts"><Accounts/></Route>
-			<Route path="/"><Home/></Route>
+			<AuthRoute path="login"><Login/></AuthRoute>
+
+			<Route path="posts/*">
+				<PrivateRoute path="new"><PostCreate/></PrivateRoute>
+				<PrivateRoute path=":id" let:params><PostEdit id={params.id}/></PrivateRoute>
+				<PrivateRoute path="/"><Posts/></PrivateRoute>
+			</Route>
+
+			<PrivateRoute path="accounts"><Accounts/></PrivateRoute>
+
+			<PrivateRoute path="/"><Home/></PrivateRoute>
 		</Router>
 	</div>
 {/if}

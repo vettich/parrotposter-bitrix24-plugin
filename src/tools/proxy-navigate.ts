@@ -1,4 +1,4 @@
-import { navigate as origNavigate } from "svelte-routing";
+import { navigate as origNavigate } from "svelte-navigator";
 
 const baseUrl = import.meta.env.BASE_URL;
 
