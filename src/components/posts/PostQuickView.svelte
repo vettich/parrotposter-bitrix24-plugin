@@ -22,7 +22,7 @@
 
 	<Content>
 		<!-- Хак, чтобы не возникало ошибки фокусировки в консоле при открытии диалога -->
-		<input style="position: absolute; z-index: -111; opacity: 0;" />
+		<button style="position: absolute; z-index: -111; opacity: 0;" />
 
 		{#if $post.loading}
 			<CircularProgress style="height: 32px; width: 32px" indeterminate />
