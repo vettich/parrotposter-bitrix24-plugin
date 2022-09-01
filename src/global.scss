@@ -32,10 +32,6 @@ a .material-icons-outlined {
 	vertical-align: middle;
 }
 
-.mdc-dialog-scroll-lock {
-	overflow: hidden !important;
-}
-
 .bg-color {
 	&--vk    { background-color: #4981c0 !important }
 	&--tg    { background-color: #2ca3d6 !important }
@@ -94,4 +90,14 @@ a .material-icons-outlined {
 		-webkit-line-clamp: 3;
 		-moz-line-clamp: 3;
 	}
+}
+
+//// Material design components
+
+.mdc-dialog-scroll-lock {
+	overflow: hidden !important;
+}
+
+.mdc-snackbar.mdc-snackbar--trailing {
+	justify-content: flex-end;
 }

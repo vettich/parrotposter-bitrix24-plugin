@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { api } from '@src/api';
-import type { Account } from '@src/types';
+import type { Account, AccountType, ConnectArgs, ConnectFields, ConnectReply } from '@src/types';
 
 class AccountMap {
 	data: { [key: string]: Account };
@@ -56,9 +56,24 @@ function createAccounts() {
 		load();
 	}
 
+	const connect = async (social: AccountType, fields: ConnectFields): Promise<ConnectReply> => {
+		const req: ConnectArgs = {
+			type: social,
+			fields,
+		}
+		try {
+			const res = await api.post<ConnectReply>('connect', req);
+			load();
+			return res;
+		} catch (e) {
+			throw e
+		}
+	}
+
 	return {
 		subscribe,
 		deleteAccount,
+		connect,
 	}
 }
 

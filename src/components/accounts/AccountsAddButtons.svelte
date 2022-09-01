@@ -5,38 +5,36 @@
 
 	import Button from "@smui/button";
 	import CircularProgress from "@src/components/common/CircularProgress.svelte";
+	import AccountConnectTg from "./AccountConnectTg.svelte";
+import { accounts } from "@src/store";
+import AccountConnectInsta from "./AccountConnectInsta.svelte";
 
 	const socials = accountsTypes;
 
 	let loading: AccountType;
+	let openTgConnect = false;
+	let openInstaConnect = false;
 
 	const connect = (social: AccountType) => {
 		if (!!loading) return;
 
 		if (['vk', 'fb', 'ok'].includes(social)) {
 			connectCommon(social);
+		} else if (social === 'tg') {
+			openTgConnect = true;
+		} else if (social === 'insta') {
+			openInstaConnect = true;
 		}
 	}
 
 	const connectCommon = async (social: AccountType) => {
-		const req = {
-			type: social,
-			fields: {
-				callback_url: location.href,
-			}
-		}
-
-		let res: ConnectReply;
-		try {
-			loading = social;
-			res = await api.post<ConnectReply>('connect', req);
-		} catch (e) {
-			console.log(e);
-			loading = null;
-			return;
-		}
-
-		location.href = res.redirect_url;
+		loading = social;
+		accounts.connect(social, { callback_url: location.href })
+			.then(({ redirect_url }) => location.href = redirect_url)
+			.catch(e => {
+				console.log(e)
+				loading = null;
+			})
 	}
 
 	const socialLabels: { [key in AccountType]: string } = {
@@ -63,6 +61,9 @@
 		</Button>
 	{/each}
 </div>
+
+<AccountConnectTg bind:open={openTgConnect} />
+<AccountConnectInsta bind:open={openInstaConnect} />
 
 <style lang="scss">
 	.accounts-add-buttons {

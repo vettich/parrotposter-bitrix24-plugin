@@ -201,6 +201,27 @@ body {
 	.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading {
 		color: rgba(cssvar(on-surface-rgb), 0.8);
 	}
+
+	//// snackbar
+
+	.mdc-snackbar.success .mdc-snackbar__surface {
+		background-color: cssvar(success);
+	}
+	.mdc-snackbar.success .mdc-snackbar__label {
+		color: cssvar(on-success);
+	}
+	.mdc-snackbar.warning .mdc-snackbar__surface {
+		background-color: cssvar(warning);
+	}
+	.mdc-snackbar.warning .mdc-snackbar__label {
+		color: cssvar(on-warning);
+	}
+	.mdc-snackbar.error .mdc-snackbar__surface {
+		background-color: cssvar(error);
+	}
+	.mdc-snackbar.error .mdc-snackbar__label {
+		color: cssvar(on-error);
+	}
 }
 
 //// Drawer menu

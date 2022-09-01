@@ -12,15 +12,38 @@ const accountsTypes = ['vk', 'tg', 'ok', 'fb', 'insta'];
 
 type AccountType = UnionOfArrayElements<typeof accountsTypes>;
 
+interface ConnectArgs {
+	type: AccountType,
+	fields: ConnectFields,
+}
+
+type ConnectFields = ConnectCommonFields | ConnectTgFields | ConnectInstaFields;
+
+interface ConnectCommonFields {
+	callback_url: string,
+}
+
+interface ConnectTgFields {
+	bot_token: string,
+	username: string,
+}
+
+interface ConnectInstaFields {
+}
+
 interface ConnectReply {
-	redirect_url: string,
-	need_challenge: boolean,
-	need_two_factor: boolean,
+	account_id?: string,
+	redirect_url?: string,
+	need_challenge?: boolean,
+	need_two_factor?: boolean,
+	phone?: string,
 }
 
 export type {
 	Account,
 	AccountType,
+	ConnectArgs,
+	ConnectFields,
 	ConnectReply,
 }
 
