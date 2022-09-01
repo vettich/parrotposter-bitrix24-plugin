@@ -3,8 +3,9 @@
 	import { menu } from '@src/consts/menu';
 	import { user } from '@src/store';
 
-	import List, { Item, Separator, Text } from '@smui/list';
 	import Drawer from 'svelte-drawer-component';
+	import Button, { Icon as ButtonIcon } from '@smui/button';
+	import Icon from '@src/components/common/Icon.svelte';
 
 	export let openDrawer = false;
 
@@ -23,32 +24,109 @@
 		user.logout();
 		openDrawer = false;
 	}
+
+	const formatUsername = (): string => {
+		if (!$user.data.name) {
+			return $user.data.username
+		}
+		return `${$user.data.name} (${$user.data.username})`
+	}
 </script>
 
 <div class="drawer-menu">
 	<Drawer bind:open={openDrawer} on:clickAway={() => openDrawer = false}>
-		<List>
-			{#each menu as {link, label}}
-				<Item on:click={go(link)} activated={isActive(link)}><Text>{label}</Text></Item>
-			{/each}
+		<div class="drawer-menu__group">
+			<div class="drawer-menu__header">
+				<Icon variant="filled" size={72}>account_circle</Icon>
+				{formatUsername()}
+			</div>
 
-			<Separator />
+			<div class="drawer-menu__content">
+				<div class="drawer-menu__list">
+					{#each menu as {link, label, icon}}
+						<div
+							class="drawer-menu__item"
+							class:drawer-menu__item--active={isActive(link)}
+							on:click={go(link)}>
+							<Icon>{icon}</Icon>
+							{label}
+						</div>
+					{/each}
+				</div>
+			</div>
 
-			<Item on:click={logout}><Text>Выйти</Text></Item>
-		</List>
+			<div class="drawer-menu__footer">
+				<Button on:click={logout}>
+					<ButtonIcon class="material-icons-outlined">logout</ButtonIcon>
+					Выйти
+				</Button>
+			</div>
+		</div>
 	</Drawer>
 </div>
 
 <style lang="scss">
-	.drawer-menu :global(.drawer .panel) {
-		width: 50%;
-		min-width: 300px;
-		max-width: 600px;
+	@use './src/theme/helpers' as *;
 
-		@media screen and (max-width: 768px) {
-			min-width: initial;
-			max-width: initial;
-			width: 80%;
+	.drawer-menu  {
+		:global(.drawer .panel) {
+			width: 50%;
+			min-width: 300px;
+			max-width: 600px;
+
+			@media screen and (max-width: 768px) {
+				min-width: initial;
+				max-width: initial;
+				width: 80%;
+			}
+		}
+
+		&__group {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			padding: 1em 0;
+			gap: 16px;
+		}
+
+		&__header {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+		}
+
+		&__content {
+			flex-grow: 1;
+			overflow-y: auto;
+		}
+
+		&__list {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 12px 20%;
+			cursor: pointer;
+
+			&--active {
+				color: cssvar(primary);
+				background-color: rgba(cssvar(primary-rgb), 0.15);
+				border-right: 3px solid cssvar(primary);
+			}
+		}
+
+		&__footer {
+			display: flex;
+			justify-content: center;
+
+			& > :global(*) {
+				min-width: 200px;
+			}
 		}
 	}
 </style>
