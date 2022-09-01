@@ -1,5 +1,9 @@
 @use 'sass-hex-rgb' as hexrgb;
 
+// material icons
+@use 'material-icons/iconfont/filled.css';
+@use 'material-icons/iconfont/outlined.css';
+
 * {
 	box-sizing: border-box;
 }

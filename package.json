@@ -26,6 +26,7 @@
     "@tsconfig/svelte": "^3.0.0",
     "@types/node": "^18.7.14",
     "date-picker-svelte": "^2.1.1",
+    "material-icons": "^1.11.11",
     "postcss": "^8.4.16",
     "sass-hex-rgb": "^1.0.1",
     "smui-theme": "^6.0.0",

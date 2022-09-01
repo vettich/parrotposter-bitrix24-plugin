@@ -26,7 +26,7 @@
 			<TopUserMenu />
 		</div>
 		<div class="top-bar__open-menu-btn" on:click={() => openDrawer = true}>
-			<Icon class="material-icons">menu</Icon>
+			<Icon class="material-icons-outlined">menu</Icon>
 		</div>
 	</div>
 </div>
@@ -54,6 +54,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			height: 100%;
 		}
 
 		&__menu {
@@ -72,7 +73,7 @@
 			display: none;
 			align-items: center;
 			justify-content: center;
-			padding: 12px;
+			padding: 14px;
 			border-radius: 0 4px 4px 0;
 			height: 100%;
 			transition: background-color 0.2s ease;
