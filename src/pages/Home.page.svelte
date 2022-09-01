@@ -3,5 +3,5 @@
 
 	const navigate = useNavigate();
 
-	navigate('/posts');
+	navigate('/posts', { replace: true });
 </script>

@@ -1,5 +1,5 @@
 <script>
-	import { link } from 'svelte-routing';
+	import { Link } from 'svelte-navigator';
 
 	import { Icon } from '@smui/common';
 	import Logo from '@src/components/Logo.svelte';
@@ -12,7 +12,10 @@
 </script>
 
 <div class="top-bar mdc-elevation--z4">
-	<a href="/" class="top-bar__logo" use:link><Logo /></a>
+	<div class="top-bar__logo">
+		<Link to="/"><Logo /></Link>
+	</div>
+
 	<div class="top-bar__menu">
 		<TopMenu />
 	</div>

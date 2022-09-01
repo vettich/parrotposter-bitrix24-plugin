@@ -1,22 +1,13 @@
 <script>
-	import { onDestroy } from 'svelte';
-	import { globalHistory } from 'svelte-routing/src/history';
+	import { useLocation } from 'svelte-navigator';
 	import { withBasePath } from '@src/tools';
 
 	export let to = '/';
 	export let label = '';
 
-	let isSelected = false;
+	const location = useLocation();
 
-	const updateSelected = () => {
-		isSelected = location.pathname.includes(to);
-	}
-	updateSelected();
-
-	const unlisten = globalHistory.listen(() => {
-		updateSelected();
-	})
-	onDestroy(unlisten);
+	$: isSelected = $location.pathname.includes(to);
 </script>
 
 <a href={withBasePath(to)} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
