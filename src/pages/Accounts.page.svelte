@@ -26,6 +26,12 @@
 			display: flex;
 			align-items: center;
 			gap: 16px;
+			flex-wrap: wrap;
+			margin: 22px auto;
+
+			h1 {
+				margin: 0;
+			}
 		}
 	}
 </style>
