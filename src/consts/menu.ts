@@ -9,7 +9,6 @@ const menu: Menu[] = [
 	{ link: '/accounts', label: 'Аккаунты', icon: 'people_alt' },
 	{ link: '/tariffs', label: 'Тарифы', icon: 'payment' },
 	{ link: '/integrations', label: 'Интеграции', icon: 'devices_other' },
-	{ link: '/integrations2', label: 'Интеграции 2', icon: 'devices_other' },
 ];
 
 export {

@@ -2,8 +2,7 @@
 	import { useLocation } from "svelte-navigator";
 	import type { Menu } from "@src/consts/menu";
 
-	import MenuList from '@smui/menu';
-	import { Anchor } from '@smui/menu-surface';
+	import MenuSurface from '@smui/menu-surface';
 	import Icon from '../common/Icon.svelte';
 	import TopMenuItem from "./TopMenuItem.svelte";
 
@@ -11,39 +10,21 @@
 
 	let openMenuList = false;
 
-	let anchor: HTMLDivElement;
-	let anchorClasses: { [k: string]: boolean } = {};
-	let useAnchorParams = {
-		addClass: (className: string) => {
-			if (!anchorClasses[className]) {
-				anchorClasses[className] = true;
-			}
-		},
-		removeClass: (className: string) => {
-			if (anchorClasses[className]) {
-				delete anchorClasses[className];
-				anchorClasses = anchorClasses;
-			}
-		},
-	}
-
 	const location = useLocation();
 	$: isActive = items.some(item => $location.pathname.includes(item.link))
 </script>
 
+<svelte:body on:click|capture={() => openMenuList = false} />
 
 {#if items.length}
-	<div class="top-menu__more {Object.keys(anchorClasses).join(' ')}"
-		bind:this={anchor}
-		use:Anchor={useAnchorParams}
-		>
-		<div class="top-menu__more-btn-wrap" on:click={() => openMenuList = true}>
+	<div class="top-menu__more">
+		<div class="top-menu__more-btn-wrap" on:click|stopPropagation={() => openMenuList = true }>
 			<TopMenuItem tag="div" active={isActive}>
 				<Icon>more_horiz</Icon>
 			</TopMenuItem>
 		</div>
 
-		<MenuList bind:open={openMenuList} anchor={false} bind:anchorElement={anchor} anchorCorner="BOTTOM_LEFT">
+		<MenuSurface bind:open={openMenuList} managed={true} anchorCorner="BOTTOM_LEFT">
 			<div class="top-menu__more-items">
 				{#each items as {link, label, icon}}
 					<TopMenuItem to={link} active={$location.pathname.includes(link)}>
@@ -54,7 +35,7 @@
 					</TopMenuItem>
 				{/each}
 			</div>
-		</MenuList>
+		</MenuSurface>
 	</div>
 {/if}
 

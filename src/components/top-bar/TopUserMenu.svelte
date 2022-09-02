@@ -4,27 +4,8 @@
 	import { Icon } from '@smui/common';
 	import List, { Item, Text, Graphic } from '@smui/list';
 	import Menu from '@smui/menu';
-	import type { MenuComponentDev } from '@smui/menu';
-	import { Anchor } from '@smui/menu-surface';
 
-	let menu: MenuComponentDev;
-
-	// для отображения раскрывающегося списка ниже меню, а не над ним
-	let anchor: HTMLDivElement;
-	let anchorClasses: { [k: string]: boolean } = {};
-	let useAnchorParams = {
-		addClass: (className: string) => {
-			if (!anchorClasses[className]) {
-				anchorClasses[className] = true;
-			}
-		},
-		removeClass: (className: string) => {
-			if (anchorClasses[className]) {
-				delete anchorClasses[className];
-				anchorClasses = anchorClasses;
-			}
-		},
-	}
+	let menuOpen = false;
 
 	const formatUsername = (): string => {
 		if (!$user.data.name) {
@@ -34,17 +15,15 @@
 	}
 </script>
 
-<div class="menu {Object.keys(anchorClasses).join(' ')}"
-	bind:this={anchor}
-	use:Anchor={useAnchorParams}
-	on:click|stopPropagation={() => {}}>
+<svelte:body on:click|capture={() => menuOpen = false} />
 
-	<div class="menu__btn" on:click={() => menu.setOpen(true)}>
+<div class="menu">
+	<div class="menu__btn" on:click={() => menuOpen = true}>
 		{formatUsername()}
 		<Icon class="material-icons">account_circle</Icon>
 	</div>
 
-	<Menu bind:this={menu} anchor={false} bind:anchorElement={anchor} anchorCorner="BOTTOM_LEFT">
+	<Menu bind:open={menuOpen} managed={true} anchorCorner="BOTTOM_LEFT">
 		<List dense>
 			<Item on:click={user.logout}>
 				<Graphic class="material-icons-outlined">logout</Graphic>
