@@ -6,13 +6,26 @@
 	import Layout from '@src/components/Layout.svelte';
 	import AccountsAddButtons from '@src/components/accounts/AccountsAddButtons.svelte';
 	import AccountsList from '@src/components/accounts/AccountsList.svelte';
+	import AccountsLimitsInfo from '@src/components/accounts/AccountsLimitsInfo.svelte';
 </script>
 
 <Layout>
-	<h1>Аккаунты соц. сетей</h1>
+	<div class="accounts-page__header">
+		<h1>Аккаунты соц. сетей</h1>
+		<AccountsLimitsInfo />
+	</div>
 
 	<AccountsAddButtons />
 	<br>
 	<AccountsList />
 </Layout>
 
+<style lang="scss">
+	.accounts-page {
+		&__header {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+		}
+	}
+</style>

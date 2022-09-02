@@ -12,8 +12,11 @@
 		on-surface: $on-surface,
 		secondary: $secondary,
 		success: $success,
+		on-success: $on-success,
 		warning: $warning,
+		on-warning: $on-warning,
 		error: $error,
+		on-error: $on-error,
 	));
 
 	@include colorvars((
@@ -42,8 +45,11 @@
 		on-surface: dark.$on-surface,
 		secondary: dark.$secondary,
 		success: dark.$success,
+		on-success: dark.$on-success,
 		warning: dark.$warning,
+		on-warning: dark.$on-warning,
 		error: dark.$error,
+		on-error: dark.$on-error,
 	));
 
 	@include colorvars((

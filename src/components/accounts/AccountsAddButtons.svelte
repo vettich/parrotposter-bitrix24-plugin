@@ -1,19 +1,20 @@
 <script lang="ts">
-	import type { AccountType, ConnectReply } from "@src/types";
+	import { type AccountType, canAddAccount } from "@src/types";
 	import { accountsTypes } from "@src/types";
-	import { api } from "@src/api";
+	import { accounts, user } from "@src/store";
 
 	import Button from "@smui/button";
 	import CircularProgress from "@src/components/common/CircularProgress.svelte";
 	import AccountConnectTg from "./AccountConnectTg.svelte";
-import { accounts } from "@src/store";
-import AccountConnectInsta from "./AccountConnectInsta.svelte";
+	import AccountConnectInsta from "./AccountConnectInsta.svelte";
 
 	const socials = accountsTypes;
 
 	let loading: AccountType;
 	let openTgConnect = false;
 	let openInstaConnect = false;
+
+	$: cannotAdd = !canAddAccount($user.data);
 
 	const connect = (social: AccountType) => {
 		if (!!loading) return;
@@ -51,7 +52,7 @@ import AccountConnectInsta from "./AccountConnectInsta.svelte";
 		<Button
 			variant="raised" class="bg-color--{social}"
 			on:click={() => connect(social)}
-			disabled={loading === social}>
+			disabled={loading === social || cannotAdd}>
 			<div class="accounts-add-buttons__social-icon bg-image-white--{social}"/>
 			<span class="accounts-add-buttons__label">Подключить</span>
 			<!-- <span class="accounts-add-buttons__label">{socialLabels[social]}</span> -->

@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store';
 import { api } from '@src/api';
 import { storage } from '@src/lib/storage';
+import type { User } from '@src/types';
 
-interface User {
+interface UserWrap {
 	loading: boolean,
-	data?: any,
+	data?: User,
 	error?: UserError,
 }
 
@@ -34,7 +35,7 @@ const createUserError = (err: string):  UserError => {
 }
 
 function createUser() {
-	const initial: User = { loading: true }
+	const initial: UserWrap = { loading: true }
 	const { subscribe, set } = writable(initial);
 
 	const loadUser = (token: string) => {
@@ -80,6 +81,11 @@ function createUser() {
 		set({ loading: false })
 	}
 
+	const reload = async () => {
+		const data = await api.get<User>('me');
+		set({ loading: false, data })
+	}
+
 	const init = async () => {
 		const token = await storage.get('pptoken');
 		token ? loadUser(token) : set({ loading: false });
@@ -88,6 +94,7 @@ function createUser() {
 
 	return {
 		subscribe,
+		reload,
 		login,
 		logout,
 	}

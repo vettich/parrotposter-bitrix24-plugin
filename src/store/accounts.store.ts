@@ -1,11 +1,12 @@
 import { writable } from 'svelte/store';
 import { api } from '@src/api';
 import type { Account, AccountType, ConnectArgs, ConnectFields, ConnectReply } from '@src/types';
+import { user } from './user.store';
 
 class AccountMap {
 	data: { [key: string]: Account };
 
-	constructor(accounts: [Account]) {
+	constructor(accounts: Account[]) {
 		this.data = {}
 		for (let acc of accounts) {
 			this.data[acc.id] = acc;
@@ -24,6 +25,10 @@ class AccountMap {
 interface AccountsWrapper {
 	loading: boolean,
 	data?: AccountMap,
+}
+
+interface AccountsReply {
+	accounts: Account[],
 }
 
 function createAccounts() {
@@ -49,11 +54,20 @@ function createAccounts() {
 			})
 	}
 
+	const reload = async () => {
+		const res = await api.get<AccountsReply>('accounts');
+		update(store => ({
+			...store,
+			data: new AccountMap(res.accounts),
+		}))
+	}
+
 	api.authToken.onChange(setted => setted ? load() : null)
 
 	const deleteAccount = async (id: string) => {
 		await api.deleteById('accounts', id);
-		load();
+		reload();
+		user.reload();
 	}
 
 	const connect = async (social: AccountType, fields: ConnectFields): Promise<ConnectReply> => {
@@ -63,7 +77,8 @@ function createAccounts() {
 		}
 		try {
 			const res = await api.post<ConnectReply>('connect', req);
-			load();
+			reload();
+			user.reload();
 			return res;
 		} catch (e) {
 			throw e

@@ -1,7 +1,9 @@
+import type { Platform } from './platform.type';
+
 interface Post {
 	id: string,
 	fields: PostFields,
-	from: PostFrom,
+	from: Platform,
 	status: PostStatus,
 	networks?: PostNetworks,
 	results?: PostResults,
@@ -15,8 +17,6 @@ interface PostInput {
 }
 
 type PostStatus = 'success' | 'fail' | 'ready' | 'queue';
-
-type PostFrom = 'bitrix' | 'front' | 'wordpress' | 'bitrix24';
 
 interface PostFields {
 	text?: string,
@@ -59,7 +59,6 @@ function comparePostByPublishAt(a: Post, b: Post): number {
 export type {
 	Post,
 	PostStatus,
-	PostFrom,
 	PostFields,
 	PostImageSize,
 	PostNetworks,
