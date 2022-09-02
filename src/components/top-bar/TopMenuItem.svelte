@@ -1,16 +1,22 @@
-<script>
-	import { useLocation } from 'svelte-navigator';
+<script lang="ts">
 	import { withBasePath } from '@src/tools';
 
+	export let tag = 'a';
 	export let to = '/';
 	export let label = '';
-
-	const location = useLocation();
-
-	$: isSelected = $location.pathname.includes(to);
+	export let active = false;
 </script>
 
-<a href={withBasePath(to)} class="top-menu-item" class:top-menu-item--selected={isSelected}>{label}</a>
+<svelte:element
+	this={tag}
+	href={withBasePath(to)}
+	class="top-menu-item" class:top-menu-item--selected={active}
+	{...$$restProps}
+	>
+	<slot>
+		{label}
+	</slot>
+</svelte:element>
 
 <style lang="scss">
 	@use './src/theme/helpers' as *; 
@@ -24,6 +30,7 @@
 		line-height: 1;
 		height: 100%;
 		padding: 0 14px;
+		cursor: pointer;
 		color: cssvar(on-surface);
 		border-bottom: 2px solid transparent;
 		transition: all 0.2s ease;

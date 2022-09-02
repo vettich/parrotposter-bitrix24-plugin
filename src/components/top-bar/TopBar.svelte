@@ -13,7 +13,7 @@
 
 <div class="top-bar mdc-elevation--z4">
 	<div class="top-bar__logo">
-		<Link to="/"><Logo /></Link>
+		<Link to="/posts"><Logo /></Link>
 	</div>
 
 	<div class="top-bar__menu">
@@ -94,6 +94,7 @@
 		}
 
 		&__logo {
+			flex-shrink: 0;
 			height: 100%;
 			padding: 8px 8px 8px 12px;
 			:global(img) {
