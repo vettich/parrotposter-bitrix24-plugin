@@ -1,5 +1,7 @@
 <script lang="ts">
 	import SegmentedButton, { Label, Segment } from '@smui/segmented-button';
+	import Select, { Option } from '@smui/select';
+import Icon from '@smui/select/icon';
 
 	export let months = 1;
 
@@ -14,21 +16,58 @@
 	$: months = selected.months;
 </script>
 
-<SegmentedButton segments={values} let:segment singleSelect bind:selected>
-	<Segment {segment}>
-		<Label>
-			{segment.label}
-			{#if segment.discount}
-				<div class="tariffs-periods__discount">{segment.discount}</div>
-			{/if}
-		</Label>
-	</Segment>
-</SegmentedButton>
+<div class="tariffs-periods tariffs-periods--desktop">
+	<SegmentedButton segments={values} let:segment singleSelect bind:selected>
+		<Segment {segment}>
+			<Label>
+				{segment.label}
+				{#if segment.discount}
+					<div class="tariffs-periods__discount">{segment.discount}</div>
+				{/if}
+			</Label>
+		</Segment>
+	</SegmentedButton>
+</div>
+
+<div class="tariffs-periods tariffs-periods--mobile">
+	<Select
+		variant="outlined"
+		bind:value={selected}
+		key={v => `${v}`}
+		label="Выберите период подписки"
+		style="width: 100%"
+		>
+		<Icon class="material-icons-outlined" slot="leadingIcon">today</Icon>
+		{#each values as value}
+			<Option {value}>
+				{value.label}
+				{#if value.discount}
+					<div class="tariffs-periods__discount">{value.discount}</div>
+				{/if}
+			</Option>
+		{/each}
+	</Select>
+</div>
 
 <style lang="scss">
 	@use './src/theme/helpers' as *;
 
 	.tariffs-periods {
+		display: flex;
+		width: 100%;
+
+		&--desktop {
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+		}
+
+		&--mobile {
+			@media screen and (min-width: 768px) {
+				display: none;
+			}
+		}
+
 		&__discount {
 			display: inline;
 			font-size: 11px;

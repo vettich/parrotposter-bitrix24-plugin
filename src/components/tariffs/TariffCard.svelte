@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { Tariff, TariffCurrency, TariffPrice } from "@src/types";
 	import { tariffCurrencyLabels } from '@src/types';
+	import { api } from "@src/api";
 
 	import Button, { Label } from "@smui/button";
 	import Icon from "../common/Icon.svelte";
+	import CircularProgress from "../common/CircularProgress.svelte";
 
 	export let tariff: Tariff;
 	export let months: number = 1;
@@ -21,6 +23,30 @@
 
 	$: priceValue = calcPriceValue(price, months);
 	$: paymentPrice = priceValue * months;
+
+	interface OrderReply {
+		order_url: string,
+	}
+
+	let makingRequest = false;
+	const gotoPayment = async () => {
+		const req = {
+			tariff_id: tariff.id,
+			period: months,
+			success_url: location.href,
+			fail_url: location.href,
+			back_url: location.href,
+		}
+
+		makingRequest = true;
+		try {
+			const res = await api.post<OrderReply>('orders', req)
+			location.href = res.order_url
+		} catch (e) {
+			console.log(e)
+			makingRequest = false;
+		}
+	}
 </script>
 
 <div class="tariff-card mdc-elevation--z4">
@@ -39,11 +65,14 @@
 	</ul>
 
 	<div class="tariff-card__action">
-		<Button>
+		<Button on:click={gotoPayment}>
 			<Label>
 				{paymentPrice.toLocaleString()}{tariffCurrencyLabels[currency]} к оплате
 			</Label>
 			<Icon>east</Icon>
+			{#if makingRequest}
+				<CircularProgress />
+			{/if}
 		</Button>
 	</div>
 </div>
@@ -57,7 +86,7 @@
 		align-items: center;
 		gap: 14px;
 		flex-basis: 300px;
-		padding: 2em 1.5em;
+		padding: 2em 1.5em 1.5em;
 		border-radius: 4px;
 		background-color: cssvar(surface);
 		color: cssvar(on-surface);
@@ -84,6 +113,14 @@
 				display: flex;
 				gap: 8px;
 
+			}
+		}
+
+		&__action {
+			width: 100%;
+
+			& :global(button) {
+				width: 100%;
 			}
 		}
 	}

@@ -69,6 +69,10 @@
 	.integrations {
 		display: flex;
 		gap: 1em;
+
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+		}
 	}
 
 	.integration-card {
@@ -80,6 +84,10 @@
 		flex-basis: 380px;
 		color: cssvar(on-surface);
 		background-color: cssvar(surface);
+
+		@media screen and (max-width: 768px) {
+			flex-basis: auto;
+		}
 
 		&__header {
 			display: flex;

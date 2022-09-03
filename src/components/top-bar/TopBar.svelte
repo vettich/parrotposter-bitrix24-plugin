@@ -11,6 +11,8 @@
 	let openDrawer = false;
 </script>
 
+<div class="top-bar__overlay" />
+
 <div class="top-bar mdc-elevation--z4">
 	<div class="top-bar__logo">
 		<Link to="/posts"><Logo /></Link>
@@ -37,6 +39,8 @@
 	@use './src/theme/helpers' as *;
 
 	.top-bar {
+		position: sticky;
+		top: 16px;
 		display: flex;
 		gap: 1em;
 		height: 56px;
@@ -45,9 +49,21 @@
 		margin-bottom: 1em;
 		border-radius: 4px;
 		background-color: cssvar(surface);
+		z-index: 66;
 
 		@media screen and (max-width: 768px) {
 			justify-content: space-between;
+		}
+
+		&__overlay {
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			height: calc(40px + 56px);
+			backdrop-filter: blur(10px);
+			mask: linear-gradient(black 70%, transparent);
+			z-index: 65;
 		}
 
 		&__right-side {

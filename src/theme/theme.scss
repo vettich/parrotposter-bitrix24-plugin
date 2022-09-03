@@ -160,6 +160,10 @@ body {
 		opacity: 0.1;
 	}
 
+	.mdc-select:not(.mdc-select--disabled) .mdc-select__icon {
+		color: cssvar(secondary);
+	}
+
 	//// segment button
 
 	.mdc-segmented-button__segment {
