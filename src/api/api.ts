@@ -2,7 +2,7 @@ import { TokenManager } from './token-manager';
 
 declare const __API_URL__: string;
 
-type Resource = 'me' | 'posts' | 'tokens' | 'accounts' | 'files' | 'connect';
+type Resource = 'me' | 'posts' | 'tokens' | 'accounts' | 'files' | 'connect' | 'tariffs';
 
 type HttpMethod = 'GET' | 'POST' | 'DELETE';
 interface Params {

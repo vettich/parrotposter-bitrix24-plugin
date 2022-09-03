@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@smui-extra/accordion": "^6.1.1",
+    "@smui-extra/badge": "^6.1.0",
     "@smui/button": "^6.0.0",
     "@smui/circular-progress": "^6.0.0",
     "@smui/layout-grid": "^6.0.0",
@@ -27,6 +28,7 @@
     "@types/node": "^18.7.14",
     "date-picker-svelte": "^2.1.1",
     "material-icons": "^1.11.11",
+    "moment": "^2.29.4",
     "postcss": "^8.4.16",
     "sass-hex-rgb": "^1.0.1",
     "smui-theme": "^6.0.0",

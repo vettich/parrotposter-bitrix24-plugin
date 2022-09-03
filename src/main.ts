@@ -2,6 +2,11 @@ import './global.scss';
 import App from './App.svelte';
 import { BX24 } from './lib/bx24';
 
+// import and set moment locale
+import 'moment/dist/locale/ru.js';
+import moment from 'moment';
+moment.locale('ru');
+
 // fix scroll back up when navigate
 history.pushState = new Proxy(history.pushState, {
 	apply (target, thisArg, argumentsList) {

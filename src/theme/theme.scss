@@ -173,6 +173,7 @@ body {
 		background-color: rgba(cssvar(surface-rgb), 1);
 		background-color: cssvar(surface);
 		z-index: 1;
+		will-change: auto;
 
 		&:focus, &--selected {
 			color: rgba(cssvar(primary-rgb), 1);
