@@ -13,7 +13,7 @@
 
 	tariffs.load();
 
-	let months = 1;
+	let months = 3;
 </script>
 
 <Layout>
