@@ -52,7 +52,8 @@
 		<Button
 			variant="raised" class="bg-color--{social}"
 			on:click={() => connect(social)}
-			disabled={loading === social || cannotAdd}>
+			disabled={loading === social || cannotAdd}
+			title={`Подключить ` + socialLabels[social]}>
 			<div class="accounts-add-buttons__social-icon bg-image-white--{social}"/>
 			<span class="accounts-add-buttons__label">Подключить</span>
 			<!-- <span class="accounts-add-buttons__label">{socialLabels[social]}</span> -->
