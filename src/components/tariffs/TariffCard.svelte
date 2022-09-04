@@ -10,6 +10,7 @@
 	export let tariff: Tariff;
 	export let months: number = 1;
 	export let currency: TariffCurrency = 'rub';
+	export let current = false;
 
 	$: price = tariff.prices.find(p => p.currency === currency);
 
@@ -50,6 +51,10 @@
 </script>
 
 <div class="tariff-card mdc-elevation--z4">
+	{#if current}
+		<div class="tariff-card__current-badge">Текущий</div>
+	{/if}
+	
 	<div class="tariff-card__name">{tariff.name}</div>
 
 	<div class="tariff-card__price">
@@ -81,6 +86,7 @@
 	@use './src/theme/helpers' as *;
 
 	.tariff-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -88,6 +94,7 @@
 		flex-basis: 300px;
 		padding: 2em 1.5em 1.5em;
 		border-radius: 4px;
+		overflow: hidden;
 		background-color: cssvar(surface);
 		color: cssvar(on-surface);
 
@@ -122,6 +129,21 @@
 			& :global(button) {
 				width: 100%;
 			}
+		}
+
+		&__current-badge {
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 40px 20px 2px;
+			width: 150px;
+			text-align: center;
+			transform: translateX(50%) rotate(45deg);
+			transform-origin: 50% top;
+			font-size: 14px;
+			font-weight: bold;
+			color: cssvar(on-primary);
+			background-color: cssvar(primary);
 		}
 	}
 </style>

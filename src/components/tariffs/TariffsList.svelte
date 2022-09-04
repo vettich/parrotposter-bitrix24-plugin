@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tariffs } from '@src/store';
+	import { tariffs, user } from '@src/store';
 
 	import TariffCard from './TariffCard.svelte';
 
@@ -8,7 +8,7 @@
 
 <div class="tariffs-list">
 	{#each $tariffs.data as tariff (tariff.id)}
-		<TariffCard {tariff} {months} />
+		<TariffCard {tariff} {months} current={$user.data.tariff.id === tariff.id} />
 	{/each}
 </div>
 
