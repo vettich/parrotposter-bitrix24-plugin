@@ -2,6 +2,7 @@
 	import type { Account } from '@src/types';
 	import placeholderSrc from '@src/assets/images/placeholder.png';
 	import noAccountSrc from '@src/assets/images/socials/no-account.svg';
+	import { _ } from '@src/lib/i18n';
 
 	export let account: Account = null;
 	export let status: Status = null;
@@ -25,7 +26,7 @@
 	$: type = getType();
 	$: if (success !== null) status = success ? 'success' : 'fail';
 
-	const formatName = () => account?.name || 'Аккаунт удален';
+	const formatName = () => account?.name || $_('accounts.deleted');
 
 	function onError() {
 		this.src = placeholderSrc

@@ -1,12 +1,13 @@
 <script lang="ts">
-	import Dialog, { Content, InitialFocus } from '@smui/dialog';
 	import { post } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
+	import Dialog, { Content } from '@smui/dialog';
 	import { Icon } from '@smui/common';
 	import CircularProgress from '@smui/circular-progress';
+	import Button from '@smui/button';
 	import Images from './PostListItemImages.svelte';
 	import Results from './PostQuickViewResults.svelte';
-	import Button from '@smui/button';
 
 	export let postId: string;
 	export let open = false;
@@ -32,14 +33,14 @@
 
 				{#if $post.data.fields?.tags}
 					<div class="post-quick-view__param">
-						<div class="post-quick-view__label">Теги</div>
+						<div class="post-quick-view__label">{$_('posts.fields.tags')}</div>
 						<div class="post-quick-view__value">{$post.data.fields.tags}</div>
 					</div>
 				{/if}
 
 				{#if $post.data.fields?.link}
 					<div class="post-quick-view__param">
-						<div class="post-quick-view__label">Ссылка</div>
+						<div class="post-quick-view__label">{$_('posts.fields.link')}</div>
 						<div class="post-quick-view__value">
 							{$post.data.fields.link}
 							<a href={$post.data.fields.link} target="_blank">
@@ -50,7 +51,7 @@
 				{/if}
 
 				<div class="post-quick-view__param">
-					<div class="post-quick-view__label">Дата публикации</div>
+					<div class="post-quick-view__label">{$_('posts.fields.publish_at')}</div>
 					<div class="post-quick-view__value">{$post.data.publish_at.toLocaleString()}</div>
 				</div>
 

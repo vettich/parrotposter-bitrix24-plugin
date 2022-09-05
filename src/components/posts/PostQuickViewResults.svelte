@@ -2,6 +2,7 @@
 	import type { Post, PostResult } from '@src/types';
 	import { accounts } from '@src/store';
 	import { mergeAccountsResults } from '@src/tools';
+	import { _ } from '@src/lib/i18n';
 
 	import AccountPhoto from "@src/components/accounts/AccountPhoto.svelte";
 	import { Icon } from '@smui/common';
@@ -33,13 +34,13 @@
 					{#if item.account}
 						{item.account.name}
 					{:else}
-						Аккаунт был удален
+						{$_('posts.account_was_deleted')}
 					{/if}
 				</div>
 				<div class="post-quick-view-results__status post-quick-view-results__status--{formatStatus(item.result)}">
 					{#if item.result?.success}
-						<a href={item.result.link} target="_blank" title="Откроется в новой вкладке">
-							Посмотреть пост
+						<a href={item.result.link} target="_blank" title={$_('actions.open_in_new_tab')}>
+							{$_('posts.view_post')}
 							<Icon class="material-icons-outlined">open_in_new</Icon>
 						</a>
 					{:else}

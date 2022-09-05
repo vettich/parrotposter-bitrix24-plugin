@@ -1,11 +1,12 @@
 <svelte:head>
-	<title>Список постов - ParrotPoster</title>
+	<title>{$_('posts.page_title')} - ParrotPoster</title>
 </svelte:head>
 
 <script>
 	import { onMount } from 'svelte';
 	import { posts } from '@src/store';
 	import { navigate } from '@src/tools';
+	import { _ } from '@src/lib/i18n';
 
 	import CircularProgress from '@smui/circular-progress';
 	import { Layout, PostList } from '@src/components';
@@ -18,12 +19,12 @@
 </script>
 
 <Layout>
-	<h1>Список постов</h1>
+	<h1>{$_('posts.page_title')}</h1>
 
 	{#if $posts.loading && $posts.data.length == 0}
 		<CircularProgress style="height: 24px; width: 24px;" indeterminate />
 	{:else if $posts.data.length == 0}
-		Нет постов
+		{$_('posts.no_posts')}
 	{:else}
 		<div class="posts">
 			<PostList posts={$posts.data} />
@@ -34,7 +35,7 @@
 						{#if $posts.loading}
 							<CircularProgress style="height: 24px; width: 24px;" indeterminate />
 						{:else}
-							Показать еще
+							{$_('posts.show_more')}
 						{/if}
 					</Button>
 				</div>
@@ -43,7 +44,7 @@
 	{/if}
 
 	<svelte:fragment slot="actions">
-		<Fab color="primary" title="Создать пост" on:click={() => navigate('/posts/new')}>
+		<Fab color="primary" title={$_('posts.create_post_btn_title')} on:click={() => navigate('/posts/new')}>
 			<Icon class="material-icons-outlined">add</Icon>
 		</Fab>
 	</svelte:fragment>

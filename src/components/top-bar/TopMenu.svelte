@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { useLocation } from 'svelte-navigator';
 	import { menu, type Menu } from '@src/consts/menu';
+	import { locale } from '@src/lib/i18n';
 
 	import TopMenuItem from './TopMenuItem.svelte';
 	import TopMenuMore from './TopMenuMore.svelte';
@@ -38,7 +39,7 @@
 		return hideStartIdx;
 	}
 
-	$: toggleMenuItems(menuEl, width);
+	$: $locale && toggleMenuItems(menuEl, width);
 </script>
 
 <div class="top-menu top-menu--hidden" bind:clientWidth={width} bind:this={menuEl}>

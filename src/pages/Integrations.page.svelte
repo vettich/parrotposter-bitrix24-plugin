@@ -4,6 +4,7 @@
 
 <script>
 	import { theme } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
 	import Icon from "@src/components/common/Icon.svelte";
 	import Layout from "@src/components/Layout.svelte";
@@ -18,24 +19,24 @@
 </script>
 
 <Layout>
-	<h1>Интеграции</h1>
+	<h1>{$_('integrations.page_title')}</h1>
 
 	<div class="integrations">
 		<div class="integration-card mdc-elevation--z4">
 			<div class="integration-card__header">
-				<div class="integration-card__title">Модуль для 1С-Битрикс</div>
+				<div class="integration-card__title">{$_('integrations.bitrix.title')}</div>
 				<div class="integration-card__icon">
 					<img src={bxLogo} alt="">
 				</div>
 			</div>
 			<div class="integration-card__content">
-				Позволяет публиковать посты в популярные социальные сети прямо из инфоблоков
+				{$_('integrations.bitrix.desc')}
 			</div>
 			<div class="integration-card__action">
 				<a class="integration-card__btn"
 					href="https://marketplace.1c-bitrix.ru/solutions/vettich.sp3/"
 					target="_blank">
-					Установить модуль
+					{$_('integrations.bitrix.link')}
 					<Icon>east</Icon>
 				</a>
 			</div>
@@ -43,19 +44,19 @@
 
 		<div class="integration-card mdc-elevation--z4">
 			<div class="integration-card__header">
-				<div class="integration-card__title">Плагин для Wordpress</div>
+				<div class="integration-card__title">{$_('integrations.wordpress.title')}</div>
 				<div class="integration-card__icon">
 					<img src={wpLogo} alt="">
 				</div>
 			</div>
 			<div class="integration-card__content">
-				Автоматическая публикация постов из вашего блога или магазина
+				{$_('integrations.wordpress.desc')}
 			</div>
 			<div class="integration-card__action">
 				<a class="integration-card__btn"
 					href="https://wordpress.org/plugins/parrotposter/"
 					target="_blank">
-					Установить плагин
+					{$_('integrations.wordpress.link')}
 					<Icon>east</Icon>
 				</a>
 			</div>

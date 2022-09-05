@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { addLeadingZero } from '@src/tools';
 	import { selectAllOnFocus } from '@src/actions/select-all-on-focus';
+	import { _ } from '@src/lib/i18n';
 
 	import Textfield from '@smui/textfield';
 	import { DatePicker } from 'date-picker-svelte';
@@ -53,7 +54,7 @@
 	<div on:focusout={onFocusOutDatePicker}>
 		<Textfield
 			value={dateStr}
-			label="Дата публикации"
+			label={$_('posts.form.publish_date')}
 			on:focus={() => datepickerVisible = true}
 			input$readonly
 			style="width: 100%"
@@ -67,7 +68,7 @@
 		<Textfield
 			use={[selectAllOnFocus]}
 			bind:value={timeStr}
-			label="Время публикации"
+			label={$_('posts.form.publish_time')}
 			on:focus={onFocusTimeinput}
 			on:focusout={onFocusOutTimeinput}
 			style="width: 100%"

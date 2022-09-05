@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Account } from '@src/types';
 	import { accounts } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
 	import Button from '@smui/button';
@@ -22,15 +23,15 @@
 </script>
 
 <Dialog bind:open>
-	<Title>Удалить {account?.name}?</Title>
+	<Title>{$_('accounts.ask_delete', {values: {name: account?.name}})}</Title>
 	{#if deleting}
 		<Content>
 			<CircularProgress style="height: 24px; width: 24px;" indeterminate />
 		</Content>
 	{:else}
 		<Actions>
-			<Button>Нет</Button>
-			<Button on:click={deleteAccount}>Да</Button>
+			<Button>{$_('actions.no')}</Button>
+			<Button on:click={deleteAccount}>{$_('actions.yes')}</Button>
 		</Actions>
 	{/if}
 </Dialog>

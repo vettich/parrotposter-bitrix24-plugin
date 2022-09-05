@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from '@src/lib/i18n';
+
 	import type { SnackbarComponentDev } from '@smui/snackbar';
 	import Snackbar, { Label as SnackbarLabel } from '@smui/snackbar';
 
@@ -8,7 +10,7 @@
 
 	export const show = (success: boolean, msg?: string) => {
 		_success = success;
-		_msg = msg ?? (success ? 'Успешно' : 'Ошибка');
+		_msg = msg ?? (success ? $_('success') : $_('fail'));
 		snackbar.close();
 		snackbar.open();
 	}

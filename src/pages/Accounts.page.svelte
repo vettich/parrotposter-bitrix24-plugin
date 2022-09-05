@@ -1,8 +1,10 @@
 <svelte:head>
-	<title>Аккаунты соц. сетей - ParrotPoster</title>
+	<title>{$_('accounts.page_title')} - ParrotPoster</title>
 </svelte:head>
 
 <script>
+	import { _ } from '@src/lib/i18n';
+
 	import Layout from '@src/components/Layout.svelte';
 	import AccountsAddButtons from '@src/components/accounts/AccountsAddButtons.svelte';
 	import AccountsList from '@src/components/accounts/AccountsList.svelte';
@@ -11,7 +13,7 @@
 
 <Layout>
 	<div class="accounts-page__header">
-		<h1>Аккаунты соц. сетей</h1>
+		<h1>{$_('accounts.page_title')}</h1>
 		<AccountsLimitsInfo />
 	</div>
 

@@ -21,6 +21,7 @@
 	import PostEdit from './pages/PostEdit.page.svelte';
 	import Tariffs from './pages/Tariffs.page.svelte';
 	import Integrations from './pages/Integrations.page.svelte';
+	import Settings from './pages/Settings.page.svelte';
 
 	let loading = true;
 
@@ -52,6 +53,7 @@
 			<PrivateRoute path="accounts"><Accounts/></PrivateRoute>
 			<PrivateRoute path="tariffs"><Tariffs/></PrivateRoute>
 			<PrivateRoute path="integrations"><Integrations/></PrivateRoute>
+			<PrivateRoute path="settings"><Settings/></PrivateRoute>
 
 			<PrivateRoute path="/"><Home/></PrivateRoute>
 		</Router>

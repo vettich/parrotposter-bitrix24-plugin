@@ -7,6 +7,7 @@
 	import TopUserMenu from './TopUserMenu.svelte';
 	import DrawerMenu from './DrawerMenu.svelte';
 	import ThemeSwitcher from '../ThemeSwitcher.svelte';
+	import LanguageSwitcher from '../LanguageSwitcher.svelte';
 
 	let openDrawer = false;
 </script>
@@ -23,6 +24,7 @@
 	</div>
 
 	<div class="top-bar__right-side">
+		<LanguageSwitcher />
 		<ThemeSwitcher />
 		<div class="top-bar__user-menu">
 			<TopUserMenu />

@@ -1,0 +1,138 @@
+{
+	"success": "Success",
+	"fail": "Fail",
+	"menu": {
+		"posts": "Posts",
+		"accounts": "Accounts",
+		"tariffs": "Tariffs",
+		"integrations": "Integrations",
+		"logout": "Logout"
+	},
+	"actions": {
+		"edit": "Edit",
+		"delete": "Delete",
+		"create": "Create",
+		"update": "Update",
+		"yes": "Yes",
+		"no": "No",
+		"cancel": "Cancel",
+		"open_in_new_tab": "Opens in new tab",
+		"back": "Back"
+	},
+	"posts": {
+		"page_title": "Posts",
+		"create_page_title": "Create post",
+		"edit_page_title": "Edit post",
+		"no_posts": "No posts",
+		"ask_delete_post": "Delete post",
+		"show_more": "Show more",
+		"create_post_btn_title": "Create new post",
+		"account_was_deleted": "Account was deleted",
+		"view_post": "View post",
+		"fields": {
+			"tags": "Tags",
+			"text": "Post text",
+			"link": "Link",
+			"publish_at": "Publish date"
+		},
+		"status": {
+			"ready": "Waiting for the right time",
+			"queue": "Publishing",
+			"success": "Success",
+			"fail": "Publish failed"
+		},
+		"form": {
+			"when_publish": "When to publish",
+			"variants": {
+				"now": "Now",
+				"delay": "After N minutes",
+				"custom": "Custom"
+			},
+			"minutes_count": "Number of minutes",
+			"own_option": "Own option",
+			"publish_date": "Publish date",
+			"publish_time": "Publish time",
+			"where_publish": "Where to publish",
+			"dropdown_images": "Click to select pictures, <br> or drag them here",
+			"errors": {
+				"empty_fields": "Fill in at least one of the fields: text, tags, link. Or upload pictures",
+				"empty_accounts": "Specify where to publish the post"
+			}
+		}
+	},
+	"socials": {
+		"vk": "VKontakte",
+		"tg": "Telegram",
+		"fb": "Facebook",
+		"ok": "Odnoklassniki",
+		"insta": "Instagram"
+	},
+	"accounts": {
+		"page_title": "Social network accounts",
+		"added": "Added {current} of {total}",
+		"switch_tariff": "Change tariff",
+		"connect": "Connect",
+		"tg_form": {
+			"title": "Connect Telegram",
+			"bot_token": "Bot token",
+			"username": "Link to channel or group",
+			"instruction": "Instruction",
+			"getting_bot_token": "Getting the bot token",
+			"start_with_bot_father": "Start dialog with <b>@BotFather</b>",
+			"send_newbot_command": "Send him <b>/newbot</b> command",
+			"set_bot_name": "Come up with a name for the bot, such as <b>Delicatessen</b>.",
+			"set_bot_username": "Now give the bot a username, such as <b>delicatessen_bot</b>.",
+			"copy_generated_token": "@BotFather will give you a token, copy it into the box above",
+			"connect_bot_to_chanel": "Connecting the bot to the channel",
+			"connect_bot_to_chanel_desc": "Add a bot as an administrator to your channel. Leave only the \"Publish messages\" permission.",
+			"connect_bot_to_group": "Connecting the bot to a group",
+			"connect_bot_to_group_desc": "Add the bot as a member to the group.",
+			"access_to_group_and_channel": "Access to a channel or group",
+			"access_to_group_and_channel_desc": "Note that the channel or group must be public to be able to post.",
+			"failed_to_connect": "Failed to connect. Check that the data entered is correct"
+		},
+		"insta_form": {
+			"title": "Connect Instagram",
+			"enter_your_login_password": "Enter your Instagram username and password",
+			"login": "Login",
+			"password": "Password",
+			"enter_sended_code": "Enter the code sent to your phone or email",
+			"code": "Code"
+		}
+	},
+	"tariffs": {
+		"page_title": "Tariffs",
+		"your_tariff": "Your tariff",
+		"your_account_limits_label": "Added accounts",
+		"your_account_limits": "{current} of {total}",
+		"your_tariff_expiry_at": "The tariff will expire",
+		"expired": "Expired",
+		"current": "Current",
+		"per_month": "/ month",
+		"unlimited_posts": "Unlimited number of posts",
+		"accounts_cnt": "{cnt} social network {cnt, plural, one {account} other {accounts}}",
+		"payable": "payable",
+		"select_period": "Select a subscription period",
+		"months_1": "1 month",
+		"months_3": "3 months",
+		"months_6": "6 months",
+		"months_12": "1 year",
+		"hint": {
+			"prolong": "If you pay the current fare, it will be extended",
+			"switch_tariff": "If you choose the new tariff, the remaining days of the previous tariff will be recalculated and transferred to the new tariff"
+		}
+	},
+	"integrations": {
+		"page_title": "Integrations",
+		"bitrix": {
+			"title": "Module for 1C-Bitrix",
+			"desc": "Allows you to publish posts to popular social networks directly from infoblocks",
+			"link": "Install the module"
+		},
+		"wordpress": {
+			"title": "Plugin for Wordpress",
+			"desc": "Automatically publish posts from your blog or store",
+			"link": "Install the plugin"
+		}
+	}
+}

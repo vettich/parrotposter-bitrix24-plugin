@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { withBasePath } from '@src/tools';
+	import { _ } from '@src/lib/i18n';
 
 	export let tag = 'a';
 	export let to = '/';
@@ -14,7 +15,7 @@
 	{...$$restProps}
 	>
 	<slot>
-		{label}
+		{$_(label)}
 	</slot>
 </svelte:element>
 

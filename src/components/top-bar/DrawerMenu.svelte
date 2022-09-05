@@ -2,6 +2,7 @@
 	import { navigate } from '@src/tools';
 	import { menu } from '@src/consts/menu';
 	import { user } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
 	import Drawer from 'svelte-drawer-component';
 	import Button, { Icon as ButtonIcon } from '@smui/button';
@@ -49,7 +50,7 @@
 							class:drawer-menu__item--active={isActive(link)}
 							on:click={go(link)}>
 							<Icon>{icon}</Icon>
-							{label}
+							{$_(label)}
 						</div>
 					{/each}
 				</div>
@@ -58,7 +59,7 @@
 			<div class="drawer-menu__footer">
 				<Button on:click={logout}>
 					<ButtonIcon class="material-icons-outlined">logout</ButtonIcon>
-					Выйти
+					{$_('menu.logout')}
 				</Button>
 			</div>
 		</div>

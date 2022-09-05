@@ -2,6 +2,7 @@
 	import { accounts } from '@src/store';
 	import { AccountPhoto } from '@src/components/accounts';
 	import type { Account } from '@src/types';
+	import { _ } from '@src/lib/i18n';
 
 	import CircularProgress from '@smui/circular-progress';
 
@@ -21,7 +22,7 @@
 </script>
 
 <div class="accounts-choose" class:accounts-choose--editable={editable}>
-	<div class="accounts-choose__title">Куда публиковать</div>
+	<div class="accounts-choose__title">{$_('posts.form.where_publish')}</div>
 
 	{#if $accounts.loading}
 		<CircularProgress style="height: 32px; width: 32px" indeterminate />

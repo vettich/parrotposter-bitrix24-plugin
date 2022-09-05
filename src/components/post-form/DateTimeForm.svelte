@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from '@src/lib/i18n';
+
 	import SegmentedButton, { Label, Segment } from '@smui/segmented-button';
 	import DateTimePicker from "./DateTimePicker.svelte";
 	import DateTimeDelay from "./DateTimeDelay.svelte";
@@ -8,25 +10,13 @@
 	export let variant: 'now' | 'delay' | 'custom';
 	export let editable = true;
 
-	interface Choice {
-		key: 'now' | 'delay' | 'custom',
-		label: string,
-	}
-
-	const choices: Choice[] = [
-		{ key: 'now', label: 'Сейчас' },
-		{ key: 'delay', label: 'Через N минут' },
-		{ key: 'custom', label: 'Точное время' },
-	]
-	let selected = choices.find(choice => choice.key === variant);
-
-	$: variant = selected.key;
+	const variants = ['now', 'delay', 'custom'];
 </script>
 
 {#if !editable}
 	<div class="date-time-form">
 		<div class="date-time-form__choice">
-			<div class="date-time-form__title">Когда публиковать</div>
+			<div class="date-time-form__title">{$_('posts.form.when_publish')}</div>
 			<div class="date-time-form__title">
 				{customDate.toLocaleString()}
 			</div>
@@ -35,20 +25,20 @@
 {:else}
 	<div class="date-time-form">
 		<div class="date-time-form__choice">
-			<div class="date-time-form__title">Когда публиковать</div>
-			<SegmentedButton segments={choices} let:segment singleSelect bind:selected>
+			<div class="date-time-form__title">{$_('posts.form.when_publish')}</div>
+			<SegmentedButton segments={variants} let:segment singleSelect bind:selected={variant}>
 				<Segment {segment}>
-					<Label>{segment.label}</Label>
+					<Label>{$_('posts.form.variants.' + segment)}</Label>
 				</Segment>
 			</SegmentedButton>
 		</div>
 	</div>
 
-	{#if selected.key === 'delay'}
+	{#if variant === 'delay'}
 		<DateTimeDelay bind:value={delayMinutes} />
 	{/if}
 
-	{#if selected.key === 'custom'}
+	{#if variant === 'custom'}
 		<DateTimePicker bind:date={customDate} />
 	{/if}
 {/if}

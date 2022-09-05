@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { _ } from '@src/lib/i18n';
 	import { user } from '@src/store';
 
 	import { Link } from 'svelte-navigator';
@@ -19,7 +20,8 @@
 </script>
 
 <div class="accounts-limits-info accounts-limits-info--{bgColor}">
-	Добавлено {currentCnt} из {totalCnt}. <Link to="/tariffs">Сменить тариф</Link>
+	{$_('accounts.added', {values: {current: currentCnt, total: totalCnt}})}
+	<Link to="/tariffs">{$_('accounts.switch_tariff')}</Link>
 </div>
 
 <style lang="scss">

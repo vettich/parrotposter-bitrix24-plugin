@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { _ } from '@src/lib/i18n';
+import { createEventDispatcher } from 'svelte';
 
 	import Dropzone from 'svelte-file-dropzone';
 
@@ -21,7 +22,7 @@
 		on:dragleave={() => dragging = false}
 		accept="image/*"
 		multiple>
-		Нажмите, чтобы выбрать картинки, <br> или перетащите их сюда
+		{@html $_('posts.form.dropdown_images')}
 	</Dropzone>
 </div>
 

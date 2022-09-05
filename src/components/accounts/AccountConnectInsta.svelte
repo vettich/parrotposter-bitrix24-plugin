@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { accounts } from "@src/store";
+	import { _ } from "@src/lib/i18n";
 
 	import Dialog, { Title, Content, Actions } from "@smui/dialog";
 	import Button from "@smui/button";
@@ -38,7 +39,7 @@
 			.then((res) => {
 				if (res.need_challenge || res.need_two_factor) {
 					needCodeEnter = true;
-					snackbar.show(true, 'Введите код отправленный вам на телефон или email');
+					snackbar.show(true, $_('accounts.insta_form.enter_sended_code'));
 					return;
 				}
 				open = false;
@@ -54,31 +55,31 @@
 	surface$style="width: 470px; max-width: calc(100vw - 32px);"
 	scrimClickAction={connecting ? '' : 'close'}
 	escapeKeyAction={connecting ? '' : 'close'} >
-	<Title>Подключение Instagram</Title>
+	<Title>{$_('accounts.insta_form.title')}</Title>
 	<Content>
 		<div class="groups">
 			<br>
-			<span>Введите свои логин и пароль от инстаграма</span>
+			<span>{$_('accounts.insta_form.enter_your_login_password')}</span>
 			<Textfield
 				bind:value={username}
-				label="Логин"
+				label={$_('accounts.insta_form.login')}
 				style="width: 100%"
 				variant="outlined"
 				on:keydown={connectOnEnter} />
 			<Textfield
 				bind:value={password}
 				type="password"
-				label="Пароль"
+				label={$_('accounts.insta_form.password')}
 				style="width: 100%"
 				variant="outlined"
 				on:keydown={connectOnEnter} />
 
 			{#if needCodeEnter}
 				<br>
-				<span>Введите код отправленный вам на телефон или email</span>
+				<span>$_('accounts.insta_form.enter_sended_code')</span>
 				<Textfield
 					bind:value={code}
-					label="Код из смс"
+					label={$_('accounts.insta_form.code')}
 					style="width: 100%"
 					variant="outlined"
 					on:keydown={connectOnEnter} />
@@ -86,9 +87,9 @@
 		</div>
 	</Content>
 	<Actions>
-		<Button disabled={connecting}>Отмена</Button>
+		<Button disabled={connecting}>{$_('actions.cancel')}</Button>
 		<Button variant="raised" on:click={connect} disabled={connecting}>
-			Подключить
+			{$_('accounts.connect')}
 			{#if connecting}
 				<CircularProgress />
 			{/if}

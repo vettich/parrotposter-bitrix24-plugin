@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { _ } from "@src/lib/i18n";
+
 	import Textfield from "@smui/textfield";
 	import Select, { Option } from '@smui/select';
 
@@ -22,18 +24,18 @@
 		variant="outlined"
 		bind:value={selectedMinutes}
 		key={v => `${v}`}
-		label="Кол-во минут"
+		label={$_('posts.form.minutes_count')}
 		style="width: 100%">
 		{#each options as v}
 			<Option value={v}>{v}</Option>
 		{/each}
-		<Option value={-1}>Свой вариант</Option>
+		<Option value={-1}>{$_('posts.form.own_option')}</Option>
 	</Select>
 	{#if selectedMinutes == -1}
 		<Textfield
 			bind:value={customMinutes}
 			style="width: 100%"
-			label="Свой вариант"
+			label={$_('posts.form.own_option')}
 			type="number"
 			variant="outlined"
 			/>

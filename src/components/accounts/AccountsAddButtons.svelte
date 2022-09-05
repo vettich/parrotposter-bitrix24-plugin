@@ -2,6 +2,7 @@
 	import { type AccountType, canAddAccount } from "@src/types";
 	import { accountsTypes } from "@src/types";
 	import { accounts, user } from "@src/store";
+	import { _ } from "@src/lib/i18n";
 
 	import Button from "@smui/button";
 	import CircularProgress from "@src/components/common/CircularProgress.svelte";
@@ -37,14 +38,6 @@
 				loading = null;
 			})
 	}
-
-	const socialLabels: { [key in AccountType]: string } = {
-		'vk': 'ВКонтакте',
-		'tg': 'Телеграм',
-		'ok': 'Одноклассники',
-		'fb': 'Facebook',
-		'insta': 'Instagram',
-	}
 </script>
 
 <div class="accounts-add-buttons">
@@ -53,10 +46,9 @@
 			variant="raised" class="bg-color--{social}"
 			on:click={() => connect(social)}
 			disabled={loading === social || cannotAdd}
-			title={`Подключить ` + socialLabels[social]}>
+			title={$_('accounts.connect_title', {values: {social: $_('socials.' + social)}})}>
 			<div class="accounts-add-buttons__social-icon bg-image-white--{social}"/>
-			<span class="accounts-add-buttons__label">Подключить</span>
-			<!-- <span class="accounts-add-buttons__label">{socialLabels[social]}</span> -->
+			<span class="accounts-add-buttons__label">{$_('accounts.connect')}</span>
 			{#if loading === social}
 				<CircularProgress />
 			{/if}

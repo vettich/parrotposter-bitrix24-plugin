@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { accounts } from "@src/store";
+	import { _ } from "@src/lib/i18n";
 
 	import Dialog, { Title, Content, Actions } from "@smui/dialog";
 	import Button from "@smui/button";
@@ -38,7 +39,7 @@
 			})
 			.catch(e => {
 				console.log(e)
-				snackbar.show(false, 'Не удалось подключить. Проверьте правильность введенных данных');
+				snackbar.show(false, $_('accounts.tg_form.failed_to_connect'));
 			})
 			.finally(() => connecting = false)
 	}
@@ -49,60 +50,52 @@
 	surface$style="width: 470px; max-width: calc(100vw - 32px);"
 	scrimClickAction={connecting ? '' : 'close'}
 	escapeKeyAction={connecting ? '' : 'close'} >
-	<Title>Подключение Телеграм</Title>
+	<Title>{$_('accounts.tg_form.title')}</Title>
 	<Content>
 		<div class="groups">
 			<Textfield
 				bind:value={bot_token}
-				label="Токен бота"
+				label={$_('accounts.tg_form.bot_token')}
 				style="width: 100%"
 				variant="outlined"
 				on:keydown={connectOnEnter} />
 			<Textfield
 				bind:value={username}
-				label="Ссылка на канал или группу"
+				label={$_('accounts.tg_form.username')}
 				style="width: 100%"
 				variant="outlined"
 				on:keydown={connectOnEnter} />
 
 			<Accordion>
 				<Panel>
-					<Header>Инструкция</Header>
+					<Header>{$_('accounts.tg_form.instruction')}</Header>
 					<AccordionContent>
-						<h4>Получение токена бота</h4>
+						<h4>{$_('accounts.tg_form.getting_bot_token')}</h4>
 						<ol>
-							<li>Начните диалог с <b>@BotFather</b> <ExternalLink href="https://t.me/BotFather" /></li>
-							<li>Отправьте ему команду <b>/newbot</b></li>
-							<li>Придумайте имя бота, например, <b>Деликатесы</b></li>
-							<li>Теперь задайте username боту, например, <b>delicatessen_bot</b></li>
-							<li>@BotFather выдаст вам токен, скопируйте его в поле выше</li>
+							<li>{@html $_('accounts.tg_form.start_with_bot_father')} <ExternalLink href="https://t.me/BotFather" /></li>
+							<li>{@html $_('accounts.tg_form.send_newbot_command')}</li>
+							<li>{@html $_('accounts.tg_form.set_bot_name')}</li>
+							<li>{@html $_('accounts.tg_form.set_bot_username')}</li>
+							<li>{@html $_('accounts.tg_form.copy_generated_token')}</li>
 						</ol>
 
-						<h4>Подключение бота к каналу</h4>
-						<p>
-							Добавьте бота в качестве администратора к своему каналу.
-							Оставьте в качестве прав только "Публикация сообщений".
-						</p>
+						<h4>{$_('accounts.tg_form.connect_bot_to_chanel')}</h4>
+						<p>{$_('accounts.tg_form.connect_bot_to_chanel_desc')}</p>
 
-						<h4>Подключение бота к группе</h4>
-						<p>
-							Добавьте бота в качестве участника в группу.
-						</p>
+						<h4>{$_('accounts.tg_form.connect_bot_to_group')}</h4>
+						<p>{$_('accounts.tg_form.connect_bot_to_group_desc')}</p>
 
-						<h4>Доступ к каналу или группе</h4>
-						<p>
-							Обращаем внимание, что канал или группа должны быть публичными,
-							чтобы была возможность постить.
-						</p>
+						<h4>{$_('accounts.tg_form.access_to_group_and_channel')}</h4>
+						<p>{$_('accounts.tg_form.access_to_group_and_channel_desc')}</p>
 					</AccordionContent>
 				</Panel>
 			</Accordion>
 		</div>
 	</Content>
 	<Actions>
-		<Button disabled={connecting}>Отмена</Button>
+		<Button disabled={connecting}>{$_('actions.cancel')}</Button>
 		<Button variant="raised" on:click={connect} disabled={connecting}>
-			Подключить
+			{$_('accounts.connect')}
 			{#if connecting}
 				<CircularProgress />
 			{/if}

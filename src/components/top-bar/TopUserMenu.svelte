@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { user } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
 	import { Icon } from '@smui/common';
 	import List, { Item, Text, Graphic } from '@smui/list';
@@ -27,7 +28,7 @@
 		<List dense>
 			<Item on:click={user.logout}>
 				<Graphic class="material-icons-outlined">logout</Graphic>
-				<Text>Выйти</Text>
+				<Text>{$_('menu.logout')}</Text>
 			</Item>
 		</List>
 	</Menu>

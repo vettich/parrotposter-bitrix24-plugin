@@ -5,7 +5,10 @@ import { BX24 } from './lib/bx24';
 // import and set moment locale
 import 'moment/dist/locale/ru.js';
 import moment from 'moment';
-moment.locale('ru');
+
+// set i18n
+import { locale } from '@src/lib/i18n';
+locale.subscribe(value => moment.locale(value));
 
 // fix scroll back up when navigate
 history.pushState = new Proxy(history.pushState, {

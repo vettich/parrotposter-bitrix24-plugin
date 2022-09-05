@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PostStatus } from '@src/types';
+	import { _ } from '@src/lib/i18n';
 
 	import { Icon } from '@smui/common';
 
@@ -11,16 +12,9 @@
 		queue: 'schedule_send',
 		ready: 'pending',
 	};
-
-	const texts: { [key in PostStatus]: string } = {
-		success: 'Успешно',
-		fail: 'Ошибка',
-		queue: 'Публикуется',
-		ready: 'Ожидает подходящего времени',
-	};
 </script>
 
-<div title={texts[status]}
+<div title={$_('posts.status.' + status)}
 	class="post-status post-status--{status}">
 	<Icon class="material-icons-outlined">{icons[status]}</Icon>
 </div>

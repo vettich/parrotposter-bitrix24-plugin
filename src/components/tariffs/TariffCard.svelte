@@ -2,6 +2,7 @@
 	import type { Tariff, TariffCurrency, TariffPrice } from "@src/types";
 	import { tariffCurrencyLabels } from '@src/types';
 	import { api } from "@src/api";
+	import { _ } from "@src/lib/i18n";
 
 	import Button, { Label } from "@smui/button";
 	import Icon from "../common/Icon.svelte";
@@ -52,7 +53,7 @@
 
 <div class="tariff-card mdc-elevation--z4">
 	{#if current}
-		<div class="tariff-card__current-badge">Текущий</div>
+		<div class="tariff-card__current-badge">{$_('tariffs.current')}</div>
 	{/if}
 	
 	<div class="tariff-card__name">{tariff.name}</div>
@@ -61,18 +62,19 @@
 		<div class="tariff-card__price-value">
 			{priceValue.toLocaleString()} {tariffCurrencyLabels[currency]}
 		</div>
-		/ месяц
+		{$_('tariffs.per_month')}
 	</div>
 
 	<ul class="tariff-card__features">
-		<li><Icon size={18}>check</Icon> Неограниченное количество постов</li>
-		<li><Icon size={18}>check</Icon> {tariff.limits.accounts_cnt} аккаунтов социальных сетей</li>
+		<li><Icon size={18}>check</Icon> {$_('tariffs.unlimited_posts')}</li>
+		<li><Icon size={18}>check</Icon> {$_('tariffs.accounts_cnt', {values: {cnt: tariff.limits.accounts_cnt}})}</li>
 	</ul>
 
 	<div class="tariff-card__action">
 		<Button on:click={gotoPayment}>
 			<Label>
-				{paymentPrice.toLocaleString()}{tariffCurrencyLabels[currency]} к оплате
+				{paymentPrice.toLocaleString()}{tariffCurrencyLabels[currency]}
+				{$_('tariffs.payable')}
 			</Label>
 			<Icon>east</Icon>
 			{#if makingRequest}

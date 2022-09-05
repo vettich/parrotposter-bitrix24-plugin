@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@smui/common';
+import { _ } from '@src/lib/i18n';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -7,7 +8,7 @@
 
 <div class="back-button" on:click={() => dispatch('click')}>
 	<Icon class="material-icons-outlined">arrow_back_ios</Icon>
-	Назад
+	{$_('actions.back')}
 </div>
 
 <style lang="scss">

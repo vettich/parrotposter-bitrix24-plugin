@@ -2,6 +2,7 @@
 	import moment from 'moment';
 	import { user, tariff } from '@src/store';
 	import { getTariffName } from '@src/types';
+	import { _, locale } from '@src/lib/i18n';
 
 	import Icon from '../common/Icon.svelte';
 
@@ -11,7 +12,7 @@
 
 	$: tariffExpiryAt = new Date($user.data?.tariff.expiry_at);
 	$: tariffExpired = moment().diff(tariffExpiryAt) > 0;
-	$: tariffLeft = moment(tariffExpiryAt).fromNow();
+	$: tariffLeft = $locale && moment(tariffExpiryAt).fromNow();
 
 	$: limits = $user.data?.tariff_limits;
 </script>
@@ -22,11 +23,11 @@
 			<Icon>card_membership</Icon>
 		</div>
 		<div class="current-tariff-info__label">
-			Ваш тариф
+			{$_('tariffs.your_tariff')}
 		</div>
 		<div class="current-tariff-info__value">
 			{#if $tariff.data}
-				{getTariffName($tariff.data)}
+				{getTariffName($tariff.data, $locale)}
 			{:else}
 				...
 			{/if}
@@ -38,10 +39,10 @@
 			<Icon>people_alt</Icon>
 		</div>
 		<div class="current-tariff-info__label">
-			Добавленные аккаунты
+			{$_('tariffs.your_account_limits_label')}
 		</div>
 		<div class="current-tariff-info__value">
-			{limits.accounts_current_cnt} из {limits.accounts_cnt}
+			{$_('tariffs.your_account_limits', {values: {current: limits.accounts_current_cnt, total: limits.accounts_cnt}})}
 		</div>
 	</div>
 
@@ -50,11 +51,11 @@
 			<Icon>schedule</Icon>
 		</div>
 		<div class="current-tariff-info__label">
-			Тариф истечет
+			{$_('tariffs.your_tariff_expiry_at')}
 		</div>
 		<div class="current-tariff-info__value">
 			{#if tariffExpired}
-				Истек
+				{$_('tariffs.expired')}
 			{:else}
 				{tariffExpiryAt.toLocaleDateString()} ({ tariffLeft })
 			{/if}

@@ -2,6 +2,7 @@
 	import type { Post } from '@src/types';
 	import { formatToTime, navigate } from '@src/tools';
 	import { api } from '@src/api';
+	import { _ } from '@src/lib/i18n';
 
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
 	import Button from '@smui/button';
@@ -64,15 +65,15 @@
 <QuickView bind:open={openView} postId={post.id} />
 
 <Dialog bind:open={openRemoveAgree}>
-	<Title>Удалить пост?</Title>
+	<Title>{$_('posts.ask_delete_post')}</Title>
 	{#if deleting}
 		<Content>
 			<CircularProgress style="height: 24px; width: 24px;" indeterminate />
 		</Content>
 	{:else}
 		<Actions>
-			<Button>Нет</Button>
-			<Button on:click={deletePost}>Да</Button>
+			<Button>{$_('actions.no')}</Button>
+			<Button on:click={deletePost}>{$_('actions.yes')}</Button>
 		</Actions>
 	{/if}
 </Dialog>

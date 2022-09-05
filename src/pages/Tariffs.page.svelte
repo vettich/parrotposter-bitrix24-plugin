@@ -4,18 +4,20 @@
 
 <script>
 	import { tariffs } from '@src/store';
+	import { _ } from '@src/lib/i18n';
 
 	import CircularProgress from '@smui/circular-progress';
 	import Layout from "@src/components/Layout.svelte";
 	import CurrentTariffInfo from "@src/components/tariffs/CurrentTariffInfo.svelte";
 	import TariffsList from "@src/components/tariffs/TariffsList.svelte";
 	import TariffsPeriods from '@src/components/tariffs/TariffsPeriods.svelte';
-import Paper from '@smui/paper';
-import Icon from '@src/components/common/Icon.svelte';
+	import Paper from '@smui/paper';
+	import Icon from '@src/components/common/Icon.svelte';
 
 	tariffs.load();
 
 	let months = 3;
+	$: console.log(months)
 </script>
 
 <Layout>
@@ -33,10 +35,10 @@ import Icon from '@src/components/common/Icon.svelte';
 			<Paper>
 				<ul>
 					<li>
-						<Icon size={16}>commit</Icon> При оплате текущего тарифа произойдет его продление
+						<Icon size={16}>commit</Icon> {$_('tariffs.hint.prolong')}
 					</li>
 					<li>
-						<Icon size={16}>commit</Icon> Если вы выберите новый тариф, то остатки дней прошлого тарифа будут пересчитаны и переведены на новый тариф
+						<Icon size={16}>commit</Icon> {$_('tariffs.hint.switch_tariff')}
 					</li>
 				</ul>
 			</Paper>

@@ -2,6 +2,7 @@
 	import type { MenuComponentDev } from '@smui/menu';
 	import Menu from '@smui/menu';
 	import { createEventDispatcher } from 'svelte';
+	import { _ } from '@src/lib/i18n';
 
 	import List, { Item, Text, Graphic } from '@smui/list';
 	import IconButton from '@smui/icon-button';
@@ -20,7 +21,7 @@
 		<List dense>
 			<Item on:click={() => dispatch("delete")} class="error">
 				<Graphic class="material-icons-outlined">delete</Graphic>
-				<Text>Удалить</Text>
+				<Text>{$_('actions.delete')}</Text>
 			</Item>
 		</List>
 	</Menu>

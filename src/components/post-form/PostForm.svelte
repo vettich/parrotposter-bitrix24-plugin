@@ -4,6 +4,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { Post, PostInput } from '@src/types';
 	import { textareaResizer } from '@src/actions/textarea-resizer';
+	import { _ } from '@src/lib/i18n';
 
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
@@ -24,12 +25,11 @@
 	let link = initialPost?.fields?.link || '';
 	let imagesIds: string[] = initialPost?.fields?.images || [];
 	let accountIds: string[] = initialPost?.networks?.accounts || [];
-	let submitText = mode === 'create' ? 'Создать' : 'Обновить';
 	let editable = mode === 'create' ||
 		(initialPost?.status !== 'success' && initialPost.status !== 'fail');
 
 	let dateVariant: 'now' | 'delay' | 'custom' = initialPost ? 'custom' : 'now';
-	let delayMinutes = 5;
+	let delayMinutes = 15;
 	let customDate = initialPost?.publish_at ? new Date(initialPost.publish_at) : new Date();
 
 	function buildDateSelectedVariant() {
@@ -51,8 +51,8 @@
 	$: validData = text.trim().length || tags.trim().length || (!emptyLink && validLink) || !emptyImages;
 	$: valid = validData && accountIds.length;
 	$: errors = [
-		validData ? null : 'Заполните хотя бы одно из полей: текст, теги, ссылка. Или загрузите картинки',
-		accountIds.length ? null : 'Укажите куда публиковать пост',
+		validData ? null : $_('posts.form.errors.empty_fields'),
+		accountIds.length ? null : $_('posts.form.errors.empty_accounts'),
 	].filter(v => !!v);
 
 	function buildPostInput(): PostInput {
@@ -83,20 +83,20 @@
 			<Textfield
 				use={[textareaResizer]}
 				bind:value={text}
-				label="Текст поста"
+				label={$_('posts.fields.text')}
 				style="width: 100%; min-height: 9em; max-height: 600px;"
 				textarea>
 			</Textfield>
 			<Textfield
 				bind:value={tags}
-				label="Теги"
+				label={$_('posts.fields.tags')}
 				style="width: 100%"
 				variant="outlined">
 			</Textfield>
 			<Textfield
 				invalid={!emptyLink && !validLink}
 				bind:value={link}
-				label="Ссылка"
+				label={$_('posts.fields.link')}
 				style="width: 100%"
 				variant="outlined">
 			</Textfield>
@@ -131,13 +131,13 @@
 		<div class="post-form__footer">
 			<div class="post-form__actions">
 				<Button class="post-form__btn--min" variant="raised" disabled={saving || !valid} on:click={submit}>
-					{submitText}
+					{mode === 'create' ? $_('actions.create') : $_('actions.update')}
 					{#if saving}
 						<CircularProgress />
 					{/if}
 				</Button>
 
-				<Button on:click={() => dispatch('cancel')}>Отмена</Button>
+				<Button on:click={() => dispatch('cancel')}>{$_('actions.cancel')}</Button>
 			</div>
 		</div>
 	</div>

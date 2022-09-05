@@ -1,0 +1,138 @@
+{
+	"success": "Успешно",
+	"fail": "Ошибка",
+	"menu": {
+		"posts": "Посты",
+		"accounts": "Аккаунты",
+		"tariffs": "Тарифы",
+		"integrations": "Интеграции",
+		"logout": "Выйти"
+	},
+	"actions": {
+		"edit": "Редактировать",
+		"delete": "Удалить",
+		"create": "Создать",
+		"update": "Обновить",
+		"yes": "Да",
+		"no": "Нет",
+		"cancel": "Отмена",
+		"open_in_new_tab": "Откроется в новой вкладке",
+		"back": "Назад"
+	},
+	"posts": {
+		"page_title": "Список постов",
+		"create_page_title": "Создание поста",
+		"edit_page_title": "Редактирование поста",
+		"no_posts": "Нет постов",
+		"ask_delete_post": "Удалить пост",
+		"show_more": "Показать еще",
+		"create_post_btn_title": "Создать пост",
+		"account_was_deleted": "Аккаунт был удален",
+		"view_post": "Посмотреть пост",
+		"fields": {
+			"tags": "Теги",
+			"text": "Текст поста",
+			"link": "Ссылка",
+			"publish_at": "Дата публикации"
+		},
+		"status": {
+			"ready": "Ожидает подходящего времени",
+			"queue": "Публикуется",
+			"success": "Успешно",
+			"fail": "Ошибка при публикации"
+		},
+		"form": {
+			"when_publish": "Когда публиковать",
+			"variants": {
+				"now": "Сейчас",
+				"delay": "Через N минут",
+				"custom": "Произвольное время"
+			},
+			"minutes_count": "Кол-во минут",
+			"own_option": "Свой вариант",
+			"publish_date": "Дата публикации",
+			"publish_time": "Время публикации",
+			"where_publish": "Куда публиковать",
+			"dropdown_images": "Нажмите, чтобы выбрать картинки, <br> или перетащите их сюда",
+			"errors": {
+				"empty_fields": "Заполните хотя бы одно из полей: текст, теги, ссылка. Или загрузите картинки",
+				"empty_accounts": "Укажите куда публиковать пост"
+			}
+		}
+	},
+	"socials": {
+		"vk": "ВКонтакте",
+		"tg": "Телеграм",
+		"fb": "Facebook",
+		"ok": "Одноклассники",
+		"insta": "Instagram"
+	},
+	"accounts": {
+		"page_title": "Аккаунты соц. сетей",
+		"added": "Добавлено {current} из {total}",
+		"switch_tariff": "Сменить тариф",
+		"connect": "Подключить",
+		"tg_form": {
+			"title": "Подключение Телеграм",
+			"bot_token": "Токен бота",
+			"username": "Ссылка на канал или группу",
+			"instruction": "Инструкция",
+			"getting_bot_token": "Получение токена бота",
+			"start_with_bot_father": "Начните диалог с <b>@BotFather</b>",
+			"send_newbot_command": "Отправьте ему команду <b>/newbot</b>",
+			"set_bot_name": "Придумайте имя бота, например, <b>Деликатесы</b>",
+			"set_bot_username": "Теперь задайте username боту, например, <b>delicatessen_bot</b>",
+			"copy_generated_token": "@BotFather выдаст вам токен, скопируйте его в поле выше",
+			"connect_bot_to_chanel": "Подключение бота к каналу",
+			"connect_bot_to_chanel_desc": "Добавьте бота в качестве администратора к своему каналу. Оставьте в качестве прав только \"Публикация сообщений\".",
+			"connect_bot_to_group": "Подключение бота к группе",
+			"connect_bot_to_group_desc": "Добавьте бота в качестве участника в группу.",
+			"access_to_group_and_channel": "Доступ к каналу или группе",
+			"access_to_group_and_channel_desc": "Обращаем внимание, что канал или группа должны быть публичными, чтобы была возможность постить.",
+			"failed_to_connect": "Не удалось подключить. Проверьте правильность введенных данных"
+		},
+		"insta_form": {
+			"title": "Подключение Instagram",
+			"enter_your_login_password": "Введите свои логин и пароль от инстаграма",
+			"login": "Логин",
+			"password": "Пароль",
+			"enter_sended_code": "Введите код отправленный вам на телефон или email",
+			"code": "Код из смс"
+		}
+	},
+	"tariffs": {
+		"page_title": "Тарифы",
+		"your_tariff": "Ваш тариф",
+		"your_account_limits_label": "Добавленные аккаунты",
+		"your_account_limits": "{current} из {total}",
+		"your_tariff_expiry_at": "Тариф истечет",
+		"expired": "Истек",
+		"current": "Текущий",
+		"per_month": "/ месяц",
+		"unlimited_posts": "Неограниченное количество постов",
+		"accounts_cnt": "{cnt} {cnt, plural, one {аккаунт} few {аккаунта} other {аккаунтов}} социальных сетей",
+		"payable": "к оплате",
+		"select_period": "Выберите период подписки",
+		"months_1": "1 месяц",
+		"months_3": "3 месяца",
+		"months_6": "6 месяцев",
+		"months_12": "1 год",
+		"hint": {
+			"prolong": "При оплате текущего тарифа произойдет его продление",
+			"switch_tariff": "Если вы выберите новый тариф, то остатки дней прошлого тарифа будут пересчитаны и переведены на новый тариф"
+		}
+	},
+	"integrations": {
+		"page_title": "Интеграции",
+		"bitrix": {
+			"title": "Модуль для 1С-Битрикс",
+			"desc": "Позволяет публиковать посты в популярные социальные сети прямо из инфоблоков",
+			"link": "Установить модуль"
+		},
+		"wordpress": {
+			"title": "Плагин для Wordpress",
+			"desc": "Автоматическая публикация постов из вашего блога или магазина",
+			"link": "Установить плагин"
+		}
+	}
+}
