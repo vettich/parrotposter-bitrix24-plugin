@@ -13,7 +13,7 @@ const getBrowserTheme = (): ThemeVariant => {
 const initial: ThemeVariant = getCookie(cookieKey) as ThemeVariant || getBrowserTheme();
 const theme = writable<ThemeVariant>(initial);
 
-const saveInCookie = (value: ThemeVariant) => setCookie(cookieKey, value, { expires: 365 });
+const saveInCookie = (value: ThemeVariant) => setCookie(cookieKey, value, { expires: 365, path: '/' });
 
 let unsubscribe = theme.subscribe(saveInCookie);
 

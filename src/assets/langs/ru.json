@@ -8,6 +8,11 @@
 		"integrations": "Интеграции",
 		"logout": "Выйти"
 	},
+	"date": {
+		"today": "сегодня",
+		"yesterday": "вчера",
+		"tomorrow": "завтра"
+	},
 	"actions": {
 		"edit": "Редактировать",
 		"delete": "Удалить",
@@ -81,6 +86,7 @@
 		"added": "Добавлено {current} из {total}",
 		"switch_tariff": "Сменить тариф",
 		"connect": "Подключить",
+		"deleted": "Аккаунт был удален",
 		"tg_form": {
 			"title": "Подключение Телеграм",
 			"bot_token": "Токен бота",

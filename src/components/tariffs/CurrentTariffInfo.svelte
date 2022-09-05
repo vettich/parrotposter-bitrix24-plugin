@@ -2,7 +2,7 @@
 	import moment from 'moment';
 	import { user, tariff } from '@src/store';
 	import { getTariffName } from '@src/types';
-	import { _, locale } from '@src/lib/i18n';
+	import { _, locale, date } from '@src/lib/i18n';
 
 	import Icon from '../common/Icon.svelte';
 
@@ -57,7 +57,7 @@
 			{#if tariffExpired}
 				{$_('tariffs.expired')}
 			{:else}
-				{tariffExpiryAt.toLocaleDateString()} ({ tariffLeft })
+				{$date(tariffExpiryAt)} ({ tariffLeft })
 			{/if}
 		</div>
 	</div>

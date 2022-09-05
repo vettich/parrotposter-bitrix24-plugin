@@ -14,7 +14,7 @@ const CookieAdapter: StorageAdapter = {
 
 	set(name: string, value: string): Promise<void> {
 		return new Promise(resolve => {
-			setCookie(name, value, { expires: 365 });
+			setCookie(name, value, { expires: 365, path: '/' });
 			resolve();
 		});
 	},

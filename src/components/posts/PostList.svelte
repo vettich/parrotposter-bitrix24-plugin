@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Post } from '@src/types';
+	import { formatDateWithDuration } from '@src/lib/i18n';
 
 	import { Icon } from '@smui/common';
 	import Item from './PostListItem.svelte';
@@ -11,11 +12,6 @@
 	}
 
 	const dateToStr = (d: Date) => `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
-
-	const formatDay = (d: Date | string) => {
-		d = new Date(d);
-		return d.toLocaleDateString();
-	}
 
 	$: groups = Object.entries(posts.reduce((group: Group, post) => {
 		const { publish_at } = post;
@@ -47,7 +43,7 @@
 		<div class="posts__title-icon">
 			<Icon class="material-icons-outlined">calendar_today</Icon>
 		</div>
-		{formatDay(date)}
+		{$formatDateWithDuration(date)}
 	</h2>
 	<div class="posts">
 		{#each posts as post (post.id)}
