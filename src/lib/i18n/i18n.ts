@@ -1,4 +1,5 @@
-import { register, init, getLocaleFromNavigator, _, locale, locales } from 'svelte-i18n';
+import { register, init, getLocaleFromNavigator, _, locale, locales, waitLocale } from 'svelte-i18n';
+import {writable} from 'svelte/store';
 import { getCookie, setCookie } from 'typescript-cookie';
 
 register('en', () => import('@src/assets/langs/en.json'));
@@ -13,9 +14,13 @@ init({
 	initialLocale: langFromCookie || getLocaleFromNavigator(),
 });
 
+const isLoaded = writable<boolean>(false);
+waitLocale().finally(() => isLoaded.set(true))
+
 export {
 	_,
 	getLocaleFromNavigator,
 	locale,
 	locales,
+	isLoaded,
 }

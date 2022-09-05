@@ -17,7 +17,6 @@
 	tariffs.load();
 
 	let months = 3;
-	$: console.log(months)
 </script>
 
 <Layout>

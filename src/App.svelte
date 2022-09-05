@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Router, links, Route } from 'svelte-navigator';
+	import { isLoaded as isLocaleLoaded } from '@src/lib/i18n';
 
 	// stores
 	import { user } from './store';
@@ -37,7 +38,7 @@
 
 <ThemeApplier />
 
-{#if loading}
+{#if loading || !$isLocaleLoaded}
 	<CircularProgress style="height: 32px; width: 32px" indeterminate />
 {:else}
 	<div use:links>

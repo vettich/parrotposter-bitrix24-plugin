@@ -19,6 +19,15 @@
 		"open_in_new_tab": "Откроется в новой вкладке",
 		"back": "Назад"
 	},
+	"auth": {
+		"login_page_title": "Авторизация",
+		"email": "Email",
+		"password": "Пароль",
+		"login_btn": "Войти",
+		"forgot_password": "Забыли пароль?",
+		"registration": "Зарегистрироваться",
+		"login_password_empty": "Email и пароль не должны быть пустыми"
+	},
 	"posts": {
 		"page_title": "Список постов",
 		"create_page_title": "Создание поста",

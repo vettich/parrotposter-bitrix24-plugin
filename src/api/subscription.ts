@@ -51,7 +51,7 @@ class Subscription {
 		this.ws = new WebSocket(__WS_URI__);
 
 		this.ws.onopen = () => this.wsOnOpen();
-		this.ws.onclose = (e) => this.wsOnClose(e);
+		this.ws.onclose = () => this.wsOnClose();
 		this.ws.onmessage = (evt) => this.wsOnMessage(evt);
 		this.ws.onerror = (e) => this.wsOnError(e);
 	}
@@ -71,16 +71,13 @@ class Subscription {
 	}
 
 	private sendMessage(data: Message) {
-		console.log('sendMessage', 'available', this.available())
 		if (!this.available()) return;
 
 		const json = JSON.stringify(data);
-		console.log('sendMessage', 'data', json)
 		this.ws.send(json);
 	}
 
 	private wsOnOpen() {
-		console.log('wsOnOpen', 'token:', !!this.token, 'available:', this.available())
 		if (!this.token || !this.available()) return;
 
 		// init subscription
@@ -91,8 +88,7 @@ class Subscription {
 		});
 	}
 
-	private wsOnClose(evt: CloseEvent) {
-		console.log('closed ws', evt);
+	private wsOnClose() {
 		this.reconnect();
 	}
 

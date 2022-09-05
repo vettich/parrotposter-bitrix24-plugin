@@ -23,7 +23,7 @@ function mergeAccountsResults(accounts: AccountMap, accountIds: string[], result
 	let items: Items = {};
 
 	for (const id of (accountIds || [])) {
-		setItem(items, { id, account: accounts.getById(id) });
+		setItem(items, { id, account: accounts?.getById(id) });
 	}
 
 	for (const id in results) {

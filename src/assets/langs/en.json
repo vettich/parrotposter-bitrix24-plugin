@@ -19,6 +19,15 @@
 		"open_in_new_tab": "Opens in new tab",
 		"back": "Back"
 	},
+	"auth": {
+		"login_page_title": "Authorization",
+		"email": "Email",
+		"password": "Password",
+		"login_btn": "Login",
+		"forgot_password": "Forgot password?",
+		"registration": "Sign up",
+		"login_password_empty": "Email and password must not be empty"
+	},
 	"posts": {
 		"page_title": "Posts",
 		"create_page_title": "Create post",

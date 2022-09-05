@@ -53,7 +53,7 @@ function createUser() {
 		set({ loading: true });
 
 		if (!login.length || !password.length) {
-			set({ loading: false, error: { fields: ['username', 'password'], msg: 'Email и пароль не должны быть пустыми' }});
+			set({ loading: false, error: { fields: ['username', 'password'], msg: 'login_password_empty' }});
 			return;
 		}
 
