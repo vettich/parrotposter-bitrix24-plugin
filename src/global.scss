@@ -102,6 +102,10 @@ a .material-icons-outlined {
 
 //// Material design components
 
+:root {
+	--mdc-dialog-z-index: 100;
+}
+
 .mdc-dialog-scroll-lock {
 	overflow: hidden !important;
 }

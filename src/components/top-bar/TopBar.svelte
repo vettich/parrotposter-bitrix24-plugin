@@ -24,8 +24,10 @@
 	</div>
 
 	<div class="top-bar__right-side">
-		<LanguageSwitcher />
-		<ThemeSwitcher />
+		<div class="top-bar__switchers">
+			<LanguageSwitcher />
+			<ThemeSwitcher />
+		</div>
 		<div class="top-bar__user-menu">
 			<TopUserMenu />
 		</div>
@@ -81,6 +83,14 @@
 
 		&__menu, &__user-menu {
 			height: 100%;
+
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+		}
+
+		&__switchers {
+			display: flex;
 
 			@media screen and (max-width: 768px) {
 				display: none;

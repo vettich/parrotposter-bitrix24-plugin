@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { useLocation } from "svelte-navigator";
 	import type { Menu } from "@src/consts/menu";
+	import { _ } from "@src/lib/i18n";
 
 	import MenuSurface from '@smui/menu-surface';
 	import Icon from '../common/Icon.svelte';
@@ -30,7 +31,7 @@
 					<TopMenuItem to={link} active={$location.pathname.includes(link)}>
 						<div class="top-menu__more-item">
 							<Icon size={22}>{icon}</Icon>
-							<span>{label}</span>
+							<span>{$_(label)}</span>
 						</div>
 					</TopMenuItem>
 				{/each}

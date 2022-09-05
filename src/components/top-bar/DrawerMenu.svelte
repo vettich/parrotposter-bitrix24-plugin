@@ -7,6 +7,8 @@
 	import Drawer from 'svelte-drawer-component';
 	import Button, { Icon as ButtonIcon } from '@smui/button';
 	import Icon from '@src/components/common/Icon.svelte';
+	import LanguageSwitcher from '../LanguageSwitcher.svelte';
+	import ThemeSwitcher from '../ThemeSwitcher.svelte';
 
 	export let openDrawer = false;
 
@@ -57,6 +59,11 @@
 			</div>
 
 			<div class="drawer-menu__footer">
+				<div class="drawer-menu__switchers">
+					<LanguageSwitcher />
+					<ThemeSwitcher />
+				</div>
+
 				<Button on:click={logout}>
 					<ButtonIcon class="material-icons-outlined">logout</ButtonIcon>
 					{$_('menu.logout')}
@@ -123,11 +130,13 @@
 
 		&__footer {
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 10%;
+		}
 
-			& > :global(*) {
-				min-width: 200px;
-			}
+		&__switchers {
+			display: flex;
 		}
 	}
 </style>
