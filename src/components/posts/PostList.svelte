@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Post } from '@src/types';
 	import { formatDateWithDuration } from '@src/lib/i18n';
+	import { getDateRange } from '@src/tools/date';
 
 	import { Icon } from '@smui/common';
 	import Item from './PostListItem.svelte';
@@ -39,16 +40,18 @@
 </script>
 
 {#each groupsWithSmooth as [date, posts] (date)}
-	<h2 class="posts__title">
-		<div class="posts__title-icon">
-			<Icon class="material-icons-outlined">calendar_today</Icon>
+	<div class="posts__wrap posts--{getDateRange(date)}">
+		<h2 class="posts__title">
+			<div class="posts__title-icon">
+				<Icon class="material-icons-outlined">calendar_today</Icon>
+			</div>
+			{$formatDateWithDuration(date)}
+		</h2>
+		<div class="posts">
+			{#each posts as post (post.id)}
+				<Item {post} />
+			{/each}
 		</div>
-		{$formatDateWithDuration(date)}
-	</h2>
-	<div class="posts">
-		{#each posts as post (post.id)}
-			<Item {post} />
-		{/each}
 	</div>
 {/each}
 
@@ -77,17 +80,38 @@
 
 		&__title-icon {
 			display: inline-flex;
-			color: cssvar(on-primary);
-			background-color: cssvar(primary);
 			border-radius: 50%;
 			width: 32px;
 			height: 32px;
 			justify-content: center;
 			align-items: center;
+			color: cssvar(on-primary);
+			background-color: cssvar(primary);
 
 			:global(.material-icons-outlined) {
 				font-size: 80%;
 			}
+
+		}
+
+		&--today & {
+			border-color: cssvar(success);
+		}
+
+		&--today &__title-icon {
+			color: cssvar(on-success);
+			background-color: cssvar(success);
+		}
+
+		&--future &,
+		&--tomorrow & {
+			border-color: rgba(cssvar(warning-rgb), 0.8);
+		}
+
+		&--future &__title-icon,
+		&--tomorrow &__title-icon {
+			color: cssvar(on-warning);
+			background-color: rgba(cssvar(warning-rgb), 0.8);
 		}
 	}
 </style>

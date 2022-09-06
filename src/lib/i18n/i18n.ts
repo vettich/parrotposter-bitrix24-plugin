@@ -1,3 +1,4 @@
+import { getDateRange } from '@src/tools/date';
 import moment from 'moment';
 import { register, init, getLocaleFromNavigator, _, locale, locales, waitLocale, date, getDateFormatter } from 'svelte-i18n';
 import { derived, get, writable } from 'svelte/store';
@@ -19,18 +20,10 @@ const isLoaded = writable<boolean>(false);
 waitLocale().finally(() => isLoaded.set(true))
 
 function _formatComingDays(date: Date | string): string {
-	date = new Date(date);
-	const now = new Date();
-
-	const isCurrentYear = now.getFullYear() === date.getFullYear();
-	const isCurrentMonth = isCurrentYear && now.getMonth() === date.getMonth();
-	if (isCurrentMonth) {
-		const nowDay = now.getDate();
-		const day = date.getDate();
-		if (nowDay === day) return get(_)('date.today');
-		if (nowDay + 1 === day) return get(_)('date.tomorrow');
-		if (nowDay - 1 === day) return get(_)('date.yesterday');
-	}
+	const dateRange = getDateRange(date);
+	if (dateRange === 'today') return get(_)('date.today');
+	if (dateRange === 'tomorrow') return get(_)('date.tomorrow');
+	if (dateRange === 'yesterday') return get(_)('date.yesterday');
 
 	return moment(date).fromNow();
 }
