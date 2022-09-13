@@ -15,11 +15,11 @@
 
 	// pages
 	import Home from './pages/Home.page.svelte';
-	import Login from './pages/Login.page.svelte';
-	import Posts from './pages/Posts.page.svelte';
+	import Login from './pages/auth/Login.page.svelte';
 	import Accounts from './pages/Accounts.page.svelte';
-	import PostCreate from './pages/PostCreate.page.svelte';
-	import PostEdit from './pages/PostEdit.page.svelte';
+	import Posts from './pages/posts/Posts.page.svelte';
+	import PostCreate from './pages/posts/PostCreate.page.svelte';
+	import PostEdit from './pages/posts/PostEdit.page.svelte';
 	import Tariffs from './pages/Tariffs.page.svelte';
 	import Integrations from './pages/Integrations.page.svelte';
 	import Settings from './pages/Settings.page.svelte';
