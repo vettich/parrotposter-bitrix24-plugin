@@ -3,3 +3,4 @@ export * from './account.type';
 export * from './user.type';
 export * from './platform.type';
 export * from './tariff.type';
+export * from './error.type';

@@ -20,8 +20,6 @@
 @use '@material/elevation/mdc-elevation';
 @use '@smui/paper/mixins' as paper;
 
-@include paper.paper-color(
-	error,
-	theme.$error,
-	theme.$on-primary,
-);
+@include paper.paper-color(success, $success, $on-success);
+@include paper.paper-color(warning, $warning, $on-warning);
+@include paper.paper-color(error, $error, $on-error);

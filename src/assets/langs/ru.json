@@ -25,13 +25,39 @@
 		"back": "Назад"
 	},
 	"auth": {
-		"login_page_title": "Авторизация",
+		"name": "Ваше имя",
 		"email": "Email",
 		"password": "Пароль",
-		"login_btn": "Войти",
-		"forgot_password": "Забыли пароль?",
-		"registration": "Зарегистрироваться",
-		"login_password_empty": "Email и пароль не должны быть пустыми"
+		"repeat_password": "Повторите пароль",
+		"login_link": "Авторизация",
+		"signup_link": "Регистрация",
+		"forgot_password_link": "Забыли пароль?",
+		"login": {
+			"page_title": "Авторизация",
+			"submit_btn": "Войти"
+		},
+		"signup": {
+			"page_title": "Регистрация",
+			"submit_btn": "Зарегистрироваться"
+		},
+		"forgot": {
+			"page_title": "Сброс пароля",
+			"reset_password_sent": "Вам на почту была выслана ссылка на восстановление пароля. Перейдите по ней, чтобы сбросить пароль",
+			"submit_btn": "Восстановить"
+		},
+		"reset": {
+			"page_title": "Сброс пароля",
+			"reset_password_hint": "Придумайте новый пароль для входа в сервис",
+			"success": "Пароль успешно изменен",
+			"submit_btn": "Сбросить"
+		},
+		"errors": {
+			"login_password_empty": "Email и пароль не должны быть пустыми",
+			"login_empty": "Email не должен быть пустым",
+			"password_empty": "Пароль не должен быть пустым",
+			"passwords_dont_match": "Пароли не совпадают",
+			"password_length": "Длинна пароля должна быть 6 и более символов"
+		}
 	},
 	"posts": {
 		"page_title": "Список постов",

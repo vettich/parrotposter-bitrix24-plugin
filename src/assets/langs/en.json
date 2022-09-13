@@ -25,13 +25,39 @@
 		"back": "Back"
 	},
 	"auth": {
-		"login_page_title": "Authorization",
+		"name": "Your name",
 		"email": "Email",
 		"password": "Password",
-		"login_btn": "Login",
-		"forgot_password": "Forgot password?",
-		"registration": "Sign up",
-		"login_password_empty": "Email and password must not be empty"
+		"repeat_password": "Repeat password",
+		"login_link": "Authorization",
+		"signup_link": "Signup",
+		"forgot_password_link": "Forgot password?",
+		"login": {
+			"page_title": "Authorization",
+			"submit_btn": "Log in"
+		},
+		"signup": {
+			"page_title": "Registration",
+			"submit_btn": "Sign up"
+		},
+		"forgot": {
+			"page_title": "Reset password",
+			"reset_password_sent": "A password recovery link was emailed to you. Click on it to reset your password",
+			"submit_btn": "Reset"
+		},
+		"reset": {
+			"page_title": "Reset password",
+			"reset_password_hint": "Think of a new password to log in to the service",
+			"success": "Password successfully changed",
+			"submit_btn": "Apply"
+		},
+		"errors": {
+			"login_password_empty": "Email and password should not be blank",
+			"login_empty": "Email should not be blank",
+			"password_empty": "Password should not be blank",
+			"passwords_dont_match": "Passwords do not match",
+			"password_length": "Password must be 6 characters or more"
+		}
 	},
 	"posts": {
 		"page_title": "Posts",

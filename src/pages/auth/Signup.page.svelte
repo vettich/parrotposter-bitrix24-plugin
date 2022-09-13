@@ -15,6 +15,7 @@
 	import Paper, { Content } from '@smui/paper';
 	import AuthLayout from '@src/components/AuthLayout.svelte';
 
+	let name = '';
 	let username = '';
 	let password = '';
 
@@ -35,17 +36,25 @@
 	}
 	$: verify(true, username, password);
 
-	async function login() {
+	async function onLogin() {
 		verify(false, username, password);
 		if (errors.length) return;
 
-		const err = await user.login(username, password)
+		const err = await user.signup(name, username, password)
 		if (err) errors = [err]
 	}
 </script>
 
-<AuthLayout on:submit={login}>
-	<h1>{$_('auth.login.page_title')}</h1>
+<AuthLayout on:submit={() => onLogin()}>
+	<h1>{$_('auth.signup.page_title')}</h1>
+
+	<Textfield bind:value={name}
+		variant="outlined"
+		label={$_('auth.name')}
+		invalid={!!errors.find(e => e.field === 'name')}
+		autofocus>
+		<Icon class="material-icons-outlined" slot="leadingIcon">badge</Icon>
+	</Textfield>
 
 	<Textfield bind:value={username}
 		variant="outlined"
@@ -67,7 +76,7 @@
 		{#if $user.loading}
 			<CircularProgress indeterminate style="height: 24px; width: 24px;" />
 		{:else}
-			{$_('auth.login.submit_btn')}
+			{$_('auth.signup.submit_btn')}
 		{/if}
 	</Button>
 
@@ -83,6 +92,5 @@
 		</Paper>
 	{/if}
 
-	<div><Link to="/forgot-password">{$_('auth.forgot_password_link')}</Link></div>
-	<div><Link to="/signup">{$_('auth.signup_link')}</Link></div>
+	<div><Link to="/login">{$_('auth.login_link')}</Link></div>
 </AuthLayout>

@@ -1,30 +1,24 @@
 import { writable } from 'svelte/store';
 import { api } from '@src/api';
 import { storage } from '@src/lib/storage';
-import type { User } from '@src/types';
+import type { FieldError, User } from '@src/types';
 
 interface UserWrap {
 	loading: boolean,
 	data?: User,
-	error?: UserError,
 }
 
-interface UserError {
-	fields?: string[],
-	msg: string,
-}
-
-const createUserError = (err: string):  UserError => {
+const createUserError = (err: string):  FieldError => {
 	if (err.indexOf('errors.user.not_found') >= 0) {
 		return {
-			fields: ['username'],
+			field: 'username',
 			msg: 'Пользователь не найден',
 		}
 	}
 
 	if (err.indexOf('errors.token.wrong_password') >= 0) {
 		return {
-			fields: ['password'],
+			field: 'password',
 			msg: 'Неверный пароль',
 		}
 	}
@@ -45,36 +39,93 @@ function createUser() {
 				set({ loading: false, data })
 			})
 			.catch(e => {
-				set({ loading: false, error: createUserError(e.msg) })
+				set({ loading: false })
+				console.log(createUserError(e.msg))
 			})
 	}
 
-	const login = (login: string, password: string) => {
+	const login = async (username: string, password: string): Promise<FieldError> => {
 		set({ loading: true });
 
-		if (!login.length || !password.length) {
-			set({ loading: false, error: { fields: ['username', 'password'], msg: 'login_password_empty' }});
-			return;
-		}
-
 		const data = {
-			username: login,
+			username,
 			password,
 			from: 'front',
 		}
-		api.post('tokens', data)
-			.then(async (res) => {
-				storage.set('ppuser_id', res.user_id);
-				storage.set('pptoken', res.token);
 
-				loadUser(res.token);
-			})
-			.catch(e => {
-				set({ loading: false, error: createUserError(e.msg) })
-			})
+		try {
+			const res = await api.post('tokens', data);
+			storage.set('ppuser_id', res.user_id);
+			storage.set('pptoken', res.token);
+			loadUser(res.token);
+		} catch (e) {
+			set({ loading: false })
+			return createUserError(e.msg)
+		}
+	}
+
+	const signup = async (name: string, username: string, password: string): Promise<FieldError> => {
+		set({ loading: true });
+
+		const data = {
+			name,
+			username,
+			password,
+			from: 'front',
+		}
+
+		try {
+			const res = await api.post('users', data);
+			storage.set('ppuser_id', res.user_id);
+			storage.set('pptoken', res.token);
+			loadUser(res.token);
+		} catch (e) {
+			set({ loading: false })
+			return createUserError(e.msg)
+		}
+	}
+
+	const forgotPassword = async (username: string, callback_url: string): Promise<FieldError> => {
+		set({ loading: true });
+
+		const data = {
+			username,
+			callback_url,
+			from: 'front',
+		}
+
+		try {
+			await api.post('passwords/forgot', data);
+			set({ loading: false });
+		} catch (e) {
+			set({ loading: false })
+			return createUserError(e.msg)
+		}
+	}
+
+	const resetPassword = async (password: string, token: string): Promise<FieldError> => {
+		set({ loading: true });
+
+		const data = {
+			password,
+			token,
+		}
+
+		try {
+			await api.post('passwords/new', data);
+			set({ loading: false });
+		} catch (e) {
+			set({ loading: false })
+			return createUserError(e.msg)
+		}
+	}
+
+	const checkToken = async (token: string): Promise<boolean> => {
+		return await api.getById('tokens', `${token}/valid`)
 	}
 
 	const logout = async () => {
+		// @TODO сделать запрос на сброс токена
 		storage.set('ppuser_id', '');
 		storage.set('pptoken', '');
 
@@ -96,6 +147,10 @@ function createUser() {
 		subscribe,
 		reload,
 		login,
+		signup,
+		forgotPassword,
+		resetPassword,
+		checkToken,
 		logout,
 	}
 }

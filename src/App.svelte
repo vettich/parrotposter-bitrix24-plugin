@@ -15,18 +15,26 @@
 
 	// pages
 	import Home from './pages/Home.page.svelte';
+	// auth pages
 	import Login from './pages/auth/Login.page.svelte';
-	import Accounts from './pages/Accounts.page.svelte';
+	import Signup from './pages/auth/Signup.page.svelte';
+	import ForgotPassword from './pages/auth/ForgotPassword.page.svelte';
+	import ResetPasswordSent from './pages/auth/ResetPasswordSent.page.svelte';
+	import ResetPassword from './pages/auth/ResetPassword.page.svelte';
+	import ResetPasswordSuccess from './pages/auth/ResetPasswordSuccess.page.svelte';
+	// posts pages
 	import Posts from './pages/posts/Posts.page.svelte';
 	import PostCreate from './pages/posts/PostCreate.page.svelte';
 	import PostEdit from './pages/posts/PostEdit.page.svelte';
+	// other
+	import Accounts from './pages/Accounts.page.svelte';
 	import Tariffs from './pages/Tariffs.page.svelte';
 	import Integrations from './pages/Integrations.page.svelte';
 	import Settings from './pages/Settings.page.svelte';
 
 	let loading = true;
 
-	// navigating onLogin
+	// wait verify user logged in
 	user.subscribe($user => {
 		if ($user.loading) {
 			return;
@@ -44,6 +52,11 @@
 	<div use:links>
 		<Router basepath={import.meta.env.BASE_URL}>
 			<AuthRoute path="login"><Login/></AuthRoute>
+			<AuthRoute path="signup"><Signup/></AuthRoute>
+			<Route path="forgot-password"><ForgotPassword/></Route>
+			<Route path="reset-password-sent"><ResetPasswordSent/></Route>
+			<Route path="reset-password/:token" let:params><ResetPassword token={params.token}/></Route>
+			<Route path="reset-password-success"><ResetPasswordSuccess/></Route>
 
 			<Route path="posts/*">
 				<PrivateRoute path="new"><PostCreate/></PrivateRoute>

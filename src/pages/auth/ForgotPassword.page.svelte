@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script lang="ts">
-	import { Link } from 'svelte-navigator';
+	import { Link, useNavigate, useResolve } from 'svelte-navigator';
 	import { user } from '@src/store';
 	import type { FieldError } from '@src/types';
 	import { _ } from '@src/lib/i18n';
@@ -16,36 +16,36 @@
 	import AuthLayout from '@src/components/AuthLayout.svelte';
 
 	let username = '';
-	let password = '';
 
 	let errors: FieldError[] = [];
 
-	function verify(maybeEmpty: boolean, username: string, password: string) {
+	function verify(maybeEmpty: boolean, username: string) {
 		errors = [];
 
 		if (!maybeEmpty) {
-			if (!username.length && !password.length) {
-				errors = [...errors, { msg : $_('auth.errors.login_password_empty'), field: 'username' }, { field: 'password' }]
-			} else if (!username.length) {
+			if (!username.length) {
 				errors = [...errors, { msg : $_('auth.errors.login_empty'), field: 'username' }]
-			} else if (!password.length) {
-				errors = [...errors, { msg : $_('auth.errors.password_empty'), field: 'password' }]
 			}
 		}
 	}
-	$: verify(true, username, password);
+	$: verify(true, username);
 
-	async function login() {
-		verify(false, username, password);
+	const resolve = useResolve();
+	const navigate = useNavigate();
+
+	async function sendResetPasswordLink() {
+		verify(false, username);
 		if (errors.length) return;
 
-		const err = await user.login(username, password)
+		const callbackUrl = location.origin + resolve('/reset-password') + '/{{token}}';
+		const err = await user.forgotPassword(username, callbackUrl)
 		if (err) errors = [err]
+		else navigate('/reset-password-sent', { replace: true })
 	}
 </script>
 
-<AuthLayout on:submit={login}>
-	<h1>{$_('auth.login.page_title')}</h1>
+<AuthLayout on:submit={() => sendResetPasswordLink()}>
+	<h1>{$_('auth.forgot.page_title')}</h1>
 
 	<Textfield bind:value={username}
 		variant="outlined"
@@ -55,19 +55,11 @@
 		<Icon class="material-icons-outlined" slot="leadingIcon">email</Icon>
 	</Textfield>
 
-	<Textfield bind:value={password}
-		variant="outlined"
-		label={$_('auth.password')}
-		type="password"
-		invalid={!!errors.find(e => e.field === 'password')}>
-		<Icon class="material-icons-outlined" slot="leadingIcon">lock</Icon>
-	</Textfield>
-
 	<Button variant="raised" disabled={$user.loading}>
 		{#if $user.loading}
 			<CircularProgress indeterminate style="height: 24px; width: 24px;" />
 		{:else}
-			{$_('auth.login.submit_btn')}
+			{$_('auth.forgot.submit_btn')}
 		{/if}
 	</Button>
 
@@ -83,6 +75,5 @@
 		</Paper>
 	{/if}
 
-	<div><Link to="/forgot-password">{$_('auth.forgot_password_link')}</Link></div>
-	<div><Link to="/signup">{$_('auth.signup_link')}</Link></div>
+	<div><Link to="/login">{$_('auth.login_link')}</Link></div>
 </AuthLayout>
