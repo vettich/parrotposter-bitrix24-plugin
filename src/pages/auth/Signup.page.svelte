@@ -13,10 +13,10 @@
 	import Icon from '@smui/textfield/icon';
 	import CircularProgress from '@smui/circular-progress';
 	import Paper, { Content } from '@smui/paper';
-	import AuthLayout from '@src/components/AuthLayout.svelte';
+	import AuthLayout, { getUsername } from '@src/components/AuthLayout.svelte';
 
 	let name = '';
-	let username = '';
+	let username = getUsername();
 	let password = '';
 
 	let errors: FieldError[] = [];
@@ -45,7 +45,7 @@
 	}
 </script>
 
-<AuthLayout on:submit={() => onLogin()}>
+<AuthLayout {username} on:submit={() => onLogin()}>
 	<h1>{$_('auth.signup.page_title')}</h1>
 
 	<Textfield bind:value={name}

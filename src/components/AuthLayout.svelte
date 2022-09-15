@@ -1,3 +1,11 @@
+<script context="module">
+	let _username = '';
+
+	export function getUsername() {
+		return _username;
+	}
+</script>
+
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import { _ } from '@src/lib/i18n';
@@ -6,6 +14,11 @@
 	import LanguageSwitcher from '@src/components/LanguageSwitcher.svelte';
 
 	const dispatch = createEventDispatcher();
+
+	export let username = _username;
+	$: {
+		_username = username;
+	}
 </script>
 
 <div class="auth-layout mdc-elevation--z4">
