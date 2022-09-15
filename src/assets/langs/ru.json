@@ -112,6 +112,7 @@
 		"added": "Добавлено {current} из {total}",
 		"switch_tariff": "Сменить тариф",
 		"connect": "Подключить",
+		"connect_title": "Подключить {social}",
 		"deleted": "Аккаунт был удален",
 		"tg_form": {
 			"title": "Подключение Телеграм",

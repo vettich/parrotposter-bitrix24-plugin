@@ -112,6 +112,7 @@
 		"added": "Added {current} of {total}",
 		"switch_tariff": "Change tariff",
 		"connect": "Connect",
+		"connect_title": "Connect {social}",
 		"deleted": "Account was deleted",
 		"tg_form": {
 			"title": "Connect Telegram",
