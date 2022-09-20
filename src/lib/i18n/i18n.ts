@@ -1,19 +1,19 @@
-import { getDateRange } from '@src/tools/date';
 import moment from 'moment';
 import { register, init, getLocaleFromNavigator, _, locale, locales, waitLocale, date, getDateFormatter } from 'svelte-i18n';
 import { derived, get, writable } from 'svelte/store';
-import { getCookie, setCookie } from 'typescript-cookie';
+import { getDateRange } from '@src/tools/date';
+import { platform } from '../platform';
 
 register('en', () => import('@src/assets/langs/en.json'));
 register('ru', () => import('@src/assets/langs/ru.json'));
 
-const langFromCookie = getCookie('pplang');
+const langFromStore = await platform.store().get('pplang');
 
-locale.subscribe(value => setCookie('pplang', value, { expires: 365, path: '/' }))
+locale.subscribe(value => platform.store().set('pplang', value))
 
 init({
 	fallbackLocale: 'en',
-	initialLocale: langFromCookie || getLocaleFromNavigator(),
+	initialLocale: langFromStore || getLocaleFromNavigator(),
 });
 
 const isLoaded = writable<boolean>(false);

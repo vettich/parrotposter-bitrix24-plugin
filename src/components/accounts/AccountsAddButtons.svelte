@@ -2,6 +2,7 @@
 	import { type AccountType, canAddAccount } from "@src/types";
 	import { accountsTypes } from "@src/types";
 	import { accounts, user } from "@src/store";
+	import { platform } from "@src/lib/platform";
 	import { _ } from "@src/lib/i18n";
 
 	import Button from "@smui/button";
@@ -31,12 +32,37 @@
 
 	const connectCommon = async (social: AccountType) => {
 		loading = social;
-		accounts.connect(social, { callback_url: location.href })
-			.then(({ redirect_url }) => location.href = redirect_url)
+		accounts.connect(social, { callback_url: getCallbackURL() })
+			.then(({ redirect_url }) => open(redirect_url))
 			.catch(e => {
 				console.log(e)
 				loading = null;
 			})
+	}
+
+	const getCallbackURL = (): string => {
+		const url = new URL(location.href);
+		if (platform.openInNewWindow()) {
+			url.searchParams.append('close', 'true');
+		}
+		return url.toString();
+	}
+
+	const open = (url: string) => {
+		if (platform.openInNewWindow()) {
+			const ppconnect = window.open(url, 'ppconnect');
+
+			// watch on close window
+			const id = setInterval(() => {
+				if (!ppconnect.closed) return;
+
+				clearInterval(id);
+				loading = null;
+				accounts.reload();
+			}, 200);
+		} else {
+			location.href = url
+		}
 	}
 </script>
 

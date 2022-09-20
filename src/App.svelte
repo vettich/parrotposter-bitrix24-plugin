@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Router, links, Route } from 'svelte-navigator';
 	import { isLoaded as isLocaleLoaded } from '@src/lib/i18n';
+	import { platform } from '@src/lib/platform';
 
 	// stores
 	import { user } from './store';
@@ -44,6 +45,8 @@
 	})
 </script>
 
+<svelte:component this={platform.initComponent()} />
+
 <ThemeApplier />
 
 {#if loading || !$isLocaleLoaded}
@@ -70,6 +73,7 @@
 			<PrivateRoute path="settings"><Settings/></PrivateRoute>
 
 			<PrivateRoute path="/"><Home/></PrivateRoute>
+			<PrivateRoute path="/index.html"><Home/></PrivateRoute>
 		</Router>
 	</div>
 {/if}

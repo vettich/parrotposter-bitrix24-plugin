@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { api } from '@src/api';
-import { storage } from '@src/lib/storage';
 import type { FieldError, User } from '@src/types';
+import { platform } from '@src/lib/platform';
 
 interface UserWrap {
 	loading: boolean,
@@ -50,13 +50,13 @@ function createUser() {
 		const data = {
 			username,
 			password,
-			from: 'front',
+			from: platform.getType(),
 		}
 
 		try {
 			const res = await api.post('tokens', data);
-			storage.set('ppuser_id', res.user_id);
-			storage.set('pptoken', res.token);
+			platform.store().set('ppuser_id', res.user_id)
+			platform.store().set('pptoken', res.token)
 			loadUser(res.token);
 		} catch (e) {
 			set({ loading: false })
@@ -71,13 +71,13 @@ function createUser() {
 			name,
 			username,
 			password,
-			from: 'front',
+			from: platform.getType(),
 		}
 
 		try {
 			const res = await api.post('users', data);
-			storage.set('ppuser_id', res.user_id);
-			storage.set('pptoken', res.token);
+			platform.store().set('ppuser_id', res.user_id)
+			platform.store().set('pptoken', res.token)
 			loadUser(res.token);
 		} catch (e) {
 			set({ loading: false })
@@ -91,7 +91,7 @@ function createUser() {
 		const data = {
 			username,
 			callback_url,
-			from: 'front',
+			from: platform.getType(),
 		}
 
 		try {
@@ -126,8 +126,8 @@ function createUser() {
 
 	const logout = async () => {
 		// @TODO сделать запрос на сброс токена
-		storage.set('ppuser_id', '');
-		storage.set('pptoken', '');
+		platform.store().set('ppuser_id', '')
+		platform.store().set('pptoken', '')
 
 		set({ loading: false })
 	}
@@ -138,7 +138,7 @@ function createUser() {
 	}
 
 	const init = async () => {
-		const token = await storage.get('pptoken');
+		const token = await platform.store().get('pptoken');
 		token ? loadUser(token) : set({ loading: false });
 	}
 	init();

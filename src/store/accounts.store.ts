@@ -60,6 +60,8 @@ function createAccounts() {
 			...store,
 			data: new AccountMap(res.accounts),
 		}))
+
+		user.reload();
 	}
 
 	api.authToken.onChange(setted => setted ? load() : null)
@@ -67,7 +69,6 @@ function createAccounts() {
 	const deleteAccount = async (id: string) => {
 		await api.deleteById('accounts', id);
 		reload();
-		user.reload();
 	}
 
 	const connect = async (social: AccountType, fields: ConnectFields): Promise<ConnectReply> => {
@@ -78,7 +79,6 @@ function createAccounts() {
 		try {
 			const res = await api.post<ConnectReply>('connect', req);
 			reload();
-			user.reload();
 			return res;
 		} catch (e) {
 			throw e
@@ -89,6 +89,7 @@ function createAccounts() {
 		subscribe,
 		deleteAccount,
 		connect,
+		reload,
 	}
 }
 
