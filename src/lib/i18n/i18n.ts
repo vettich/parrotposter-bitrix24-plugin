@@ -9,14 +9,16 @@ register('ru', () => import('@src/assets/langs/ru.json'));
 
 const storeKey = 'lang';
 
-const langFromStore = await platform.store().get(storeKey);
-
 locale.subscribe(value => platform.store().set(storeKey, value))
 
-init({
-	fallbackLocale: 'en',
-	initialLocale: langFromStore || getLocaleFromNavigator(),
-});
+async function initI18n() {
+	const langFromStore = await platform.store().get(storeKey);
+
+	init({
+		fallbackLocale: 'en',
+		initialLocale: langFromStore || getLocaleFromNavigator(),
+	});
+}
 
 const isLoaded = writable<boolean>(false);
 waitLocale().finally(() => isLoaded.set(true))
@@ -39,6 +41,7 @@ function _formatDateWithDuration(date: Date | string): string {
 const formatDateWithDuration = derived([locale], () => _formatDateWithDuration)
 
 export {
+	initI18n as init,
 	_,
 	getLocaleFromNavigator,
 	locale,

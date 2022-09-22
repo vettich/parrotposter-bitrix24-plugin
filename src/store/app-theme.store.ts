@@ -10,8 +10,12 @@ const getBrowserTheme = (): ThemeVariant => {
 	return isDark ? 'dark' : 'light';
 }
 
-const initial: ThemeVariant = await platform.store().get(storeKey) as ThemeVariant || getBrowserTheme();
-const theme = writable<ThemeVariant>(initial);
+const initial: ThemeVariant = getBrowserTheme();
+const theme = writable<ThemeVariant>(initial, function start(set) {
+	platform.store().get(storeKey).then(value => {
+		if (value) set(value as ThemeVariant);
+	})
+});
 
 const saveToStore = (value: ThemeVariant) => platform.store().set(storeKey, value);
 
