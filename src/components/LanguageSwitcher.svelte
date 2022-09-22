@@ -4,7 +4,7 @@
 
 	import List, { Item, Text } from '@smui/list';
 	import Menu from '@smui/menu';
-	import { locale, locales } from '@src/lib/i18n';
+	import { locale } from '@src/lib/i18n';
 
 	let open = false;
 

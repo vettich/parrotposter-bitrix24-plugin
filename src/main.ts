@@ -6,8 +6,7 @@ import 'moment/dist/locale/ru.js';
 import moment from 'moment';
 
 // set i18n
-import { locale, init as initI18n } from '@src/lib/i18n';
-initI18n();
+import { locale } from '@src/lib/i18n';
 locale.subscribe(value => moment.locale(value));
 
 // close window if `close=true` in location

@@ -9,20 +9,25 @@ register('ru', () => import('@src/assets/langs/ru.json'));
 
 const storeKey = 'lang';
 
+// watch changing locale and save changed value in store
 locale.subscribe(value => platform.store().set(storeKey, value))
 
-async function initI18n() {
-	const langFromStore = await platform.store().get(storeKey);
+// set initial lang from store if exists
+platform.store().get(storeKey).then(lang => {
+	if (lang) locale.set(lang)
+});
 
-	init({
-		fallbackLocale: 'en',
-		initialLocale: langFromStore || getLocaleFromNavigator(),
-	});
-}
+// initial svelte-i18n
+init({
+	fallbackLocale: 'en',
+	initialLocale: getLocaleFromNavigator(),
+});
 
+// indicator for locale loaded
 const isLoaded = writable<boolean>(false);
 waitLocale().finally(() => isLoaded.set(true))
 
+// return today, tomorrow or yesterday by current locale
 function _formatComingDays(date: Date | string): string {
 	const dateRange = getDateRange(date);
 	if (dateRange === 'today') return get(_)('date.today');
@@ -32,16 +37,17 @@ function _formatComingDays(date: Date | string): string {
 	return moment(date).fromNow();
 }
 
+// format date and concat today, tomorrow or yesterday by current locale
 function _formatDateWithDuration(date: Date | string): string {
 	let result = getDateFormatter().format(new Date(date));
 	result += ', ' + _formatComingDays(date);
 	return result
 }
 
+// format date with current locale with append duration to date
 const formatDateWithDuration = derived([locale], () => _formatDateWithDuration)
 
 export {
-	initI18n as init,
 	_,
 	getLocaleFromNavigator,
 	locale,
