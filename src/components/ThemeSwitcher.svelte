@@ -14,6 +14,6 @@
 </script>
 
 <IconButton on:click={switchTheme} pressed={isDark} {title}>
-	<Icon class="material-icons-outlined" on>dark_mode</Icon>
-	<Icon class="material-icons-outlined">light_mode</Icon>
+	<Icon class="material-icons-outlined" on>light_mode</Icon>
+	<Icon class="material-icons-outlined">dark_mode</Icon>
 </IconButton>
