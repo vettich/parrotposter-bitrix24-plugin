@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 
 type ThemeVariant = 'light' | 'dark';
 
-const storeKey = 'pp-theme';
+const storeKey = 'theme';
 
 const getBrowserTheme = (): ThemeVariant => {
 	const isDark = window?.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;

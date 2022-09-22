@@ -7,9 +7,11 @@ import { platform } from '../platform';
 register('en', () => import('@src/assets/langs/en.json'));
 register('ru', () => import('@src/assets/langs/ru.json'));
 
-const langFromStore = await platform.store().get('pplang');
+const storeKey = 'lang';
 
-locale.subscribe(value => platform.store().set('pplang', value))
+const langFromStore = await platform.store().get(storeKey);
+
+locale.subscribe(value => platform.store().set(storeKey, value))
 
 init({
 	fallbackLocale: 'en',

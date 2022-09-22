@@ -8,6 +8,9 @@ interface UserWrap {
 	data?: User,
 }
 
+const userIdStoreKey = 'user_id';
+const tokenStoreKey = 'token';
+
 const createUserError = (err: string):  FieldError => {
 	if (err.indexOf('errors.user.not_found') >= 0) {
 		return {
@@ -55,8 +58,8 @@ function createUser() {
 
 		try {
 			const res = await api.post('tokens', data);
-			platform.store().set('ppuser_id', res.user_id)
-			platform.store().set('pptoken', res.token)
+			platform.store().set(userIdStoreKey, res.user_id)
+			platform.store().set(tokenStoreKey, res.token)
 			loadUser(res.token);
 		} catch (e) {
 			set({ loading: false })
@@ -76,8 +79,8 @@ function createUser() {
 
 		try {
 			const res = await api.post('users', data);
-			platform.store().set('ppuser_id', res.user_id)
-			platform.store().set('pptoken', res.token)
+			platform.store().set(userIdStoreKey, res.user_id)
+			platform.store().set(tokenStoreKey, res.token)
 			loadUser(res.token);
 		} catch (e) {
 			set({ loading: false })
@@ -126,8 +129,8 @@ function createUser() {
 
 	const logout = async () => {
 		// @TODO сделать запрос на сброс токена
-		platform.store().set('ppuser_id', '')
-		platform.store().set('pptoken', '')
+		platform.store().set(userIdStoreKey, '')
+		platform.store().set(tokenStoreKey, '')
 
 		set({ loading: false })
 	}
@@ -138,7 +141,7 @@ function createUser() {
 	}
 
 	const init = async () => {
-		const token = await platform.store().get('pptoken');
+		const token = await platform.store().get(tokenStoreKey);
 		token ? loadUser(token) : set({ loading: false });
 	}
 	init();
