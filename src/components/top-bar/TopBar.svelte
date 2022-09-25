@@ -52,7 +52,8 @@
 		align-items: center;
 		margin-bottom: 1em;
 		border-radius: 4px;
-		background-color: cssvar(surface);
+		background-color: rgba(cssvar(surface-rgb), 0.6);
+		backdrop-filter: saturate(50%) blur(10px);
 		z-index: 66;
 
 		@media screen and (max-width: 768px) {
@@ -65,8 +66,8 @@
 			top: 0;
 			right: 0;
 			height: calc(40px + 56px);
-			backdrop-filter: blur(10px);
-			mask: linear-gradient(black 70%, transparent);
+			backdrop-filter: saturate(50%) blur(10px);
+			mask: linear-gradient(black 50%, transparent);
 			z-index: 65;
 		}
 
